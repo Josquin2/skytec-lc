@@ -1,0 +1,37 @@
+@import 'bootstrap';
+@import 'fonts';
+@import 'icons';
+
+/** Themes **/
+
+/** BLOCKS AND PAGES **/
+
+/** OTHER **/
+
+@media (min-width: 1400px) {
+  .container-xxl,
+  .container-xl,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container {
+    max-width: 1443px;
+  }
+}
+
+$light-bg: #fff;
+$light-color: #000;
+
+$dark-bg: #313131;
+$dark-color: #fff;
+
+body {
+  font-family: 'Gilroy';
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+}
+
+// Adaptive phone
+
+// Adaptive tablet and laptops
