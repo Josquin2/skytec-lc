@@ -24,7 +24,7 @@ function onSignInButton() {
     document.getElementById('first-input-field')?.classList.add('wrong-input')
     document.getElementById('second-input-field')?.classList.add('wrong-input')
   } else {
-    router.push({ name: 'user', params: { login: state.value.login } })
+    router.push({ name: 'main', params: { login: state.value.login } })
   }
 }
 </script>
@@ -138,7 +138,7 @@ function onSignInButton() {
         .button-blue-bg-w {
           display: block;
           position: absolute;
-          background-color: #4766af;
+          background-color: #506dad;
           width: 150px;
           height: 20px;
           z-index: 4;
@@ -146,7 +146,7 @@ function onSignInButton() {
         .button-blue-bg-h {
           display: block;
           position: absolute;
-          background-color: #4766af;
+          background-color: #506dad;
           width: 20px;
           height: 150px;
           z-index: 4;
@@ -154,7 +154,7 @@ function onSignInButton() {
         .button-bg {
           position: absolute;
           display: block;
-          background-color: #4766af;
+          background-color: #506dad;
           width: 84px;
           height: 82px;
           border-radius: 50px 0 0 0;

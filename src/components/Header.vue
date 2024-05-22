@@ -6,6 +6,7 @@ import router from '@/router'
 
 const route = useRoute()
 const currentPath = ref(route.path)
+const pathName = ref(route.name)
 
 watch(
   () => route.path,
@@ -13,6 +14,19 @@ watch(
     currentPath.value = newPath
   }
 )
+
+// this is a bad thing, I know -_-
+document.addEventListener('DOMContentLoaded', (event) => {
+  watch(
+    () => route.name,
+    (newName) => {
+      document.getElementById(pathName.value)?.classList.remove('clicked-theme')
+      pathName.value = newName
+      document.getElementById(pathName.value)?.classList.add('clicked-theme')
+      console.log(pathName.value)
+    }
+  )
+})
 
 function isLogged() {
   if (currentPath.value != '/') {
@@ -22,7 +36,15 @@ function isLogged() {
   }
 }
 
-function onMainPageClick() {}
+function onMainPageClick() {
+  const login = route.params.login
+  router.push({ name: 'main', params: { login: login } })
+}
+
+function onCabinetPageClick() {
+  const login = route.params.login
+  router.push({ name: 'cabinet', params: { login: login } })
+}
 </script>
 
 <template>
@@ -31,8 +53,8 @@ function onMainPageClick() {}
     <div class="header-other-links" v-if="isLogged()">
       <!-- some other links and v-if -->
       <div class="links-with-bg">
-        <p class="theme" @click="onMainPageClick()">Главная</p>
-        <p class="theme">Личный кабинет</p>
+        <p class="theme" @click="onMainPageClick()" id="main">Главная</p>
+        <p class="theme" @click="onCabinetPageClick()" id="cabinet">Личный кабинет</p>
         <p class="theme">О компании</p>
         <p class="theme">Привилегии для сотрудников</p>
         <p class="theme">Новому сотруднику</p>
