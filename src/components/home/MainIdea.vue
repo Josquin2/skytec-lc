@@ -93,7 +93,7 @@ function onIdeaClick() {
             cursor: pointer;
           }
           .clicked {
-            background: url(/public/icons/Approve.svg) no-repeat;
+            background: url(/icons/Approve.svg) no-repeat;
             background-position: 8px;
             padding: 8px;
           }

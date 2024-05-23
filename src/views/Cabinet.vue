@@ -1,3 +1,30 @@
+<script setup lang="ts">
+import { useRoute } from 'vue-router'
+import router from '@/router'
+
+import LeftArticles from '@/components/home/LeftArticles.vue'
+import VacationModal from '@/components/cabinet/VacationModal.vue'
+import EducationModal from '@/components/cabinet/EducationModal.vue'
+import JobModal from '@/components/cabinet/JobModal.vue'
+
+const route = useRoute()
+
+function onSettingsClick() {
+  const login = route.params.login
+  router.push({ name: 'settings', params: { login: login } })
+}
+
+function onVacationModalClick() {
+  document.getElementById('vacation-modal')?.classList.toggle('modal-hidden')
+}
+function onEducationModalClick() {
+  document.getElementById('education-modal')?.classList.toggle('modal-hidden')
+}
+function onJobModalClick() {
+  document.getElementById('job-modal')?.classList.toggle('modal-hidden')
+}
+</script>
+
 <template>
   <div class="cabinet-block">
     <div class="left">
@@ -22,23 +49,79 @@
           </div>
           <div class="contact">
             <div class="phone-number">
-              <img src="" alt="" />
+              <img src="/icons/phone-blue.svg" alt="" />
               <p>+7 (992) 007 54 09</p>
               <img src="" alt="" />
             </div>
             <div class="email">
-              <img src="" alt="" />
+              <img src="/icons/email-blue.svg" alt="" />
               <p>Ivanovivan@rtg.ru</p>
             </div>
           </div>
         </div>
       </div>
-      <div class="l-footer"></div>
+      <div class="l-footer">
+        <h2>Мои заявки:</h2>
+        <div class="requests">
+          <div class="one-request">
+            <div class="request-title">
+              <img src="" alt="" />
+              <h3>Заявка на обучение</h3>
+            </div>
+            <div class="response">
+              <p>Одобренно</p>
+              <img src="" alt="" />
+            </div>
+          </div>
+
+          <div class="one-request">
+            <div class="request-title">
+              <img src="" alt="" />
+              <h3>Заявка на обучение</h3>
+            </div>
+            <div class="response">
+              <p>Одобренно</p>
+              <img src="" alt="" />
+            </div>
+          </div>
+          <div class="one-request">
+            <div class="request-title">
+              <img src="" alt="" />
+              <h3>Заявка на обучение</h3>
+            </div>
+            <div class="response">
+              <p>Одобренно</p>
+              <img src="" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="right">
-      <div class="r-left"></div>
-      <div class="r-right"></div>
+      <div class="r-left">
+        <div @click="onSettingsClick()">
+          <img src="/img/cabinet/icons/edit-black.svg" alt="" />Редактировать профиль
+        </div>
+        <div @click="onJobModalClick()">
+          <img src="/img/cabinet/icons/bag-black.svg" alt="" />Заявка на командировку
+        </div>
+        <div @click="onEducationModalClick()">
+          <img src="/img/cabinet/icons/education-black.svg" alt="" />Заявка на обучение
+        </div>
+        <div @click="onVacationModalClick()">
+          <img src="/img/cabinet/icons/vacation-black.svg" alt="" />Заявка на отпуск
+        </div>
+        <div><img src="/img/cabinet/icons/document-black.svg" alt="" />Заказать справку</div>
+      </div>
+      <div class="r-right">
+        <LeftArticles />
+      </div>
     </div>
+
+    <!-- Modals goes here -->
+    <VacationModal />
+    <EducationModal />
+    <JobModal />
   </div>
 </template>
 
@@ -46,6 +129,11 @@
 .cabinet-block {
   min-height: 100vh;
   padding: 117px 15.63vw;
+  display: flex;
+
+  .modal-hidden {
+    display: none;
+  }
 
   .left {
     .l-upper {
@@ -57,21 +145,26 @@
         .bg-circle {
           display: block;
           position: absolute;
-          width: 144px;
-          height: 144px;
+          width: 152px;
+          height: 152px;
           background-color: #fff;
           border-radius: 50%;
           z-index: 1;
+          margin-top: -24px;
+          margin-left: -10px;
         }
         .user-image {
-          width: 6.88vw;
+          position: absolute;
+          width: 132px;
           z-index: 2;
+          margin-top: -14px;
         }
       }
       .about-user {
         display: flex;
         flex-direction: column;
-        margin-left: 50px;
+        margin-left: 9.79vw;
+        margin-top: 24px;
 
         .name {
           h1 {
@@ -84,6 +177,7 @@
           h2 {
             font-size: 16px;
             color: #474747;
+            font-weight: 400;
           }
           hr {
             margin: 0 16px;
@@ -99,12 +193,14 @@
             margin: 0;
             font-size: 16px;
             color: #7d7d7d;
+            font-weight: 400;
           }
           h4 {
             margin: 0;
             font-size: 16px;
             color: #474747;
             margin-left: 8px;
+            font-weight: 400;
           }
         }
         .contact {
@@ -117,7 +213,8 @@
             border-radius: 8px;
             padding: 8px;
             p {
-              margin: 0;
+              margin: 0 8px;
+              color: #4766af;
             }
           }
           .email {
@@ -128,10 +225,86 @@
             border-radius: 8px;
             padding: 8px;
             p {
+              margin: 0 8px;
+              color: #4766af;
+            }
+          }
+        }
+      }
+    }
+    .l-footer {
+      margin-top: 24px;
+
+      h2 {
+        font-size: 20px;
+      }
+      .requests {
+        border: 1px solid #cccccc;
+        border-radius: 20px;
+        .one-request {
+          display: flex;
+
+          width: 33.75vw;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+          border-bottom: 1px solid #cccccc;
+
+          border-radius: 0 0 20px 20px;
+          .request-title {
+            display: flex;
+            h3 {
+              font-size: 16px;
               margin: 0;
             }
           }
         }
+        .response {
+          display: flex;
+          p {
+            font-size: 14px;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    display: flex;
+    .r-left {
+      margin-left: 24px;
+      border: 2px solid #cccccc;
+      padding: 16px 24px 16px 24px;
+      border-radius: 20px;
+      height: max-content;
+
+      div {
+        cursor: pointer;
+        height: 56px;
+        width: 13.75vw;
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+
+        img {
+          margin-left: 24px;
+          margin-right: 8px;
+        }
+      }
+      div:hover {
+        border: 1.5px solid #4766af;
+        border-radius: 7px;
+        color: #4766af;
+      }
+    }
+    .r-right {
+      padding: 26px 20px 29px 20px;
+      border: 2px solid #cccccc;
+      border-radius: 20px;
+      height: max-content;
+      margin-left: 24px;
+      .my-articles {
+        margin-top: 0;
       }
     }
   }

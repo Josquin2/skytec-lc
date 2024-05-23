@@ -6,6 +6,8 @@ import RightBlock from '@/components/home/RightBlock.vue'
 import MainCarousel from '@/components/home/MainCarousel.vue'
 import MainIdea from '@/components/home/MainIdea.vue'
 
+import { ref, onMounted } from 'vue'
+const data = ref([])
 const allNews = [
   {
     about: {
@@ -36,6 +38,16 @@ const allNews = [
     likes: {}
   }
 ]
+
+onMounted(async () => {
+  const resp = await fetch('http://xn--h1acxew1a3a.xn--p1ai/api/news', {
+    headers: {
+      Authorization: 'Bearer TESTTOKEN123'
+    }
+  })
+  data.value = await resp.json()
+  console.log(data.value)
+})
 </script>
 
 <template>
@@ -54,20 +66,20 @@ const allNews = [
       <div class="news">
         <div class="gradient-line"></div>
         <h1>Новости</h1>
-        <div class="one-news" v-for="news in allNews">
+        <div class="one-news" v-for="(news, index) in data.slice(0, 5)" :key="index">
           <div class="news-header">
             <div class="about-news">
-              <h4 class="hashtag">{{ news.about.tag }}</h4>
-              <p class="time">{{ news.about.date }}</p>
-              <p class="time">{{ news.about.time }}</p>
+              <h4 class="hashtag">{{ news.news_category_id }}</h4>
+              <p class="time">{{ news.created_at }}</p>
+              <p class="time">{{ news.created_at }}</p>
             </div>
-            <div class="views"><img src="/icons/eye.svg" alt="" /> {{ news.about.views }}</div>
+            <div class="views"><img src="/icons/eye.svg" alt="" /> {{}}</div>
           </div>
           <div class="news-title">
-            <h2>{{ news.theme.title }}</h2>
+            <h2>{{ news.title }}</h2>
           </div>
           <div class="news-info">
-            <p>{{ news.theme.mainText }}</p>
+            <p>{{ news.content }}</p>
           </div>
           <div class="likes">
             <button class="like-button">
