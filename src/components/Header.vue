@@ -6,6 +6,7 @@ import router from '@/router'
 
 const route = useRoute()
 const currentPath = ref(route.path)
+const pathName = ref(route.name)
 
 watch(
   () => route.path,
@@ -13,6 +14,23 @@ watch(
     currentPath.value = newPath
   }
 )
+
+// this is a bad thing, I know -_-
+// document.addEventListener('DOMContentLoaded', (event) => {
+//   watch(
+//     () => route.name,
+//     (newName) => {
+//       if (newName && pathName.value && document.getElementById(pathName.value)) {
+//         document.getElementById(pathName.value)?.classList.remove('clicked-theme')
+//         pathName.value = newName
+//         if (document.getElementById(pathName.value)) {
+//           document.getElementById(pathName.value)?.classList.add('clicked-theme')
+//           console.log(pathName.value)
+//         }
+//       }
+//     }
+//   )
+// })
 
 function isLogged() {
   if (currentPath.value != '/') {
@@ -22,7 +40,25 @@ function isLogged() {
   }
 }
 
-function onMainPageClick() {}
+function onMainPageClick() {
+  const login = route.params.login
+  router.push({ name: 'main', params: { login: login } })
+}
+
+function onCabinetPageClick() {
+  const login = route.params.login
+  router.push({ name: 'cabinet', params: { login: login } })
+}
+
+function onVacanciesPageClick() {
+  const login = route.params.login
+  router.push({ name: 'vacancies', params: { login: login } })
+}
+
+function onAboutCompanyClick() {
+  const login = route.params.login
+  router.push({ name: 'about', params: { login: login } })
+}
 </script>
 
 <template>
@@ -31,12 +67,12 @@ function onMainPageClick() {}
     <div class="header-other-links" v-if="isLogged()">
       <!-- some other links and v-if -->
       <div class="links-with-bg">
-        <p class="theme" @click="onMainPageClick()">Главная</p>
-        <p class="theme">Личный кабинет</p>
-        <p class="theme">О компании</p>
+        <p class="theme" @click="onMainPageClick()" id="main">Главная</p>
+        <p class="theme" @click="onCabinetPageClick()" id="cabinet">Личный кабинет</p>
+        <p class="theme" @click="onAboutCompanyClick()">О компании</p>
         <p class="theme">Привилегии для сотрудников</p>
         <p class="theme">Новому сотруднику</p>
-        <p class="theme">Вакансии Sky</p>
+        <p class="theme" @click="onVacanciesPageClick()">Вакансии Sky</p>
       </div>
       <div class="search">
         <input type="text" class="search-input" placeholder="Поиск по порталу" />

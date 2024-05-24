@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
-import HomeUser from '@views/HomeUser.vue'
 import MainPage from '@/views/MainPage.vue'
+import CabinetSettings from '@/views/CabinetSettings.vue'
+import Cabinet from '@/views/Cabinet.vue'
+import Vacancies from '@/views/Vacancies.vue'
+import AboutCompany from '@/views/AboutCompany.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,14 +15,29 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/user/:login()',
-      name: 'user',
-      component: HomeUser
+      path: '/user/:login/cabinet',
+      name: 'cabinet',
+      component: Cabinet
     },
     {
-      path: '/user/:login()/main',
+      path: '/user/:login/main',
       name: 'main',
       component: MainPage
+    },
+    {
+      path: '/user/:login/cabinet/settings',
+      name: 'settings',
+      component: CabinetSettings
+    },
+    {
+      path: '/user/:login/vacancies',
+      name: 'vacancies',
+      component: Vacancies
+    },
+    {
+      path: '/user/:login/about',
+      name: 'about',
+      component: AboutCompany
     }
   ]
 })
