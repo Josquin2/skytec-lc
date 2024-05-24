@@ -30,14 +30,26 @@ function onCheckboxAnonClick() {
           <div class="present">
             <h4>Выбрать подарок:</h4>
             <div class="presents-common">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+              <div class="gift">
+                <input type="checkbox" />
+                <img src="/img/main-page/gift-3.png" alt="" />
+              </div>
+              <div class="gift">
+                <input type="checkbox" />
+                <img src="/img/main-page/gift-2.png" alt="" />
+              </div>
+              <div class="gift">
+                <input type="checkbox" />
+                <img src="/img/main-page/gift-1.png" alt="" />
+              </div>
+              <div class="gift last">
+                <input type="checkbox" />
+                <p>Без подарка</p>
+              </div>
             </div>
           </div>
 
-          <button>Отправить</button>
+          <button><img src="/icons/gift.svg" alt="" />Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">
@@ -56,7 +68,7 @@ function onCheckboxAnonClick() {
   display: none !important;
 }
 .congratulations-modal {
-  position: absolute;
+  position: fixed;
   width: 100vw;
   height: 200%;
   left: 0;
@@ -86,7 +98,6 @@ function onCheckboxAnonClick() {
           color: #4766af;
           font-size: 24px;
           font-weight: 500;
-          padding: 8px;
           width: 10.4vw;
         }
         .text {
@@ -113,9 +124,12 @@ function onCheckboxAnonClick() {
           margin-top: 24px;
           display: flex;
           align-items: center;
+          font-size: 16px;
+          color: #999999;
           .checkbox-button {
             cursor: pointer;
             span {
+              margin-right: 8px;
               width: 24px;
               height: 24px;
               display: flex;
@@ -131,17 +145,69 @@ function onCheckboxAnonClick() {
             }
           }
         }
+        .present {
+          margin-top: 32px;
+
+          h4 {
+            font-size: 24px;
+            font-weight: 400;
+            color: #4766af;
+          }
+
+          .presents-common {
+            margin-top: 16px;
+            height: 126px;
+            width: 31.25vw;
+            display: flex;
+
+            .gift {
+              cursor: pointer;
+              width: 126px;
+              height: 126px;
+              border: 1px solid #9a9a9a;
+              border-radius: 10px;
+              margin-right: 32px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              input {
+                width: 16px;
+                position: absolute;
+                margin-top: -100px;
+                margin-right: -100px;
+              }
+            }
+            .last {
+              margin-right: 0;
+
+              p {
+                margin: 0;
+                color: #4766af;
+              }
+            }
+          }
+        }
 
         button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           margin-top: 24px;
-          width: 22.24vw;
-          height: 40px;
+          width: 31.25vw;
+          height: 56px;
           border: none;
-          border-radius: 10px;
+          border-radius: 200px;
           color: #fff;
           font-size: 16px;
           font-weight: 400;
           background: linear-gradient(to right, #4766af, #46bed6);
+
+          img {
+            margin-right: 8px;
+            width: 24px;
+            height: 28px;
+          }
         }
       }
       .w-white {
