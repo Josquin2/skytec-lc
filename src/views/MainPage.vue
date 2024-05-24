@@ -1,43 +1,68 @@
 <script setup lang="ts">
+import CongratulationsModal from '@/components/home/CongratulationsModal.vue'
 import LeftMain from '@/components/home/LeftMain.vue'
 import LeftBlog from '@/components/home/LeftBlog.vue'
 import LeftArticles from '@/components/home/LeftArticles.vue'
 import RightBlock from '@/components/home/RightBlock.vue'
-import MainCarousel from '@/components/home/MainCarousel.vue'
 import MainIdea from '@/components/home/MainIdea.vue'
+import MainCarousel from '@/components/home/MainCarousel.vue'
 
 import { ref, onMounted } from 'vue'
-const data = ref([])
-const allNews = [
-  {
-    about: {
-      tag: '#Новости SKY',
-      date: '21.09.2023',
-      time: '14:33',
-      views: 200
-    },
-    theme: {
-      title: 'Запуск портала ',
-      mainText:
-        '"Инновационные маркетинговые стратегии подтверждают свою эффективность! Исследования показывают, что акцент на социальных сетях увеличивает вовлеченность аудитории.Персонализация рекламы на основе данных покупателей — главный тренд в современном маркетинге, обеспечивая более тесное взаимодействие между брендами и потребителями."'
-    },
-    likes: {}
-  },
-  {
-    about: {
-      tag: '#Глобальные новости',
-      date: '21.09.2023',
-      time: '14:33',
-      views: 130
-    },
-    theme: {
-      title: 'Продвижение в мире медиа',
-      mainText:
-        '"Исследование показало: креативные маркетинговые стратегии привлекают внимание потребителей! Эксперты утверждают, что персонализированный контент - ключ к успешной рекламе. Новейшие технологии улучшают взаимодействие между брендами и клиентами, смягчая границы между виртуальным и реальным миром."'
-    },
-    likes: {}
-  }
-]
+import type { Ref } from 'vue'
+// const allNews = [
+//   {
+//     about: {
+//       tag: '#Новости SKY',
+//       date: '21.09.2023',
+//       time: '14:33',
+//       views: 200
+//     },
+//     theme: {
+//       title: 'Запуск портала ',
+//       mainText:
+//         '"Инновационные маркетинговые стратегии подтверждают свою эффективность! Исследования показывают, что акцент на социальных сетях увеличивает вовлеченность аудитории.Персонализация рекламы на основе данных покупателей — главный тренд в современном маркетинге, обеспечивая более тесное взаимодействие между брендами и потребителями."'
+//     },
+//     likes: {}
+//   },
+//   {
+//     about: {
+//       tag: '#Глобальные новости',
+//       date: '21.09.2023',
+//       time: '14:33',
+//       views: 130
+//     },
+//     theme: {
+//       title: 'Продвижение в мире медиа',
+//       mainText:
+//         '"Исследование показало: креативные маркетинговые стратегии привлекают внимание потребителей! Эксперты утверждают, что персонализированный контент - ключ к успешной рекламе. Новейшие технологии улучшают взаимодействие между брендами и клиентами, смягчая границы между виртуальным и реальным миром."'
+//     },
+//     likes: {}
+//   }
+// ]
+
+interface Category {
+  id: number
+  slug: string
+  title: string
+}
+
+interface User {
+  avatar: string
+  id: number
+  name: string
+}
+
+interface Data {
+  category: Category
+  content: string
+  created_at: string
+  news_category_id: number
+  title: string
+  user: User
+  user_id: number
+}
+
+const data: Ref<Data[]> = ref([])
 
 onMounted(async () => {
   const resp = await fetch('http://xn--h1acxew1a3a.xn--p1ai/api/news', {
@@ -46,7 +71,7 @@ onMounted(async () => {
     }
   })
   data.value = await resp.json()
-  console.log(data.value)
+  console.log(data.value[0])
 })
 </script>
 
@@ -99,6 +124,10 @@ onMounted(async () => {
     <!-- end of middle block -->
 
     <RightBlock />
+
+    <!-- modals goes here! -->
+
+    <CongratulationsModal />
   </div>
 </template>
 

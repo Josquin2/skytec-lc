@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import { ref, reactive, computed } from 'vue'
+import { ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
 import router from '@/router'
-import { stat } from 'fs'
 
 const state = ref({
   login: '',

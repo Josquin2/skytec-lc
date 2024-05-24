@@ -16,6 +16,10 @@ const birthDays = [
     job: 'Директор по персоналу'
   }
 ]
+
+function onCongratulationsModalClick() {
+  document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
+}
 </script>
 
 <template>
@@ -35,7 +39,7 @@ const birthDays = [
             <p class="job-title-of-hbd">Менеджер по креативу</p>
           </div>
         </div>
-        <button class="congratulations-button">
+        <button class="congratulations-button" @click="onCongratulationsModalClick()">
           <img src="/icons/gift.svg" alt="" /> Поздравить!
         </button>
       </div>

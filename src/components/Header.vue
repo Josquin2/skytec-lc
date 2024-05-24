@@ -16,17 +16,21 @@ watch(
 )
 
 // this is a bad thing, I know -_-
-document.addEventListener('DOMContentLoaded', (event) => {
-  watch(
-    () => route.name,
-    (newName) => {
-      document.getElementById(pathName.value)?.classList.remove('clicked-theme')
-      pathName.value = newName
-      document.getElementById(pathName.value)?.classList.add('clicked-theme')
-      console.log(pathName.value)
-    }
-  )
-})
+// document.addEventListener('DOMContentLoaded', (event) => {
+//   watch(
+//     () => route.name,
+//     (newName) => {
+//       if (newName && pathName.value && document.getElementById(pathName.value)) {
+//         document.getElementById(pathName.value)?.classList.remove('clicked-theme')
+//         pathName.value = newName
+//         if (document.getElementById(pathName.value)) {
+//           document.getElementById(pathName.value)?.classList.add('clicked-theme')
+//           console.log(pathName.value)
+//         }
+//       }
+//     }
+//   )
+// })
 
 function isLogged() {
   if (currentPath.value != '/') {

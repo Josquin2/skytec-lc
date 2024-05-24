@@ -27,10 +27,10 @@
         <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="..." />
+        <img src="" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="..." class="d-block w-100" alt="..." />
+        <img src="" class="d-block w-100" alt="..." />
       </div>
     </div>
     <button

@@ -2,6 +2,10 @@
 function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
+
+function onDropdownTitleClick() {
+  document.getElementById('dropdown')?.classList.toggle('closed')
+}
 </script>
 
 <template>
@@ -15,9 +19,19 @@ function onEducationModalClick() {
           </div>
 
           <div class="choose-dropdown">
-            <div class="dropdown-title">
+            <div class="dropdown-title" @click="onDropdownTitleClick()">
               <h2>Текущие обучения</h2>
               <img src="/img/cabinet/icons/arrow-white.svg" alt="" />
+            </div>
+            <div class="dropdown-common closed" id="dropdown">
+              <p>Современный маркетинг</p>
+              <p>Реклама в 2024 году</p>
+              <p>Ораторское искусство</p>
+              <p>Английский язык для начинающих</p>
+              <p>Рисование</p>
+              <p>Английский язык для продвинутых</p>
+              <p>Старый маркетинг</p>
+              <p>Реклама в 2032 году</p>
             </div>
           </div>
 
@@ -92,6 +106,8 @@ function onEducationModalClick() {
             align-items: center;
             justify-content: center;
             border-radius: 10px;
+            position: absolute;
+            z-index: 20;
 
             h2 {
               font-size: 16px;
@@ -104,14 +120,44 @@ function onEducationModalClick() {
               margin-left: 8px;
             }
           }
+          .closed {
+            display: none !important;
+          }
+          .dropdown-common {
+            margin-top: 32px;
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 22.24vw;
+            height: 197px;
+            background-color: #fff;
+            overflow: scroll;
+            border: 1px solid #e1e1e1;
+            border-radius: 19px;
+            padding: 43px 16px 10px 16px;
+            z-index: 19;
+            box-shadow:
+              0 4px 8px 0 rgba(0, 0, 0, 0.1),
+              0 6px 20px 0 rgba(0, 0, 0, 0.1);
+
+            p {
+              cursor: pointer;
+              font-size: 14px;
+              margin-bottom: 16px;
+            }
+            p:hover {
+              color: #4766af;
+            }
+          }
         }
 
         .chosen {
+          // chosen is here things!
         }
 
         .text {
           textarea {
-            margin-top: 24px;
+            margin-top: 83px;
             width: 22.24vw;
             height: 138px;
             resize: none;
