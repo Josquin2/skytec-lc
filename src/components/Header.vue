@@ -49,6 +49,16 @@ function onCabinetPageClick() {
   const login = route.params.login
   router.push({ name: 'cabinet', params: { login: login } })
 }
+
+function onVacanciesPageClick() {
+  const login = route.params.login
+  router.push({ name: 'vacancies', params: { login: login } })
+}
+
+function onAboutCompanyClick() {
+  const login = route.params.login
+  router.push({ name: 'about', params: { login: login } })
+}
 </script>
 
 <template>
@@ -59,10 +69,10 @@ function onCabinetPageClick() {
       <div class="links-with-bg">
         <p class="theme" @click="onMainPageClick()" id="main">Главная</p>
         <p class="theme" @click="onCabinetPageClick()" id="cabinet">Личный кабинет</p>
-        <p class="theme">О компании</p>
+        <p class="theme" @click="onAboutCompanyClick()">О компании</p>
         <p class="theme">Привилегии для сотрудников</p>
         <p class="theme">Новому сотруднику</p>
-        <p class="theme">Вакансии Sky</p>
+        <p class="theme" @click="onVacanciesPageClick()">Вакансии Sky</p>
       </div>
       <div class="search">
         <input type="text" class="search-input" placeholder="Поиск по порталу" />
