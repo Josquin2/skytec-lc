@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '@/views/HomeView.vue'
+
 import MainPage from '@/views/MainPage.vue'
 import CabinetSettings from '@/views/CabinetSettings.vue'
 import Cabinet from '@/views/Cabinet.vue'
@@ -12,7 +12,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: () => import('@/views/HomeView.vue'),
     },
     {
       path: '/user/:login/cabinet',

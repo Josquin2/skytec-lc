@@ -9,69 +9,15 @@ import MainCarousel from '@/components/home/MainCarousel.vue'
 
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
-// const allNews = [
-//   {
-//     about: {
-//       tag: '#Новости SKY',
-//       date: '21.09.2023',
-//       time: '14:33',
-//       views: 200
-//     },
-//     theme: {
-//       title: 'Запуск портала ',
-//       mainText:
-//         '"Инновационные маркетинговые стратегии подтверждают свою эффективность! Исследования показывают, что акцент на социальных сетях увеличивает вовлеченность аудитории.Персонализация рекламы на основе данных покупателей — главный тренд в современном маркетинге, обеспечивая более тесное взаимодействие между брендами и потребителями."'
-//     },
-//     likes: {}
-//   },
-//   {
-//     about: {
-//       tag: '#Глобальные новости',
-//       date: '21.09.2023',
-//       time: '14:33',
-//       views: 130
-//     },
-//     theme: {
-//       title: 'Продвижение в мире медиа',
-//       mainText:
-//         '"Исследование показало: креативные маркетинговые стратегии привлекают внимание потребителей! Эксперты утверждают, что персонализированный контент - ключ к успешной рекламе. Новейшие технологии улучшают взаимодействие между брендами и клиентами, смягчая границы между виртуальным и реальным миром."'
-//     },
-//     likes: {}
-//   }
-// ]
+import type { News } from '@/types/news'
 
-interface Category {
-  id: number
-  slug: string
-  title: string
-}
+import { Api } from '@/api/api'
+let ApiClass = new Api();
 
-interface User {
-  avatar: string
-  id: number
-  name: string
-}
-
-interface Data {
-  category: Category
-  content: string
-  created_at: string
-  news_category_id: number
-  title: string
-  user: User
-  user_id: number
-}
-
-const data: Ref<Data[]> = ref([])
+const data: Ref<News[]> = ref([])
 
 onMounted(async () => {
-  const resp = await fetch('http://xn--h1acxew1a3a.xn--p1ai/api/news', {
-    headers: {
-      Authorization: 'Bearer TESTTOKEN123'
-    }
-  })
-  data.value = await resp.json()
-  console.log(data.value[0])
+  data.value = await ApiClass.getObjects('news');
 })
 </script>
 
@@ -94,8 +40,7 @@ onMounted(async () => {
         <div class="one-news" v-for="(news, index) in data.slice(0, 5)" :key="index">
           <div class="news-header">
             <div class="about-news">
-              <h4 class="hashtag">{{ news.news_category_id }}</h4>
-              <p class="time">{{ news.created_at }}</p>
+              <h4 class="hashtag">#{{ news.category.title }}</h4>
               <p class="time">{{ news.created_at }}</p>
             </div>
             <div class="views"><img src="/icons/eye.svg" alt="" /> {{}}</div>
