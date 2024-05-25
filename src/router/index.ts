@@ -53,6 +53,11 @@ const router = createRouter({
       path: '/user/:login/create-new-employee',
       name: 'create-new-employee',
       component: () => import('@/views/CreateNewEmployee.vue')
+    },
+    {
+      path: '/user/:login/news/:title',
+      name: 'one-news',
+      component: () => import('@/views/OneNews.vue')
     }
   ]
 })

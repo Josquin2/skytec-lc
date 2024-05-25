@@ -7,18 +7,27 @@ import RightBlock from '@/components/home/RightBlock.vue'
 import MainIdea from '@/components/home/MainIdea.vue'
 import MainCarousel from '@/components/home/MainCarousel.vue'
 
+import { useRoute } from 'vue-router'
+import router from '@/router'
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
 import type { News } from '@/types/news'
 
 import { Api } from '@/api/api'
-let ApiClass = new Api();
+let ApiClass = new Api()
 
 const data: Ref<News[]> = ref([])
 
 onMounted(async () => {
-  data.value = await ApiClass.getObjects('news');
+  data.value = await ApiClass.getObjects('news')
 })
+
+const route = useRoute()
+
+function onNewsClick(title: string) {
+  const login = route.params.login
+  router.push({ name: 'one-news', params: { login: login, title: title } })
+}
 </script>
 
 <template>
@@ -45,12 +54,15 @@ onMounted(async () => {
             </div>
             <div class="views"><img src="/icons/eye.svg" alt="" /> {{}}</div>
           </div>
-          <div class="news-title">
-            <h2>{{ news.title }}</h2>
+          <div class="news-body" @click="onNewsClick(news.title)">
+            <div class="news-title">
+              <h2>{{ news.title }}</h2>
+            </div>
+            <div class="news-info">
+              <p>{{ news.content }}</p>
+            </div>
           </div>
-          <div class="news-info">
-            <p>{{ news.content }}</p>
-          </div>
+
           <div class="likes">
             <button class="like-button">
               <img src="/icons/like-button.svg" alt="" />
@@ -151,22 +163,26 @@ onMounted(async () => {
             }
           }
         }
-        .news-title {
-          margin-top: 16px;
+        .news-body {
+          cursor: pointer;
+          .news-title {
+            margin-top: 16px;
 
-          h2 {
-            color: #4766af;
-            font-size: 24px;
-            margin-bottom: 0;
+            h2 {
+              color: #4766af;
+              font-size: 24px;
+              margin-bottom: 0;
+            }
           }
-        }
-        .news-info {
-          margin-top: 16px;
-          p {
-            color: #474747;
-            font-size: 16px;
-            width: 34.7vw;
-            margin-bottom: 0;
+          .news-info {
+            margin-top: 16px;
+
+            p {
+              color: #474747;
+              font-size: 16px;
+              width: 34.7vw;
+              margin-bottom: 0;
+            }
           }
         }
         .likes {
