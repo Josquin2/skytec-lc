@@ -3,6 +3,9 @@ import StandardServices from '@/components/about-company/StandardServices.vue'
 import AdditionalServices from '@/components/about-company/AdditionalServices.vue'
 import OneWorker from '@/components/about-company/Worker.vue'
 
+import StructureWorker from '@/components/about-company/StructureWorker.vue'
+import StructureOfCompany from '@/components/about-company/StructureOfCompany.vue'
+
 import { ref } from 'vue'
 
 const services = ref('standard')
@@ -80,7 +83,7 @@ function onServicesChangeClick(value: string) {
       </div>
       <div class="team-common">
         <div class="boss">
-          <img src="/public/img/about-company/boss-main.png" alt="" />
+          <img src="/img/about-company/boss-main.png" alt="" />
           <h2>Мария Ельчинова</h2>
           <h3>Генеральный директор SkyAlliance</h3>
           <div class="boss-info">
@@ -132,15 +135,35 @@ function onServicesChangeClick(value: string) {
       <div class="control">
         <h2>Управление</h2>
         <hr />
-        <div>
+        <div class="control-workers">
           <!-- two workers here -->
+
+          <StructureWorker
+            name="Мария Ельчинова"
+            job="Генеральный директор SkyAlliance"
+            image="/img/about-company/worker-1.png"
+          />
+
+          <hr />
+
+          <StructureWorker
+            name="Василий Туровец"
+            job="Управляющий партнер SkyAlliance"
+            image="/img/about-company/worker-2.png"
+          />
         </div>
       </div>
-      <div class="departments">
-        <div></div>
-        <div></div>
-        <div></div>
+      <div class="divider-arrow">
+        <div class="up">
+          <span></span>
+        </div>
+        <div class="down">
+          <span></span>
+        </div>
       </div>
+      <StructureOfCompany />
+
+      <div class="page-arrows"></div>
     </div>
   </div>
 </template>
@@ -204,6 +227,7 @@ function onServicesChangeClick(value: string) {
     margin-top: 64px;
     .nav-services {
       .regular {
+        background-color: #fff;
         border: 1px solid #9a9a9a;
         border-radius: 10px;
         padding: 8px 16px;
@@ -296,7 +320,46 @@ function onServicesChangeClick(value: string) {
         color: #474747;
         text-transform: uppercase;
       }
+
+      .control-workers {
+        padding: 48px 56px;
+        display: flex;
+
+        hr {
+          width: 16px;
+          height: 124px;
+          opacity: 0;
+        }
+      }
     }
+    .divider-arrow {
+      margin-top: 16px;
+      .up {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span {
+          height: 48px;
+          width: 1px;
+          background-color: #cccccc;
+        }
+      }
+      .down {
+        display: flex;
+        span {
+          height: 36px;
+          width: 68.75vw;
+          border: 1px solid #cccccc;
+          border-bottom: none;
+          border-radius: 10px 10px 0 0;
+        }
+      }
+    }
+  }
+
+  .page-arrows {
+    margin-top: 40px;
+    margin-bottom: 72px;
   }
 }
 </style>
