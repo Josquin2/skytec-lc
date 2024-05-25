@@ -43,6 +43,16 @@ const router = createRouter({
       path: '/user/:login/privilege',
       name: 'privilege',
       component: () => import('@/views/PrivilegePage.vue')
+    },
+    {
+      path: '/user/:login/new-employee',
+      name: 'new-employee',
+      component: () => import('@/views/NewEmployee.vue')
+    },
+    {
+      path: '/user/:login/create-new-employee',
+      name: 'create-new-employee',
+      component: () => import('@/views/CreateNewEmployee.vue')
     }
   ]
 })

@@ -64,6 +64,11 @@ function onPrivilegeClick() {
   const login = route.params.login
   router.push({ name: 'privilege', params: { login: login } })
 }
+
+function onNewEmployeeClick() {
+  const login = route.params.login
+  router.push({ name: 'new-employee', params: { login: login } })
+}
 </script>
 
 <template>
@@ -76,7 +81,7 @@ function onPrivilegeClick() {
         <p class="theme" @click="onCabinetPageClick()" id="cabinet">Личный кабинет</p>
         <p class="theme" @click="onAboutCompanyClick()">О компании</p>
         <p class="theme" @click="onPrivilegeClick()">Привилегии для сотрудников</p>
-        <p class="theme">Новому сотруднику</p>
+        <p class="theme" @click="onNewEmployeeClick()">Новому сотруднику</p>
         <p class="theme" @click="onVacanciesPageClick()">Вакансии Sky</p>
       </div>
       <div class="search">
