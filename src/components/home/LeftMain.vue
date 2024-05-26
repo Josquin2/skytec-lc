@@ -42,6 +42,7 @@
           font-size: 16px;
           cursor: pointer;
           width: fit-content;
+          border-bottom: 1px solid rgba(#4766af, 0%);
         }
         .link:hover {
           color: #4766af;

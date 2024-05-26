@@ -1,4 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { User } from '@/api/user'
+
+let UserClass = new User();
 
 import MainPage from '@/views/MainPage.vue'
 import CabinetSettings from '@/views/CabinetSettings.vue'
@@ -40,6 +43,19 @@ const router = createRouter({
       component: AboutCompany
     }
   ]
+})
+
+router.beforeEach(async (to) => {
+  if (to.name !== 'home') {
+    try {
+      const auth = await UserClass.checkAuth()
+      if (auth === false) {
+        return '/'
+      }
+    } catch (error)   {
+      return '/'
+    }
+  }
 })
 
 export default router

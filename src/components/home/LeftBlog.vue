@@ -102,6 +102,7 @@ const blogInfo = [
         font-weight: 500;
         cursor: pointer;
         margin-top: 16px;
+        border-bottom: 1px solid rgba(#4766af, 0%);
       }
       .all-blogs-link:hover {
         border-bottom: 1px solid #4766af;

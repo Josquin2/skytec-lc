@@ -285,6 +285,7 @@ function onJobModalClick() {
         display: flex;
         align-items: center;
         margin-bottom: 8px;
+        border: 1.5px solid rgba(#4766af, 0%);
 
         img {
           margin-left: 24px;
