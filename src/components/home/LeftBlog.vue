@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
+import router from '@/router'
+
 const blogInfo = [
   {
     blogName: 'Цифровые технологии',
@@ -26,11 +29,18 @@ const blogInfo = [
     authorImage: 'image'
   }
 ]
+
+const route = useRoute()
+
+function onAllBlogsClick() {
+  const login = route.params.login
+  router.push({ name: 'all-blogs', params: { login: login } })
+}
 </script>
 
 <template>
   <div class="our-blog">
-    <div class="our-blog-header">Наш Блог</div>
+    <div class="our-blog-header" @click="onAllBlogsClick()">Наш Блог</div>
     <div class="blog-common">
       <div class="one-blog" v-for="blog in blogInfo">
         <img src="" alt="" class="blog-author-image" />
@@ -40,7 +50,7 @@ const blogInfo = [
         </div>
       </div>
     </div>
-    <div class="all-blogs-link">Все блоги</div>
+    <div class="all-blogs-link" @click="onAllBlogsClick()">Все блоги</div>
   </div>
 </template>
 
@@ -52,6 +62,7 @@ const blogInfo = [
       display: flex;
       flex-direction: column;
       .our-blog-header {
+        cursor: pointer;
         height: 40px;
         width: 14.17vw;
         display: flex;

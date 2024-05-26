@@ -58,6 +58,23 @@ const router = createRouter({
       path: '/user/:login/news/:title',
       name: 'one-news',
       component: () => import('@/views/OneNews.vue')
+    },
+    {
+      path: '/user/:login/blogs',
+      name: 'blogs',
+      component: () => import('@/views/BlogPage.vue'),
+      children: [
+        {
+          path: '/user/:login/blogs/all',
+          name: 'all-blogs',
+          component: () => import('@/views/AllBlogs.vue')
+        },
+        {
+          path: '/user/:login/blogs/:blog',
+          name: 'one-blog',
+          component: () => import('@/views/OneBlog.vue')
+        }
+      ]
     }
   ]
 })
