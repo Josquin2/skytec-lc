@@ -129,14 +129,14 @@ const props = defineProps({
         justify-content: center;
       }
       .bg-button {
-        width: 207px;
+        width: 10.78vw;
         height: 179px;
         background-color: #fff;
         position: absolute;
         z-index: 0;
         border-radius: 58px;
         margin-top: -45px;
-        margin-right: -45px;
+        margin-right: -2.34vw;
       }
       .bg-w {
         width: 150px;
@@ -151,6 +151,19 @@ const props = defineProps({
         height: 150px;
         background-color: #fff;
         position: absolute;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1800px) {
+  .download-block {
+    .background {
+      .full-bg {
+        .close-button {
+          margin-right: 0;
+          margin-top: 12px;
+        }
       }
     }
   }

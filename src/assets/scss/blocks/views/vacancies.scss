@@ -1,0 +1,138 @@
+.vacancies-block {
+  padding: 0 15.63vw;
+  height: 90vh;
+  display: flex;
+  .left-side {
+    width: 33.75vw;
+    .background {
+      position: absolute;
+
+      margin-top: 14.91vh;
+      .h-white {
+        position: absolute;
+        display: flex;
+        width: 25.31vw;
+        height: 53.61vh;
+        background-color: #4766af;
+        z-index: 3;
+        border-radius: 20px 50px 20px 20px;
+        flex-direction: column;
+        padding: 22.5vh 0 22.87vh 3.85vw;
+
+        h1 {
+          font-size: 32px;
+          color: #fff;
+          text-transform: uppercase;
+          margin: 0;
+        }
+        a {
+          width: 20.05vw;
+          text-decoration: none;
+          font-size: 16px;
+          border: 1px solid #fff;
+          border-radius: 10px;
+          color: #fff;
+          margin: 0;
+          padding: 8px 16px;
+          margin-top: 16px;
+        }
+        // adfdsfds
+      }
+      .w-white {
+        margin-top: 12.41vh;
+        position: absolute;
+        display: flex;
+        width: 33.75vw;
+        height: 41.2vh;
+        background-color: #4766af;
+        z-index: 2;
+        border-radius: 20px 50px 20px 20px;
+      }
+      .full-bg {
+        overflow: hidden;
+        width: 33.75vw;
+        height: 53.61vh;
+        display: flex;
+        position: absolute;
+        background-color: #4766af;
+        z-index: 1;
+        border-radius: 50px;
+        align-items: flex-start;
+        justify-content: flex-end;
+
+        .close-button {
+          cursor: pointer;
+          width: 5.57vw;
+          height: 5.57vw;
+          background: url(/img/vacancies/arrow.svg) no-repeat;
+          background-position: 50%;
+          background-color: #4766af;
+          margin-right: 16px;
+          margin-top: 0px;
+          border-radius: 50%;
+          display: flex;
+          z-index: 2;
+        }
+        .bg-button {
+          width: 10.78vw;
+          height: 16.57vh;
+          background-color: #fff;
+          position: absolute;
+          z-index: 0;
+          border-radius: 58px;
+          margin-top: -4.17vh;
+          margin-right: -2.34vw;
+        }
+        .bg-w {
+          width: 7.81vw;
+          height: 5.09vh;
+          background-color: #fff;
+          position: absolute;
+          margin-right: 5.21vw;
+        }
+        .bg-h {
+          margin-top: 9.26vh;
+          width: 2.86vw;
+          height: 13.89vh;
+          background-color: #fff;
+          position: absolute;
+        }
+      }
+    }
+  }
+  .right-side {
+    margin-left: 24px;
+    margin-top: 14.91vh;
+    img {
+      position: absolute;
+      width: 33.75vw;
+      height: 53.61vh;
+    }
+
+    h3 {
+      cursor: pointer;
+      position: absolute;
+      margin-top: 46.94vh;
+      margin-left: 14.84vw;
+      font-size: 24px;
+      width: 17.24vw;
+      transition: 0.2s;
+    }
+    h3:hover {
+      color: #4766af;
+    }
+  }
+}
+
+@media only screen and (max-width: 1800px) {
+  .vacancies-block {
+    padding: 0 14.63vw;
+    height: 100vh;
+
+    .right-side {
+      h3 {
+        font-size: 16px;
+      }
+    }
+  }
+}

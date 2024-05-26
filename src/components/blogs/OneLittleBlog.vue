@@ -106,4 +106,15 @@ function onOneBlogClick(blog: string) {
 .one-little-blog:hover {
   border: 1px solid #4766af;
 }
+
+@media only screen and (max-width: 1800px) {
+  .one-little-blog {
+    width: 31.03vw;
+    padding: 16px;
+
+    .blog-common {
+      width: 21.78vw;
+    }
+  }
+}
 </style>

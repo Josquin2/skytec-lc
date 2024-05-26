@@ -1,0 +1,213 @@
+.cabinet-block {
+  min-height: 100vh;
+  padding: 117px 15.63vw;
+  display: flex;
+
+  .modal-hidden {
+    display: none;
+  }
+
+  .left {
+    .l-upper {
+      display: flex;
+      background: linear-gradient(to bottom, #f6f6f6, #fff);
+      width: 33.75vw;
+      border-radius: 20px;
+      .photo {
+        .bg-circle {
+          display: block;
+          position: absolute;
+          width: 152px;
+          height: 152px;
+          background-color: #fff;
+          border-radius: 50%;
+          z-index: 1;
+          margin-top: -24px;
+          margin-left: -10px;
+        }
+        .user-image {
+          position: absolute;
+          width: 132px;
+          z-index: 2;
+          margin-top: -14px;
+        }
+      }
+      .about-user {
+        display: flex;
+        flex-direction: column;
+        margin-left: 9.79vw;
+        margin-top: 24px;
+
+        .name {
+          h1 {
+            font-size: 24px;
+            color: #474747;
+          }
+        }
+        .job-info {
+          display: flex;
+          h2 {
+            font-size: 16px;
+            color: #474747;
+            font-weight: 400;
+          }
+          hr {
+            margin: 0 16px;
+            height: 19px;
+            width: 1px;
+            opacity: 100%;
+            background-color: #b5b5b5;
+          }
+        }
+        .boss {
+          display: flex;
+          h3 {
+            margin: 0;
+            font-size: 16px;
+            color: #7d7d7d;
+            font-weight: 400;
+          }
+          h4 {
+            margin: 0;
+            font-size: 16px;
+            color: #474747;
+            margin-left: 8px;
+            font-weight: 400;
+          }
+        }
+        .contact {
+          margin-top: 24px;
+          display: flex;
+          .phone-number {
+            display: flex;
+            align-items: center;
+            border: 1px solid #4766af;
+            border-radius: 8px;
+            padding: 8px;
+            p {
+              margin: 0 8px;
+              color: #4766af;
+            }
+          }
+          .email {
+            display: flex;
+            align-items: center;
+            margin-left: 16px;
+            border: 1px solid #4766af;
+            border-radius: 8px;
+            padding: 8px;
+            p {
+              margin: 0 8px;
+              color: #4766af;
+            }
+          }
+        }
+      }
+    }
+    .l-footer {
+      margin-top: 24px;
+
+      h2 {
+        font-size: 20px;
+      }
+      .requests {
+        border: 1px solid #cccccc;
+        border-radius: 20px;
+        .one-request {
+          display: flex;
+
+          width: 33.75vw;
+          align-items: center;
+          justify-content: space-between;
+          padding: 16px;
+          border-bottom: 1px solid #cccccc;
+
+          border-radius: 0 0 20px 20px;
+          .request-title {
+            display: flex;
+            h3 {
+              font-size: 16px;
+              margin: 0;
+            }
+          }
+        }
+        .response {
+          display: flex;
+          p {
+            font-size: 14px;
+            margin: 0;
+          }
+        }
+      }
+    }
+  }
+  .right {
+    display: flex;
+    .r-left {
+      margin-left: 24px;
+      border: 2px solid #cccccc;
+      padding: 16px 24px 16px 24px;
+      border-radius: 20px;
+      height: max-content;
+
+      div {
+        cursor: pointer;
+        height: 56px;
+        width: 13.75vw;
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+
+        img {
+          margin-left: 24px;
+          margin-right: 8px;
+        }
+      }
+      div:hover {
+        border: 1.5px solid #4766af;
+        border-radius: 7px;
+        color: #4766af;
+      }
+    }
+    .r-right {
+      padding: 26px 20px 29px 20px;
+      border: 2px solid #cccccc;
+      border-radius: 20px;
+      height: max-content;
+      margin-left: 24px;
+      .my-articles {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1800px) {
+  .cabinet-block {
+    padding: 117px 5vw;
+    .left {
+      .l-upper {
+        width: 41.5vw;
+        .about-user {
+          margin-left: 12vw;
+        }
+      }
+      .l-footer {
+        .requests {
+          .one-request {
+            width: 41.5vw;
+          }
+        }
+      }
+    }
+
+    .right {
+      display: flex;
+      .r-left {
+        div {
+          width: 19.17vw;
+        }
+      }
+    }
+  }
+}

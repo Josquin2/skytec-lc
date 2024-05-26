@@ -72,4 +72,10 @@
     }
   }
 }
+
+@media only screen and (max-width: 1800px) {
+  .blog-block {
+    padding: 123px 12.46vw 72px 5.63vw;
+  }
+}
 </style>

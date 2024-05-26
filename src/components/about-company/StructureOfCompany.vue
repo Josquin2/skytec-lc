@@ -124,4 +124,12 @@ import StructureWorker from '@/components/about-company/StructureWorker.vue'
     }
   }
 }
+
+@media only screen and (max-width: 1800px) {
+  .department-main {
+    .dep-worker {
+      width: 24vw;
+    }
+  }
+}
 </style>
