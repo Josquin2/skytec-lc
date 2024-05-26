@@ -2,12 +2,28 @@
 import { useRoute } from 'vue-router'
 import router from '@/router'
 
+import { Api } from '@/api/api'
+import { User } from '@/api/user'
+
+let ApiClass = new Api()
+let UserClass = new User()
+
 import LeftArticles from '@/components/home/LeftArticles.vue'
 import VacationModal from '@/components/cabinet/VacationModal.vue'
 import EducationModal from '@/components/cabinet/EducationModal.vue'
 import JobModal from '@/components/cabinet/JobModal.vue'
+import { onMounted, type Prop, ref } from 'vue'
 
 const route = useRoute()
+
+let user: Prop<Object> = ref('')
+
+onMounted(async () => {
+  const response = await UserClass.getUserData(localStorage.getItem('token'))
+  user.value = response.data.data
+
+  console.log(user.value)
+})
 
 function onSettingsClick() {
   const login = route.params.login
@@ -26,17 +42,17 @@ function onJobModalClick() {
 </script>
 
 <template>
-  <div class="cabinet-block">
+  <div class="cabinet-block" v-if="Object.keys(user).length">
     <div class="left">
       <div class="l-upper">
         <div class="photo">
           <span class="bg-circle"></span>
-          <img src="/img/cabinet/user.png" alt="" class="user-image" />
+          <img :src="user.avatar" alt="" class="user-image rounded-circle" />
         </div>
 
         <div class="about-user">
           <div class="name">
-            <h1>Иванов Александр Сергеевич</h1>
+            <h1>{{ user.name }}</h1>
           </div>
           <div class="job-info">
             <h2>Отдел досуга</h2>
@@ -50,12 +66,12 @@ function onJobModalClick() {
           <div class="contact">
             <div class="phone-number">
               <img src="/icons/phone-blue.svg" alt="" />
-              <p>+7 (992) 007 54 09</p>
+              <p>{{ user.phone }}</p>
               <img src="" alt="" />
             </div>
             <div class="email">
               <img src="/icons/email-blue.svg" alt="" />
-              <p>Ivanovivan@rtg.ru</p>
+              <p>{{ user.email }}</p>
             </div>
           </div>
         </div>

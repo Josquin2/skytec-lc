@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
 import router from '@/router'
 
+import {Api} from '@/api/api'
+import {User} from '@/api/user'
+
+let ApiClass = new Api();
+let UserClass = new User();
+
 const state = ref({
   login: '',
-  password: ''
+  password: '',
+  formError: '',
 })
 
 const rules = {
@@ -16,14 +23,53 @@ const rules = {
 
 const v$ = useVuelidate(rules, state)
 
-function onSignInButton() {
+onMounted(function () {
+  checkAuth()
+});
+
+// Проверим авторизацию и валидность токена
+async function checkAuth()
+{
+  let token = localStorage.getItem('token')
+
+  if (token) {
+    try {
+      await UserClass.getUserData(token)
+      let user = JSON.parse(localStorage.getItem('user'))
+      router.push({ name: 'main', params: { login: user.login } })
+    } catch (error) {
+      console.error('error')
+    }
+  }
+}
+
+
+async function onSignInButton() {
   v$.value.$touch()
   if (v$.value.$invalid) {
-    console.log('Форма заполнена некорректно')
-    document.getElementById('first-input-field')?.classList.add('wrong-input')
-    document.getElementById('second-input-field')?.classList.add('wrong-input')
+    state.value.formError = 'Форма заполнена некорректно'
+    const firstInputField = document.getElementById('first-input-field')
+    const secondInputField = document.getElementById('second-input-field')
+    firstInputField?.classList.add('wrong-input')
+    secondInputField?.classList.add('wrong-input')
   } else {
-    router.push({ name: 'main', params: { login: state.value.login } })
+    let resp = await ApiClass.post('user/login', {
+      'login': state.value.login,
+      'password': state.value.password,
+    }); // konstantinova_marina_maksimovna_z0qvs
+
+    if (resp.code !== 200) {
+      console.log('error', resp);
+      state.value.formError = resp.data;
+    } else {
+      console.log(resp.data.user)
+      localStorage.setItem('user', JSON.stringify(resp.data.user));
+      localStorage.setItem('token', resp.data.token);
+
+      router.push({ name: 'main', params: { login: state.value.login } })
+
+      state.value.formError = '';
+    }
   }
 }
 </script>
@@ -49,6 +95,7 @@ function onSignInButton() {
               v-model="state.password"
               id="second-input-field"
             />
+            <p class="mb-5 text-danger mt-2" v-if="state.formError.length">{{ state.formError }}</p>
           </div>
         </div>
         <div class="bg-footer"><img src="/icons/logo.png" alt="" /></div>
