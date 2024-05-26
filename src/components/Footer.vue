@@ -38,6 +38,7 @@
 @media only screen and (max-width: 1800px) {
   .footer {
     padding: 0 9vw;
+    align-self: flex-end;
   }
 }
 </style>

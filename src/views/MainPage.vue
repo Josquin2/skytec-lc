@@ -7,18 +7,27 @@ import RightBlock from '@/components/home/RightBlock.vue'
 import MainIdea from '@/components/home/MainIdea.vue'
 import MainCarousel from '@/components/home/MainCarousel.vue'
 
+import { useRoute } from 'vue-router'
+import router from '@/router'
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
 import type { News } from '@/types/news'
 
 import { Api } from '@/api/api'
-let ApiClass = new Api();
+let ApiClass = new Api()
 
 const data: Ref<News[]> = ref([])
 
 onMounted(async () => {
-  data.value = await ApiClass.getObjects('news');
+  data.value = await ApiClass.getObjects('news')
 })
+
+const route = useRoute()
+
+function onNewsClick(title: string) {
+  const login = route.params.login
+  router.push({ name: 'one-news', params: { login: login, title: title } })
+}
 </script>
 
 <template>
@@ -45,12 +54,15 @@ onMounted(async () => {
             </div>
             <div class="views"><img src="/icons/eye.svg" alt="" /> {{}}</div>
           </div>
-          <div class="news-title">
-            <h2>{{ news.title }}</h2>
+          <div class="news-body" @click="onNewsClick(news.title)">
+            <div class="news-title">
+              <h2>{{ news.title }}</h2>
+            </div>
+            <div class="news-info">
+              <p>{{ news.content }}</p>
+            </div>
           </div>
-          <div class="news-info">
-            <p>{{ news.content }}</p>
-          </div>
+
           <div class="likes">
             <button class="like-button">
               <img src="/icons/like-button.svg" alt="" />
@@ -75,131 +87,3 @@ onMounted(async () => {
     <CongratulationsModal />
   </div>
 </template>
-
-<style lang="scss">
-.main-page-block {
-  padding: 100px 15.6vw 50px 15.6vw;
-  display: flex;
-
-  .left-block {
-    width: 14.17vw;
-    display: flex;
-    flex-direction: column;
-  }
-
-  // middle block
-
-  .middle-block {
-    width: 39.58vw;
-    margin-left: 15px;
-    margin-right: 15px;
-    .news {
-      margin-left: 26px;
-      margin-top: 25px;
-
-      .gradient-line {
-        width: 88px;
-        height: 8px;
-        display: flex;
-        flex-direction: column;
-      }
-      h1 {
-        font-size: 24px;
-        text-transform: uppercase;
-        margin-top: 8px;
-        margin-bottom: 30px;
-      }
-      .one-news {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 40px;
-        border-bottom: 1px solid #9a9a9a;
-        width: 36.2vw;
-
-        .news-header {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          .about-news {
-            display: flex;
-            align-items: center;
-
-            .hashtag {
-              font-size: 16px;
-              color: #9a9a9a;
-              border: 1px solid #9a9a9a;
-              border-radius: 10px;
-              margin: 0;
-              padding: 4px 4px;
-            }
-            .time {
-              margin: 0;
-              margin-left: 8px;
-              font-size: 16px;
-              color: #9a9a9a;
-            }
-          }
-          .views {
-            display: flex;
-            align-items: center;
-            color: #9a9a9a;
-            font-size: 16px;
-
-            img {
-              margin-right: 4px;
-            }
-          }
-        }
-        .news-title {
-          margin-top: 16px;
-
-          h2 {
-            color: #4766af;
-            font-size: 24px;
-            margin-bottom: 0;
-          }
-        }
-        .news-info {
-          margin-top: 16px;
-          p {
-            color: #474747;
-            font-size: 16px;
-            width: 34.7vw;
-            margin-bottom: 0;
-          }
-        }
-        .likes {
-          display: flex;
-          flex-direction: row-reverse;
-          margin-top: 16px;
-          margin-bottom: 8px;
-
-          .like-button {
-            background-color: #fff;
-            border: 1px solid #9a9a9a;
-            border-radius: 10px;
-            height: 36px;
-          }
-          .horisontal-line {
-            width: 1px;
-            height: 36px;
-            margin: 0 15px;
-            background-color: #9a9a9a;
-          }
-          .see-more {
-            height: 36px;
-            background-color: #fff;
-            border: none;
-            display: flex;
-            align-items: flex-end;
-            opacity: 50%;
-          }
-        }
-      }
-    }
-  }
-
-  // right block
-}
-</style>

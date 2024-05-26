@@ -7,6 +7,33 @@
 
 /** BLOCKS AND PAGES **/
 
+@import url('blocks/views/login.scss');
+@import url('blocks/views/main-page.scss');
+@import url('blocks/views/about-company.scss');
+@import url('blocks/views/cabinet.scss');
+@import url('blocks/views/cabinet-settings.scss');
+@import url('blocks/views/for-new-employee.scss');
+@import url('blocks/views/one-big-blog.scss');
+@import url('blocks/views/one-news.scss');
+@import url('blocks/views/privilege.scss');
+@import url('blocks/views/vacancies.scss');
+
+// blocks
+
+@import url('blocks/right-block.scss');
+@import url('blocks/main-idea.scss');
+@import url('blocks/left-main.scss');
+@import url('blocks/left-blog.scss');
+@import url('blocks/left-articles.scss');
+
+/** MODALS **/
+
+@import url('modals/vacation.scss');
+@import url('modals/education.scss');
+@import url('modals/job.scss');
+@import url('modals/congratulations.scss');
+@import url('modals/invite-friend.scss');
+@import url('modals/load-photo.scss');
 /** OTHER **/
 
 @media (min-width: 1400px) {

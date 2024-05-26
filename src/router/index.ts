@@ -15,7 +15,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: () => import('@/views/HomeView.vue'),
+      component: () => import('@/views/HomeView.vue')
     },
     {
       path: '/user/:login/cabinet',
@@ -41,6 +41,43 @@ const router = createRouter({
       path: '/user/:login/about',
       name: 'about',
       component: AboutCompany
+    },
+    {
+      path: '/user/:login/privilege',
+      name: 'privilege',
+      component: () => import('@/views/PrivilegePage.vue')
+    },
+    {
+      path: '/user/:login/new-employee',
+      name: 'new-employee',
+      component: () => import('@/views/NewEmployee.vue')
+    },
+    {
+      path: '/user/:login/create-new-employee',
+      name: 'create-new-employee',
+      component: () => import('@/views/CreateNewEmployee.vue')
+    },
+    {
+      path: '/user/:login/news/:title',
+      name: 'one-news',
+      component: () => import('@/views/OneNews.vue')
+    },
+    {
+      path: '/user/:login/blogs',
+      name: 'blogs',
+      component: () => import('@/views/BlogPage.vue'),
+      children: [
+        {
+          path: '/user/:login/blogs/all',
+          name: 'all-blogs',
+          component: () => import('@/views/AllBlogs.vue')
+        },
+        {
+          path: '/user/:login/blogs/:blog',
+          name: 'one-blog',
+          component: () => import('@/views/OneBlog.vue')
+        }
+      ]
     }
   ]
 })

@@ -1,0 +1,174 @@
+.settings-block {
+  .modal-hidden {
+    display: none;
+  }
+  .load-photo-modal {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
+
+    .modal-common {
+      .background {
+        position: absolute;
+        margin-left: 39.11vw;
+        margin-top: 222px;
+
+        .h-white {
+          position: absolute;
+          display: flex;
+          width: 19.06vw;
+          height: 395px;
+          background-color: #ffffff;
+          z-index: 13;
+          border-radius: 27px;
+
+          flex-direction: column;
+          padding: 24px 0;
+          padding-left: 4.69vw;
+          .title {
+            width: max-content;
+            padding: 0 18px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #d6d6d6;
+            border-radius: 7px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #898989;
+          }
+          .photo-change {
+            margin-top: 16px;
+
+            .photo-squad {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 240px;
+              height: 240px;
+              border-radius: 17px;
+              position: absolute;
+              overflow: hidden;
+
+              .photo-circle {
+                width: 220px;
+                height: 220px;
+                border-radius: 50%;
+                outline: 100px solid rgba(0, 0, 0, 0.2);
+              }
+            }
+          }
+
+          .buttons-save-choose {
+            display: flex;
+            margin-top: 16px;
+
+            .save {
+              background-color: #ffffff;
+              margin-left: 16px;
+              border: none;
+              border-radius: 10px;
+              background-color: #4766af;
+              color: #ffffff;
+              padding: 10.5px 14px;
+              font-size: 16px;
+            }
+            .choose {
+              background-color: #ffffff;
+              padding: 0;
+              border: none;
+              color: #4766af;
+              font-size: 14px;
+            }
+          }
+        }
+        .w-white {
+          margin-top: 55px;
+          position: absolute;
+          display: flex;
+          width: 21.93vw;
+          height: 340px;
+          background-color: #ffffff;
+          z-index: 12;
+          border-radius: 27px;
+        }
+        .full-bg {
+          overflow: hidden;
+          width: 21.93vw;
+          height: 395px;
+          display: flex;
+          position: absolute;
+          background-color: #ffffff;
+          z-index: 11;
+          border-radius: 27px;
+          align-items: flex-start;
+          justify-content: flex-end;
+
+          .close-button {
+            cursor: pointer;
+            width: 2.08vw;
+            height: 2.08vw;
+            background: url(/img/cabinet/icons/cross-white.svg) no-repeat;
+            background-position: 50%;
+            background-color: #4766af;
+            margin-right: 2px;
+            margin-top: 2px;
+            border-radius: 50%;
+            display: flex;
+            z-index: 12;
+          }
+          .bg-button {
+            width: 5.21vw;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            background-blend-mode: normal;
+            position: absolute;
+            z-index: 9;
+            border-radius: 20px;
+            margin-top: -45px;
+            margin-right: -2.34vw;
+          }
+          .bg-w {
+            width: 100px;
+            height: 25px;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            background-blend-mode: normal;
+            margin-right: 2.86vw;
+          }
+          .bg-h {
+            margin-top: 55px;
+            width: 25px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.5);
+            position: absolute;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1800px) {
+  .settings-block {
+    .load-photo-modal {
+      .modal-common {
+        .background {
+          margin-top: 122px;
+          .h-white {
+            padding: 24px 0 24px 2.5vw;
+
+            .title {
+              padding: 0 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

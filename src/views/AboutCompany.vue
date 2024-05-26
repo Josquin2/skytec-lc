@@ -3,6 +3,9 @@ import StandardServices from '@/components/about-company/StandardServices.vue'
 import AdditionalServices from '@/components/about-company/AdditionalServices.vue'
 import OneWorker from '@/components/about-company/Worker.vue'
 
+import StructureWorker from '@/components/about-company/StructureWorker.vue'
+import StructureOfCompany from '@/components/about-company/StructureOfCompany.vue'
+
 import { ref } from 'vue'
 
 const services = ref('standard')
@@ -80,7 +83,7 @@ function onServicesChangeClick(value: string) {
       </div>
       <div class="team-common">
         <div class="boss">
-          <img src="/public/img/about-company/boss-main.png" alt="" />
+          <img src="/img/about-company/boss-main.png" alt="" />
           <h2>Мария Ельчинова</h2>
           <h3>Генеральный директор SkyAlliance</h3>
           <div class="boss-info">
@@ -132,171 +135,33 @@ function onServicesChangeClick(value: string) {
       <div class="control">
         <h2>Управление</h2>
         <hr />
-        <div>
-          <!-- two workers here -->
+        <div class="control-workers">
+          <StructureWorker
+            name="Мария Ельчинова"
+            job="Генеральный директор SkyAlliance"
+            image="/img/about-company/worker-1.png"
+          />
+
+          <hr />
+
+          <StructureWorker
+            name="Василий Туровец"
+            job="Управляющий партнер SkyAlliance"
+            image="/img/about-company/worker-2.png"
+          />
         </div>
       </div>
-      <div class="departments">
-        <div></div>
-        <div></div>
-        <div></div>
+      <div class="divider-arrow">
+        <div class="up">
+          <span></span>
+        </div>
+        <div class="down">
+          <span></span>
+        </div>
       </div>
+      <StructureOfCompany />
+
+      <div class="page-arrows"></div>
     </div>
   </div>
 </template>
-
-<style lang="scss">
-.about-company-block {
-  padding: 0 15.63vw;
-  .navigation {
-    display: flex;
-    padding-top: 139px;
-
-    .one-nav {
-      cursor: pointer;
-      background-color: #fff;
-      color: #474747;
-      font-size: 16px;
-      border: 1px solid #9a9a9a;
-      border-radius: 10px;
-      padding: 8px 16px;
-      font-weight: 400;
-      margin-right: 16px;
-    }
-  }
-  .advantages {
-    margin-top: 56px;
-    display: flex;
-
-    .one-adv {
-      background-color: #f6f6f6;
-      width: 22.08vw;
-      height: 229px;
-      border-radius: 10px;
-      margin-right: 24px;
-      padding: 24px;
-
-      .gradient-line {
-        width: 88px;
-        height: 4px;
-        margin-top: 16px;
-      }
-
-      .text-block {
-        margin-top: 16px;
-        display: flex;
-
-        h2 {
-          font-size: 16px;
-          font-weight: 400;
-        }
-        h3 {
-          font-size: 16px;
-          margin-left: 8px;
-          font-weight: 400;
-          text-transform: uppercase;
-          width: 12.6vw;
-        }
-      }
-    }
-  }
-  .services {
-    margin-top: 64px;
-    .nav-services {
-      .regular {
-        border: 1px solid #9a9a9a;
-        border-radius: 10px;
-        padding: 8px 16px;
-        color: #474747;
-        margin-right: 16px;
-      }
-      .clicked {
-        border: none;
-        background-color: #4766af;
-        color: #fff;
-      }
-    }
-  }
-  .team {
-    margin-top: 64px;
-
-    .team-header {
-      .gradient-line {
-        width: 88px;
-        height: 4px;
-      }
-      h1 {
-        color: #474747;
-        font-size: 20px;
-        text-transform: uppercase;
-      }
-    }
-
-    .team-common {
-      margin-top: 48px;
-      display: flex;
-      .boss {
-        h2 {
-          font-size: 24px;
-          font-weight: 400;
-          color: #4766af;
-          margin: 0;
-          margin-top: 16px;
-        }
-        h3 {
-          font-size: 20px;
-          font-weight: 400;
-          color: #4766af;
-          margin: 0;
-          margin-top: 8px;
-        }
-
-        .boss-info {
-          margin-top: 24px;
-
-          p {
-            font-size: 16px;
-            color: #474747;
-            margin: 0;
-            margin-bottom: 16px;
-            width: 22.1vw;
-          }
-        }
-      }
-      .workers {
-        margin-left: 7.14vw;
-        display: flex;
-        flex-wrap: wrap;
-      }
-    }
-  }
-  .structure {
-    margin-top: 64px;
-    display: flex;
-    flex-direction: column;
-    .structure-header {
-      .gradient-line {
-        width: 88px;
-        height: 4px;
-      }
-      h1 {
-        font-size: 20px;
-        color: #474747;
-      }
-    }
-    .control {
-      align-self: center;
-      width: 45.42vw;
-      height: 308px;
-      padding: 48px 28px;
-      background-color: #f6f6f6;
-      border-radius: 27px;
-      h2 {
-        font-size: 20px;
-        color: #474747;
-        text-transform: uppercase;
-      }
-    }
-  }
-}
-</style>
