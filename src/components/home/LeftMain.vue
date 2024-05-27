@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 
@@ -28,11 +29,28 @@ function onDocumentsClick() {
   const login = route.params.login
   router.push({ name: 'documents', params: { login: login } })
 }
+
+// Search things
+
+const userSearch = ref('')
+
+function onUserSearchEnter() {
+  const login = route.params.login
+  router.push({ name: 'user-search', params: { login: login, search: userSearch.value } })
+}
 </script>
 
 <template>
   <div class="some-info">
-    <input type="text" placeholder="+7/ФИО/e-mail" class="search-something" />
+    <input
+      type="text"
+      placeholder="+7/ФИО/e-mail"
+      class="search-something"
+      id="user-search"
+      v-model="userSearch"
+      @keydown.enter="onUserSearchEnter()"
+    />
+    <img src="/icons/search.svg" alt="" class="search-icon" @click="onUserSearchEnter()" />
     <div class="other-links">
       <p class="link" @click="onRemoteAccessInstructionsClick()">
         Инструкция по удаленному доступу

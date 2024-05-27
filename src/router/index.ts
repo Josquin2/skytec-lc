@@ -104,6 +104,11 @@ const router = createRouter({
       path: '/user/:login/documents',
       name: 'documents',
       component: () => import('@/views/DocumentsPage.vue')
+    },
+    {
+      path: '/user/:login/user-search/:search',
+      name: 'user-search',
+      component: () => import('@/views/UserSearch.vue')
     }
   ]
 })
