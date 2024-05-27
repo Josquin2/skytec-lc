@@ -23,6 +23,11 @@ function onMeetingRoomInstructionsClick() {
   const login = route.params.login
   router.push({ name: 'meeting-room-instructions', params: { login: login } })
 }
+
+function onDocumentsClick() {
+  const login = route.params.login
+  router.push({ name: 'documents', params: { login: login } })
+}
 </script>
 
 <template>
@@ -37,7 +42,7 @@ function onMeetingRoomInstructionsClick() {
       <p class="link" @click="onMeetingRoomInstructionsClick()">
         Инструкция по настройке бронирования переговорных
       </p>
-      <p class="link">Нормативные документы</p>
+      <p class="link" @click="onDocumentsClick()">Нормативные документы</p>
     </div>
     <div class="vacancies">
       <div class="vacancy-common">Актуальные вакансии</div>

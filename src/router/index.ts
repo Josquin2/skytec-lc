@@ -99,6 +99,11 @@ const router = createRouter({
       path: '/user/:login/meeting-room-instructions',
       name: 'meeting-room-instructions',
       component: () => import('@/views/MeetingRoom.vue')
+    },
+    {
+      path: '/user/:login/documents',
+      name: 'documents',
+      component: () => import('@/views/DocumentsPage.vue')
     }
   ]
 })
