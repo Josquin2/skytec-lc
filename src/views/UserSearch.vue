@@ -1,5 +1,17 @@
-<script setup>
+<script setup lang="ts">
+import { useRoute } from 'vue-router'
+import router from '@/router'
 import LeftMain from '@/components/home/LeftMain.vue'
+
+const route = useRoute()
+
+function onUserClick() {
+  const login = route.params.login
+  router.push({
+    name: 'user-search-profile',
+    params: { login: login, user: 'user-should-be-here' }
+  })
+}
 </script>
 
 <template>
@@ -9,7 +21,7 @@ import LeftMain from '@/components/home/LeftMain.vue'
     </div>
 
     <div class="user-search-center">
-      <div class="one-response">
+      <div class="one-response" @click="onUserClick()">
         <img src="" alt="" />
         <div class="user-info">
           <h2>Иванов Александр</h2>

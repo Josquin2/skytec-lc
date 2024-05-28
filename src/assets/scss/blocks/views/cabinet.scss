@@ -1,3 +1,100 @@
+.about-user-profile-main-block {
+  display: flex;
+  background: linear-gradient(to bottom, #f6f6f6, #fff);
+  width: 33.75vw;
+  border-radius: 20px;
+  .photo {
+    .bg-circle {
+      display: block;
+      position: absolute;
+      width: 152px;
+      height: 152px;
+      background-color: #fff;
+      border-radius: 50%;
+      z-index: 1;
+      margin-top: -24px;
+      margin-left: -10px;
+    }
+    .user-image {
+      position: absolute;
+      width: 132px;
+      z-index: 2;
+      margin-top: -14px;
+    }
+  }
+  .about-user {
+    display: flex;
+    flex-direction: column;
+    margin-left: 9.79vw;
+    margin-top: 24px;
+
+    .name {
+      h1 {
+        font-size: 24px;
+        color: #474747;
+      }
+    }
+    .job-info {
+      display: flex;
+      h2 {
+        font-size: 16px;
+        color: #474747;
+        font-weight: 400;
+      }
+      hr {
+        margin: 0 16px;
+        height: 19px;
+        width: 1px;
+        opacity: 100%;
+        background-color: #b5b5b5;
+      }
+    }
+    .boss {
+      display: flex;
+      h3 {
+        margin: 0;
+        font-size: 16px;
+        color: #7d7d7d;
+        font-weight: 400;
+      }
+      h4 {
+        margin: 0;
+        font-size: 16px;
+        color: #474747;
+        margin-left: 8px;
+        font-weight: 400;
+      }
+    }
+    .contact {
+      margin-top: 24px;
+      display: flex;
+      .phone-number {
+        display: flex;
+        align-items: center;
+        border: 1px solid #4766af;
+        border-radius: 8px;
+        padding: 8px;
+        p {
+          margin: 0 8px;
+          color: #4766af;
+        }
+      }
+      .email {
+        display: flex;
+        align-items: center;
+        margin-left: 16px;
+        border: 1px solid #4766af;
+        border-radius: 8px;
+        padding: 8px;
+        p {
+          margin: 0 8px;
+          color: #4766af;
+        }
+      }
+    }
+  }
+}
+
 .cabinet-block {
   min-height: 100vh;
   padding: 117px 15.63vw;
@@ -8,102 +105,6 @@
   }
 
   .left {
-    .l-upper {
-      display: flex;
-      background: linear-gradient(to bottom, #f6f6f6, #fff);
-      width: 33.75vw;
-      border-radius: 20px;
-      .photo {
-        .bg-circle {
-          display: block;
-          position: absolute;
-          width: 152px;
-          height: 152px;
-          background-color: #fff;
-          border-radius: 50%;
-          z-index: 1;
-          margin-top: -24px;
-          margin-left: -10px;
-        }
-        .user-image {
-          position: absolute;
-          width: 132px;
-          z-index: 2;
-          margin-top: -14px;
-        }
-      }
-      .about-user {
-        display: flex;
-        flex-direction: column;
-        margin-left: 9.79vw;
-        margin-top: 24px;
-
-        .name {
-          h1 {
-            font-size: 24px;
-            color: #474747;
-          }
-        }
-        .job-info {
-          display: flex;
-          h2 {
-            font-size: 16px;
-            color: #474747;
-            font-weight: 400;
-          }
-          hr {
-            margin: 0 16px;
-            height: 19px;
-            width: 1px;
-            opacity: 100%;
-            background-color: #b5b5b5;
-          }
-        }
-        .boss {
-          display: flex;
-          h3 {
-            margin: 0;
-            font-size: 16px;
-            color: #7d7d7d;
-            font-weight: 400;
-          }
-          h4 {
-            margin: 0;
-            font-size: 16px;
-            color: #474747;
-            margin-left: 8px;
-            font-weight: 400;
-          }
-        }
-        .contact {
-          margin-top: 24px;
-          display: flex;
-          .phone-number {
-            display: flex;
-            align-items: center;
-            border: 1px solid #4766af;
-            border-radius: 8px;
-            padding: 8px;
-            p {
-              margin: 0 8px;
-              color: #4766af;
-            }
-          }
-          .email {
-            display: flex;
-            align-items: center;
-            margin-left: 16px;
-            border: 1px solid #4766af;
-            border-radius: 8px;
-            padding: 8px;
-            p {
-              margin: 0 8px;
-              color: #4766af;
-            }
-          }
-        }
-      }
-    }
     .l-footer {
       margin-top: 24px;
 
