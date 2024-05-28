@@ -44,7 +44,7 @@ function onJobModalClick() {
 <template>
   <div class="cabinet-block" v-if="Object.keys(user).length">
     <div class="left">
-      <div class="l-upper">
+      <div class="about-user-profile-main-block">
         <div class="photo">
           <span class="bg-circle"></span>
           <img :src="user.avatar" alt="" class="user-image rounded-circle" />

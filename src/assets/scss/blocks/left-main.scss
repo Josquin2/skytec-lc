@@ -14,6 +14,15 @@
         border: 1px solid #9a9a9a;
         border-top: none;
       }
+      .search-something:focus {
+        outline-width: 0;
+      }
+      .search-icon {
+        cursor: pointer;
+        position: absolute;
+        margin-top: 11px;
+        margin-right: -11.5vw;
+      }
       .other-links {
         margin-top: 40px;
         width: 12vw;
@@ -21,6 +30,7 @@
           font-size: 16px;
           cursor: pointer;
           width: fit-content;
+          border-bottom: 1px solid #fff;
         }
         .link:hover {
           color: #4766af;

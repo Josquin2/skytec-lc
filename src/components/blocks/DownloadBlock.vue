@@ -15,8 +15,7 @@ const props = defineProps({
         <!--  -->
 
         <div class="title">
-          <h1>{{ props.title }}</h1>
-          <img src="/icons/download-white.svg" alt="" />
+          <h1>{{ props.title }} <img src="/icons/download-white.svg" alt="" /></h1>
         </div>
 
         <div class="buttons">

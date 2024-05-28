@@ -1,13 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { User } from '@/api/user'
 
-let UserClass = new User();
+let UserClass = new User()
 
 import MainPage from '@/views/MainPage.vue'
 import CabinetSettings from '@/views/CabinetSettings.vue'
 import Cabinet from '@/views/Cabinet.vue'
 import Vacancies from '@/views/Vacancies.vue'
 import AboutCompany from '@/views/AboutCompany.vue'
+import path from 'path'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -78,6 +79,41 @@ const router = createRouter({
           component: () => import('@/views/OneBlog.vue')
         }
       ]
+    },
+    {
+      path: '/user/:login/aho-request',
+      name: 'aho-request',
+      component: () => import('@/views/AhoRequest.vue')
+    },
+    {
+      path: '/user/:login/help-desk-request',
+      name: 'help-desk-request',
+      component: () => import('@/views/HelpDeskRequest.vue')
+    },
+    {
+      path: '/user/:login/remote-access-instructions',
+      name: 'remote-access-instructions',
+      component: () => import('@/views/RemoteAccess.vue')
+    },
+    {
+      path: '/user/:login/meeting-room-instructions',
+      name: 'meeting-room-instructions',
+      component: () => import('@/views/MeetingRoom.vue')
+    },
+    {
+      path: '/user/:login/documents',
+      name: 'documents',
+      component: () => import('@/views/DocumentsPage.vue')
+    },
+    {
+      path: '/user/:login/user-search/:search',
+      name: 'user-search',
+      component: () => import('@/views/UserSearch.vue')
+    },
+    {
+      path: '/user/:login/profile/:user',
+      name: 'user-search-profile',
+      component: () => import('@/views/UserSearchProfile.vue')
     }
   ]
 })
@@ -89,7 +125,7 @@ router.beforeEach(async (to) => {
       if (auth === false) {
         return '/'
       }
-    } catch (error)   {
+    } catch (error) {
       return '/'
     }
   }
