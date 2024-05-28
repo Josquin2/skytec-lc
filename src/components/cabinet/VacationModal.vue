@@ -48,11 +48,11 @@ function onCheckBoxClick(e: number) {
           <div class="right-text">
             <div class="title-cal">
               <h4>Начало отпуска:</h4>
-              <Calendar />
+              <Calendar idInput="first-vacation-input" idCalendar="first-vacation-calendar" />
             </div>
             <div class="title-cal">
               <h4>Окончание отпуска:</h4>
-              <Calendar />
+              <Calendar idInput="second-vacation-input" idCalendar="second-vacation-calendar" />
             </div>
             <div class="cause">
               <h4>Причина:</h4>

@@ -4,16 +4,16 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, minLength } from '@vuelidate/validators'
 import router from '@/router'
 
-import {Api} from '@/api/api'
-import {User} from '@/api/user'
+import { Api } from '@/api/api'
+import { User } from '@/api/user'
 
-let ApiClass = new Api();
-let UserClass = new User();
+let ApiClass = new Api()
+let UserClass = new User()
 
 const state = ref({
   login: '',
   password: '',
-  formError: '',
+  formError: ''
 })
 
 const rules = {
@@ -25,11 +25,10 @@ const v$ = useVuelidate(rules, state)
 
 onMounted(function () {
   checkAuth()
-});
+})
 
 // Проверим авторизацию и валидность токена
-async function checkAuth()
-{
+async function checkAuth() {
   let token = localStorage.getItem('token')
 
   if (token) {
@@ -43,7 +42,6 @@ async function checkAuth()
   }
 }
 
-
 async function onSignInButton() {
   v$.value.$touch()
   if (v$.value.$invalid) {
@@ -54,21 +52,21 @@ async function onSignInButton() {
     secondInputField?.classList.add('wrong-input')
   } else {
     let resp = await ApiClass.post('user/login', {
-      'login': state.value.login,
-      'password': state.value.password,
-    }); // konstantinova_marina_maksimovna_z0qvs
+      login: state.value.login,
+      password: state.value.password
+    }) // konstantinova_marina_maksimovna_z0qvs
 
     if (resp.code !== 200) {
-      console.log('error', resp);
-      state.value.formError = resp.data;
+      console.log('error', resp)
+      state.value.formError = resp.data
     } else {
       console.log(resp.data.user)
-      localStorage.setItem('user', JSON.stringify(resp.data.user));
-      localStorage.setItem('token', resp.data.token);
+      localStorage.setItem('user', JSON.stringify(resp.data.user))
+      localStorage.setItem('token', resp.data.token)
 
       router.push({ name: 'main', params: { login: state.value.login } })
 
-      state.value.formError = '';
+      state.value.formError = ''
     }
   }
 }
@@ -94,6 +92,7 @@ async function onSignInButton() {
               class="input"
               v-model="state.password"
               id="second-input-field"
+              @keydown.enter="onSignInButton()"
             />
             <p class="mb-5 text-danger mt-2" v-if="state.formError.length">{{ state.formError }}</p>
           </div>

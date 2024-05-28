@@ -152,22 +152,50 @@
       height: max-content;
 
       div {
+        display: flex;
+        align-items: center;
+        span {
+          width: 24px;
+          height: 24px;
+          margin-left: 24px;
+          margin-right: 8px;
+          background: url(/img/cabinet/icons/edit-black.svg);
+        }
+
+        svg {
+          width: 24px;
+          height: 24px;
+          margin-left: 24px;
+          margin-right: 8px;
+
+          svg {
+            fill: #474747;
+          }
+        }
+
         cursor: pointer;
         height: 56px;
         width: 13.75vw;
         display: flex;
         align-items: center;
         margin-bottom: 8px;
-
-        img {
-          margin-left: 24px;
-          margin-right: 8px;
-        }
+        border: 1.5px solid #fff;
       }
       div:hover {
         border: 1.5px solid #4766af;
         border-radius: 7px;
         color: #4766af;
+
+        .stroke {
+          path {
+            stroke: #4766af;
+          }
+        }
+        .fill {
+          path {
+            fill: #4766af;
+          }
+        }
       }
     }
     .r-right {
@@ -184,15 +212,15 @@
 }
 
 @media only screen and (max-width: 1800px) {
+  .about-user-profile-main-block {
+    width: 41.5vw;
+    .about-user {
+      margin-left: 12vw;
+    }
+  }
   .cabinet-block {
     padding: 117px 5vw;
     .left {
-      .l-upper {
-        width: 41.5vw;
-        .about-user {
-          margin-left: 12vw;
-        }
-      }
       .l-footer {
         .requests {
           .one-request {

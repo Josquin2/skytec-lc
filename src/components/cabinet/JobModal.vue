@@ -19,11 +19,11 @@ function onJobModalClick() {
           <div class="dates">
             <div class="start">
               <h3>Начало командировки:</h3>
-              <Calendar />
+              <Calendar idCalendar="first-job-calendar" idInput="first-job-input" />
             </div>
             <div class="end">
               <h3>Окончание командировки:</h3>
-              <Calendar />
+              <Calendar idCalendar="second-job-calendar" idInput="second-job-input" />
             </div>
           </div>
 

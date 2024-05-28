@@ -1,22 +1,86 @@
 <script setup lang="ts">
+import { defineProps, ref, computed } from 'vue'
+
 function onCalendarImageClick() {
-  document.getElementById('calendar')?.classList.toggle('cal-closed')
+  if (props.idCalendar) {
+    document.getElementById(props.idCalendar)?.classList.toggle('cal-closed')
+  }
+}
+
+const props = defineProps({
+  idCalendar: String,
+  idInput: String
+})
+
+const allMonths = [
+  'Январь',
+  'Февраль',
+  'Март',
+  'Апрель',
+  'Май',
+  'Июнь',
+  'Июль',
+  'Август',
+  'Сентябрь',
+  'Октябрь',
+  'Ноябрь',
+  'Декабрь'
+]
+const date = new Date()
+const currentDay = date.getDate()
+const currentMonth = date.getMonth()
+const chosedMonth = ref(currentMonth)
+const currentYear = date.getFullYear()
+const chosedYear = ref(currentYear)
+const lastDayOfMonth = computed(() =>
+  ref(new Date(chosedYear.value, chosedMonth.value + 1, 0).getDate())
+)
+
+const firstFewDaysOfMonth = computed(() =>
+  ref(new Date(chosedYear.value, chosedMonth.value, 0).getDay())
+)
+
+const a = ref(
+  new Date(chosedYear.value, chosedMonth.value - 1, 0).getDate() - firstFewDaysOfMonth.value
+)
+
+function onNextMonthClick() {
+  if (chosedMonth.value == 11) {
+    chosedMonth.value = 0
+    chosedYear.value += 1
+  }
+  chosedMonth.value += 1
+}
+function onPreviousMonthClick() {
+  if (chosedMonth.value == 0) {
+    chosedMonth.value = 11
+    chosedYear.value -= 1
+  }
+  chosedMonth.value -= 1
+}
+
+function onOneDateClick(date: number) {
+  if (props.idInput && props.idCalendar) {
+    document.getElementById(props.idInput).value =
+      `${date}/${chosedMonth.value}/${chosedYear.value}`
+    document.getElementById(props.idCalendar)?.classList.toggle('cal-closed')
+  }
 }
 </script>
 
 <template>
   <div class="calendar">
     <div class="closed">
-      <input type="text" disabled />
+      <input type="text" disabled :id="props.idInput" />
       <img src="/img/cabinet/icons/calendar-blue.svg" alt="" @click="onCalendarImageClick()" />
-      <div class="pop-up-cal cal-closed" id="calendar">
+      <div class="pop-up-cal cal-closed" :id="props.idCalendar">
         <div class="upper">
-          <span> '<-'</span>
+          <span class="calendar-arrow" @click="onPreviousMonthClick()"></span>
           <div class="year-month">
-            <p>Декабрь</p>
-            <p>2024</p>
+            <p>{{ allMonths[chosedMonth] }}</p>
+            <p>{{ chosedYear }}</p>
           </div>
-          <span> '->'</span>
+          <span class="calendar-arrow arrow-right" @click="onNextMonthClick()"></span>
         </div>
         <div class="cal-body">
           <div class="day-of-the-week">
@@ -29,7 +93,18 @@ function onCalendarImageClick() {
             <p>Вс</p>
           </div>
           <div class="numbers">
-            <p class="one-num"></p>
+            <p class="one-num" v-for="firstFew in firstFewDaysOfMonth.value"></p>
+            <p
+              :class="
+                a == currentDay && currentMonth === chosedMonth && currentYear == chosedYear
+                  ? 'one-num today'
+                  : 'one-num'
+              "
+              @click="onOneDateClick(a)"
+              v-for="a in lastDayOfMonth.value"
+            >
+              {{ a }}
+            </p>
             <!-- create class today with color: blue -->
           </div>
         </div>
@@ -59,10 +134,80 @@ function onCalendarImageClick() {
     }
 
     .pop-up-cal {
+      border: 1px solid #cccccc;
+      border-radius: 10px;
+      z-index: 20;
       position: absolute;
       background-color: #ffffff;
       width: 16.72vw;
-      height: 336px;
+      height: max-content;
+      padding: 24px;
+      margin-top: 420px;
+      margin-left: -16px;
+
+      .upper {
+        display: flex;
+        justify-content: space-between;
+
+        .year-month {
+          display: flex;
+          gap: 6px;
+        }
+
+        .calendar-arrow {
+          width: 24px;
+          height: 24px;
+          cursor: pointer;
+          background: url(/img/cabinet/icons/calendar-arrow-black.svg) no-repeat;
+        }
+        .arrow-right {
+          transform: rotate(180deg);
+        }
+        .calendar-arrow:hover {
+          background: url(/img/cabinet/icons/calendar-arrow-blue.svg) no-repeat;
+        }
+      }
+      .cal-body {
+        .day-of-the-week {
+          display: flex;
+          justify-content: space-between;
+
+          p {
+            width: 32px;
+            height: 32px;
+            color: #4766af;
+            margin: 0;
+          }
+        }
+
+        .numbers {
+          margin-top: 16px;
+
+          display: grid;
+
+          grid-template-columns: repeat(7, minmax(0, 1fr));
+
+          .one-num {
+            cursor: pointer;
+            width: 32px;
+            height: 32px;
+            margin: 0;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+          }
+          .one-num:hover {
+            color: #4766af;
+          }
+
+          .today {
+            background-color: #4766af;
+            color: #fff !important;
+          }
+        }
+      }
     }
 
     .cal-closed {
