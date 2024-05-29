@@ -8,7 +8,6 @@ import CabinetSettings from '@/views/CabinetSettings.vue'
 import Cabinet from '@/views/Cabinet.vue'
 import Vacancies from '@/views/Vacancies.vue'
 import AboutCompany from '@/views/AboutCompany.vue'
-import path from 'path'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,99 +18,99 @@ const router = createRouter({
       component: () => import('@/views/HomeView.vue')
     },
     {
-      path: '/user/:login/cabinet',
+      path: '/user/cabinet',
       name: 'cabinet',
       component: Cabinet
     },
     {
-      path: '/user/:login/main',
+      path: '/user/main',
       name: 'main',
       component: MainPage
     },
     {
-      path: '/user/:login/cabinet/settings',
+      path: '/user/cabinet/settings',
       name: 'settings',
       component: CabinetSettings
     },
     {
-      path: '/user/:login/vacancies',
+      path: '/user/vacancies',
       name: 'vacancies',
       component: Vacancies
     },
     {
-      path: '/user/:login/about',
+      path: '/user/about',
       name: 'about',
       component: AboutCompany
     },
     {
-      path: '/user/:login/privilege',
+      path: '/user/privilege',
       name: 'privilege',
       component: () => import('@/views/PrivilegePage.vue')
     },
     {
-      path: '/user/:login/new-employee',
+      path: '/user/new-employee',
       name: 'new-employee',
       component: () => import('@/views/NewEmployee.vue')
     },
     {
-      path: '/user/:login/create-new-employee',
+      path: '/user/create-new-employee',
       name: 'create-new-employee',
       component: () => import('@/views/CreateNewEmployee.vue')
     },
     {
-      path: '/user/:login/news/:title',
+      path: '/user/news/:slug',
       name: 'one-news',
       component: () => import('@/views/OneNews.vue')
     },
     {
-      path: '/user/:login/blogs',
+      path: '/user/blogs',
       name: 'blogs',
       component: () => import('@/views/BlogPage.vue'),
       children: [
         {
-          path: '/user/:login/blogs/all',
+          path: '/user/blogs/all',
           name: 'all-blogs',
           component: () => import('@/views/AllBlogs.vue')
         },
         {
-          path: '/user/:login/blogs/:blog',
+          path: '/user/blogs/:blog',
           name: 'one-blog',
           component: () => import('@/views/OneBlog.vue')
         }
       ]
     },
     {
-      path: '/user/:login/aho-request',
+      path: '/user/aho-request',
       name: 'aho-request',
       component: () => import('@/views/AhoRequest.vue')
     },
     {
-      path: '/user/:login/help-desk-request',
+      path: '/user/help-desk-request',
       name: 'help-desk-request',
       component: () => import('@/views/HelpDeskRequest.vue')
     },
     {
-      path: '/user/:login/remote-access-instructions',
+      path: '/user/remote-access-instructions',
       name: 'remote-access-instructions',
       component: () => import('@/views/RemoteAccess.vue')
     },
     {
-      path: '/user/:login/meeting-room-instructions',
+      path: '/user/meeting-room-instructions',
       name: 'meeting-room-instructions',
       component: () => import('@/views/MeetingRoom.vue')
     },
     {
-      path: '/user/:login/documents',
+      path: '/user/documents',
       name: 'documents',
       component: () => import('@/views/DocumentsPage.vue')
     },
     {
-      path: '/user/:login/user-search/:search',
+      path: '/user/user-search/:search',
       name: 'user-search',
       component: () => import('@/views/UserSearch.vue')
     },
     {
-      path: '/user/:login/profile/:user',
+      path: '/user/profile/:user',
       name: 'user-search-profile',
       component: () => import('@/views/UserSearchProfile.vue')
     }

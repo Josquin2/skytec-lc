@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import type { Ref } from 'vue'
-import type { News } from '@/types/news'
+import type { News } from '@/types/news/News'
+import type { Comment } from '@/types/Comment'
+import type { User as UserInterface } from '@/types/User'
 
 import { watch, ref, onMounted } from 'vue'
 import { Api } from '@/api/api'
+import { User } from '@/api/user'
+
 let ApiClass = new Api()
-const data: Ref<News[]> = ref([])
+let UserClass = new User()
 
 // // Поиск новости по названию (title)
 // onMounted(async () => {
@@ -25,13 +29,44 @@ const currentComment = ref('')
 
 const sendButton = ref(false)
 
+let data: Ref<News[]> = ref([])
+let comments: Ref<Comment[]> = ref([])
+let userData: Ref<UserInterface[]> = ref([])
+
+async function loadComments() {
+  const commentsResponse = await ApiClass.getObjects('news/' + route.params.slug)
+  data.value.comments = commentsResponse.comments
+  currentComment.value = ''
+}
+
+onMounted(async function () {
+  const response = await ApiClass.getObjects('news/' + route.params.slug)
+  data.value = response
+  console.log(data.value)
+
+  const userDataResponse = await UserClass.getUserData(localStorage.getItem('token'))
+  userData.value = userDataResponse.data.data
+  console.log(userData)
+})
+
+async function sendComment() {
+  await ApiClass.post('news/comments', {
+    news_id: data.value.id,
+    user_id: userData.value.id,
+    comment: currentComment.value,
+  })
+
+  await loadComments()
+}
+
 // watch на кнопку отправки сообщения
 watch(
   () => currentComment.value,
   (newCommentValue: string) => {
     if (newCommentValue.length > 0) {
       sendButton.value = true
-      console.log(sendButton.value)
+    } else {
+      sendButton.value = false
     }
   }
 )
@@ -41,24 +76,15 @@ watch(
   <div class="news-common">
     <div class="news-header">
       <div class="about-news">
-        <h4 class="hashtag">#Новости SKY</h4>
-        <p class="time">21.09.2023</p>
+        <h4 class="hashtag">#{{ data?.category?.title }}</h4>
+        <p class="time">{{ data?.created_at }}</p>
       </div>
       <div class="views"><img src="/icons/eye.svg" alt="" />200</div>
     </div>
     <div class="news-body">
-      <h1 class="news-title">Запуск портала</h1>
+      <h1 class="news-title">{{ data?.title }}</h1>
       <p class="regular-text">
-        "Инновационные маркетинговые стратегии подтверждают свою эффективность! Исследования
-        показывают, что акцент на социальных сетях увеличивает вовлеченность
-        аудитории.Персонализация рекламы на основе данных покупателей — главный тренд в современном
-        маркетинге, обеспечивая более тесное взаимодействие между брендами и потребителями." В
-        условиях быстро меняющегося мира маркетинг и реклама продолжают эволюционировать,
-        адаптируясь к требованиям современных рыночных условий. Сегодняшние потребители стали более
-        осведомленными, требовательными и ориентированными на ценности. В ответ на эти изменения
-        компании пересматривают свои стратегии и тактики маркетинга. Одним из ключевых направлений
-        становится переход от традиционной рекламы к контент-маркетингу, где акцент делается на
-        создании ценного и информативного контента для аудитории.
+        {{ data?.content }}
       </p>
     </div>
     <div class="likes">
@@ -77,29 +103,19 @@ watch(
         <h2>23 Комментария</h2>
       </div>
       <div class="write">
-        <img src="" alt="" />
+        <img :src="userData?.avatar" alt="" />
         <input name="" id="" placeholder="Введите комментарий" v-model="currentComment" />
       </div>
-      <div class="send-comment-button" v-if="sendButton">
+      <div class="send-comment-button" @click="sendComment" v-if="sendButton">
         <button>Оставить комментарий</button>
       </div>
       <div class="comments-common">
         <!-- v-for on one-comment -->
-        <div class="one-comment">
-          <img src="" alt="" />
+        <div class="one-comment" v-for="comment in data?.comments" v-if="Object.keys(data).length > 0">
+          <img :src="comment.user.avatar" alt="" />
           <div>
-            <p>Савина Алина</p>
-            <h4>Супер! Поздравляю! 🙌</h4>
-          </div>
-        </div>
-        <div class="one-comment">
-          <img src="" alt="" />
-          <div>
-            <p>Иванов Иван</p>
-            <h4>
-              Это чудесная новость! Я очень рад, что теперь у нас есть своя платформа, где мы можем
-              общаться и делится новостями!
-            </h4>
+            <p>{{ comment.user.name }}</p>
+            <h4>{{ comment.comment }}</h4>
           </div>
         </div>
       </div>

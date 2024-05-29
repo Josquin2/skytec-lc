@@ -11,7 +11,7 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
-import type { News } from '@/types/news'
+import type { News } from '@/types/news/News'
 
 import { Api } from '@/api/api'
 let ApiClass = new Api()
@@ -24,9 +24,9 @@ onMounted(async () => {
 
 const route = useRoute()
 
-function onNewsClick(title: string) {
-  const login = route.params.login
-  router.push({ name: 'one-news', params: { login: login, title: title } })
+function onNewsClick(slug: string) {
+  // console.log(slug)
+  router.push({ name: 'one-news', params: { slug: slug } })
 }
 </script>
 
@@ -54,7 +54,7 @@ function onNewsClick(title: string) {
             </div>
             <div class="views"><img src="/icons/eye.svg" alt="" /> {{}}</div>
           </div>
-          <div class="news-body" @click="onNewsClick(news.title)">
+          <div class="news-body" @click="onNewsClick(news.slug)">
             <div class="news-title">
               <h2>{{ news.title }}</h2>
             </div>
