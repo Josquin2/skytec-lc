@@ -88,7 +88,7 @@ function onNewEmployeeClick() {
         <input type="text" class="search-input" placeholder="Поиск по порталу" />
         <img src="/icons/search.svg" alt="" class="search-icon" />
       </div>
-      <div class="profile">
+      <div class="profile" @click="onCabinetPageClick()">
         <img src="/icons/user.svg" alt="" />
       </div>
     </div>
@@ -141,6 +141,9 @@ function onNewEmployeeClick() {
         border-radius: 10px;
         border: none;
         background-color: #f6f6f6;
+      }
+      .search-input:focus {
+        outline-width: 0;
       }
       .search-icon {
         position: absolute;

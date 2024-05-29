@@ -40,18 +40,32 @@
           width: 31.25vw;
           margin-top: 32px;
 
-          input {
-            height: 56px;
-            border: 1px solid #9a9a9a;
-            border-radius: 200px;
-            margin-bottom: 16px;
-          }
-          textarea {
-            height: 96px;
-            resize: none;
-            border: 1px solid #9a9a9a;
-            border-radius: 27px;
-            padding: 16px;
+          div {
+            width: 31.25vw;
+            display: flex;
+            span {
+              position: absolute;
+              margin-left: 16px;
+              margin-top: 16px;
+              color: #999999;
+            }
+            input {
+              width: 31.25vw;
+              height: 56px;
+              border: 1px solid #9a9a9a;
+              border-radius: 200px;
+              margin-bottom: 16px;
+              padding-left: 80px;
+              color: #4766af;
+            }
+            textarea {
+              width: 31.25vw;
+              height: 96px;
+              resize: none;
+              border: 1px solid #9a9a9a;
+              border-radius: 27px;
+              padding: 16px;
+            }
           }
         }
         .check {

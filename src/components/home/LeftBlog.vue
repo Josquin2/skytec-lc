@@ -36,6 +36,11 @@ function onAllBlogsClick() {
   const login = route.params.login
   router.push({ name: 'all-blogs', params: { login: login } })
 }
+
+function onOneBlogClick(blog: string) {
+  const login = route.params.login
+  router.push({ name: 'one-blog', params: { login: login, blog: blog } })
+}
 </script>
 
 <template>
@@ -44,7 +49,7 @@ function onAllBlogsClick() {
     <div class="blog-common">
       <div class="one-blog" v-for="blog in blogInfo">
         <img src="" alt="" class="blog-author-image" />
-        <div class="blog-info">
+        <div class="blog-info" @click="onOneBlogClick(blog.blogName)">
           <h2 class="blog-name">{{ blog.blogName }}</h2>
           <p class="blog-author">{{ blog.author }}</p>
         </div>

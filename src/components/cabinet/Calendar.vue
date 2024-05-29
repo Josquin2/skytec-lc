@@ -9,7 +9,11 @@ function onCalendarImageClick() {
 
 const props = defineProps({
   idCalendar: String,
-  idInput: String
+  idInput: String,
+  placeholder: {
+    type: String,
+    required: false
+  }
 })
 
 const allMonths = [
@@ -62,7 +66,7 @@ function onPreviousMonthClick() {
 function onOneDateClick(date: number) {
   if (props.idInput && props.idCalendar) {
     document.getElementById(props.idInput).value =
-      `${date}/${chosedMonth.value}/${chosedYear.value}`
+      `${date.toString().padStart(2, '0')}/${chosedMonth.value.toString().padStart(2, '0')}/${chosedYear.value}`
     document.getElementById(props.idCalendar)?.classList.toggle('cal-closed')
   }
 }
@@ -71,7 +75,7 @@ function onOneDateClick(date: number) {
 <template>
   <div class="calendar">
     <div class="closed">
-      <input type="text" disabled :id="props.idInput" />
+      <input type="text" disabled :id="props.idInput" :placeholder="props.placeholder" />
       <img src="/img/cabinet/icons/calendar-blue.svg" alt="" @click="onCalendarImageClick()" />
       <div class="pop-up-cal cal-closed" :id="props.idCalendar">
         <div class="upper">
@@ -139,7 +143,7 @@ function onOneDateClick(date: number) {
       z-index: 20;
       position: absolute;
       background-color: #ffffff;
-      width: 16.72vw;
+      width: max-content;
       height: max-content;
       padding: 24px;
       margin-top: 420px;

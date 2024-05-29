@@ -17,6 +17,11 @@ const birthDays = [
   }
 ]
 
+const date = new Date()
+const todaysDate = date.getDate().toString().padStart(2, '0')
+const todaysMonth = date.getMonth().toString().padStart(2, '0')
+const todaysYear = date.getFullYear()
+
 function onCongratulationsModalClick() {
   document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
 }
@@ -29,7 +34,7 @@ function onCongratulationsModalClick() {
         <h3>Поздравляем! 🥳</h3>
         <div class="todays-date">
           <h4>Наши именинники сегодня</h4>
-          <p>21.09.2023</p>
+          <p>{{ todaysDate }}.{{ todaysMonth }}.{{ todaysYear }}</p>
         </div>
         <div class="who">
           <!-- here should be v-for -->
@@ -45,6 +50,7 @@ function onCongratulationsModalClick() {
       </div>
     </div>
     <hr class="border" />
+    <!-- here should be v-if="someonesBirthday < today + 7days" -->
     <div class="next-week">
       <h2 class="other-hbd">Наши именинники на следующей неделе</h2>
       <div class="other-hbd-common" v-for="day in birthDays">
