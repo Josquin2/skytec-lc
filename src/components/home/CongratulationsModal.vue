@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { User } from '@/api/user'
 import { ref } from 'vue'
 
 function onCongratulationsModalClick() {
@@ -12,9 +13,27 @@ function onCheckboxAnonClick() {
 const previousGift = ref(4)
 
 function onGiftClick(value: number) {
-  document.getElementById(`gift-check${previousGift.value}`).checked = false
-  document.getElementById(`gift-check${value}`).checked = true
+  const previousElement = document.getElementById(`gift-check${previousGift.value}`)
+  const currentElement = document.getElementById(`gift-check${value}`)
+
+  if (previousElement instanceof HTMLInputElement) {
+    previousElement.checked = false
+  }
+
+  if (currentElement instanceof HTMLInputElement) {
+    currentElement.checked = true
+  }
+
   previousGift.value = value
+}
+
+let user = ref<User | null>(null)
+
+const userItem = localStorage.getItem('user')
+if (userItem !== null) {
+  user.value = JSON.parse(userItem) as User
+} else {
+  console.log('Пользователь не найден в localStorage')
 }
 </script>
 
@@ -28,7 +47,7 @@ function onGiftClick(value: number) {
           <div class="text">
             <div>
               <span>От кого:</span>
-              <input type="text" name="" id="" />
+              <input type="text" name="" id="" v-if="user" :value="user.name" />
             </div>
             <div>
               <span>Кому:</span>

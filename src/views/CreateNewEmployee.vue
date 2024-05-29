@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import Calendar from '@/components/cabinet/Calendar.vue'
+</script>
+
 <template>
   <div class="create-new-employee-block">
     <div class="create-header">
@@ -6,7 +10,12 @@
     </div>
     <div class="create-body">
       <input type="text" name="" id="" placeholder="ФИО:" />
-      <input type="text" name="" id="" placeholder="Дата выхода сотрудника:" />
+      <!-- <input type="text" name="" id="" placeholder="Дата выхода сотрудника:" /> -->
+      <Calendar
+        id-calendar="new-employee-calendar"
+        id-input="new-employee-input"
+        placeholder="Дата выхода сотрудника:"
+      />
       <input type="text" name="" id="" placeholder="Подразделение:" />
       <input type="text" name="" id="" placeholder="Юр. Лицо:" />
       <input type="text" name="" id="" placeholder="Должность:" />
@@ -40,12 +49,32 @@
     flex-direction: column;
     margin-top: 24px;
 
+    .calendar {
+      .closed {
+        input {
+          width: 33.59vw;
+        }
+        img {
+          margin-left: 31.5vw;
+          margin-top: -12px;
+        }
+
+        .pop-up-cal {
+          width: max-content;
+          margin-left: 19.5vw;
+        }
+      }
+    }
+
     input {
       height: 56px;
       border: 1px solid #9a9a9a;
       border-radius: 10px;
       padding-left: 16px;
       margin-bottom: 16px;
+    }
+    input:focus {
+      outline-width: 0;
     }
 
     textarea {
@@ -54,6 +83,9 @@
       border: 1px solid #9a9a9a;
       border-radius: 10px;
       padding: 16px;
+    }
+    textarea:focus {
+      outline-width: 0;
     }
   }
   .create-button {

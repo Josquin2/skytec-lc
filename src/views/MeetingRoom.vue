@@ -65,7 +65,6 @@ function onMainPageClick() {
       border: none;
       border-radius: 10px;
       height: 248px;
-      width: 16.25vw;
     }
     .other-buttons {
       display: flex;
@@ -144,6 +143,11 @@ function onMainPageClick() {
             background: url(/img/instructions/arrow-black.svg) no-repeat;
             transition: 0.3s;
           }
+        }
+        .image-second {
+          width: 7.71vw;
+          overflow: hidden;
+          border-radius: 10px;
         }
         .main-common:hover {
           h2 {
