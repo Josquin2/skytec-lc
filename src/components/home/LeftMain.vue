@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import InviteFriendModal from '../vacancies/InviteFriendModal.vue'
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
@@ -28,6 +29,15 @@ function onMeetingRoomInstructionsClick() {
 function onDocumentsClick() {
   const login = route.params.login
   router.push({ name: 'documents', params: { login: login } })
+}
+
+function onInviteFriendModalClick() {
+  document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
+}
+
+function onVacanciesClick() {
+  const login = route.params.login
+  router.push({ name: 'vacancies', params: { login: login } })
 }
 
 // Search things
@@ -63,11 +73,15 @@ function onUserSearchEnter() {
       <p class="link" @click="onDocumentsClick()">Нормативные документы</p>
     </div>
     <div class="vacancies">
-      <div class="vacancy-common">Актуальные вакансии</div>
+      <div class="vacancy-common" @click="onVacanciesClick">Актуальные вакансии</div>
       <div class="invite-friend">
-        <b class="invite-friend-text">Приведи друга</b>
+        <b class="invite-friend-text" @click="onInviteFriendModalClick()">Приведи друга</b>
         <img src="/img/main-page/vacancies.png" alt="" class="vacancies-image" />
       </div>
     </div>
   </div>
+
+  <!-- modal -->
+
+  <InviteFriendModal />
 </template>

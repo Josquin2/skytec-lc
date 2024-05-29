@@ -1,10 +1,20 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 function onCongratulationsModalClick() {
   document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
 }
 
 function onCheckboxAnonClick() {
   document.getElementById('checkbox-anon')?.classList.toggle('clicked')
+}
+
+const previousGift = ref(4)
+
+function onGiftClick(value: number) {
+  document.getElementById(`gift-check${previousGift.value}`).checked = false
+  document.getElementById(`gift-check${value}`).checked = true
+  previousGift.value = value
 }
 </script>
 
@@ -16,9 +26,17 @@ function onCheckboxAnonClick() {
           <div class="title">Поздравить! 🥳</div>
 
           <div class="text">
-            <input type="text" name="" id="" />
-            <input type="text" name="" id="" />
-            <textarea name="" id="" cols="30" rows="10"></textarea>
+            <div>
+              <span>От кого:</span>
+              <input type="text" name="" id="" />
+            </div>
+            <div>
+              <span>Кому:</span>
+              <input type="text" name="" id="" />
+            </div>
+            <div>
+              <textarea name="" id="" cols="30" rows="10" placeholder="Желаю..."></textarea>
+            </div>
           </div>
 
           <div class="check">
@@ -30,20 +48,20 @@ function onCheckboxAnonClick() {
           <div class="present">
             <h4>Выбрать подарок:</h4>
             <div class="presents-common">
-              <div class="gift">
-                <input type="checkbox" />
+              <div class="gift" @click="onGiftClick(1)">
+                <input type="checkbox" id="gift-check1" />
                 <img src="/img/main-page/gift-3.png" alt="" />
               </div>
-              <div class="gift">
-                <input type="checkbox" />
+              <div class="gift" @click="onGiftClick(2)">
+                <input type="checkbox" id="gift-check2" />
                 <img src="/img/main-page/gift-2.png" alt="" />
               </div>
-              <div class="gift">
-                <input type="checkbox" />
+              <div class="gift" @click="onGiftClick(3)">
+                <input type="checkbox" id="gift-check3" />
                 <img src="/img/main-page/gift-1.png" alt="" />
               </div>
-              <div class="gift last">
-                <input type="checkbox" />
+              <div class="gift last" @click="onGiftClick(4)">
+                <input type="checkbox" checked id="gift-check4" />
                 <p>Без подарка</p>
               </div>
             </div>

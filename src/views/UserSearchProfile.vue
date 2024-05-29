@@ -55,9 +55,13 @@ import LeftMain from '@/components/home/LeftMain.vue'
               <p class="article-author">article.author</p>
             </div>
           </div>
-        </div>
-        <div class="add-article">
-          <img src="/icons/plus.svg" alt="" />
+          <div class="one-article">
+            <img src="" alt="" class="article-author-image" />
+            <div class="article-info">
+              <h2 class="article-name">article.articleName</h2>
+              <p class="article-author">article.author</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
