@@ -93,9 +93,8 @@
             }
           }
         }
-
         .chosen {
-          // chosen is here things!
+          display: none;
         }
 
         .text {
@@ -108,10 +107,13 @@
             border-radius: 17px;
             padding: 16px;
           }
+          textarea:focus {
+            outline-width: 0;
+          }
         }
 
         button {
-          margin-top: 24px;
+          margin-top: 15px;
           width: 22.24vw;
           height: 40px;
           border: none;
@@ -186,6 +188,67 @@
       }
     }
   }
+  .extended {
+    .background {
+      .h-white {
+        height: 542px;
+
+        .chosen {
+          display: flex;
+          flex-direction: column;
+          margin-top: 83px;
+          .chosen-lesson-title {
+            display: flex;
+
+            p {
+              font-size: 14px;
+              color: #474747;
+            }
+            .lesson-title {
+              color: #4766af;
+              margin-left: 8px;
+              border: 1px solid #4766af;
+              border-radius: 7px;
+              padding: 0 8px;
+            }
+          }
+          .chosen-lesson-date {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            p {
+              font-size: 14px;
+              color: #474747;
+              text-wrap: wrap;
+              margin: 0;
+              margin-bottom: 16px;
+            }
+            .one-date {
+              cursor: pointer;
+              width: 85px;
+              text-wrap: wrap;
+              margin-left: 8px;
+              padding: 0px 8px;
+              border: 1px solid #d6d6d6;
+              border-radius: 10px;
+            }
+            .one-date-chosed {
+              border: 1px solid #4766af;
+            }
+          }
+        }
+
+        .text {
+          textarea {
+            margin-top: 0;
+          }
+        }
+      }
+      .w-white {
+        height: 487px;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 1800px) {
@@ -207,6 +270,17 @@
           }
           button {
             margin-top: 8px;
+          }
+        }
+      }
+    }
+    .extended {
+      .background {
+        .h-white {
+          .text {
+            textarea {
+              margin-top: 0;
+            }
           }
         }
       }

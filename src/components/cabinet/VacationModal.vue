@@ -32,14 +32,14 @@ function onCheckBoxClick(e: number) {
               <img src="/img/cabinet/icons/vacation-blue.svg" alt="" />
               <p>Заявка на отпуск</p>
             </div>
-            <div class="cause-of-vacation">
-              <div class="checkbox-button" @click="onCheckBoxClick(1)">
+            <div class="cause-of-vacation" @click="onCheckBoxClick(1)">
+              <div class="checkbox-button">
                 <span class="clicked" id="checkbox-1"></span>
               </div>
               Отпуск за свой счет
             </div>
-            <div class="cause-of-vacation">
-              <div class="checkbox-button" @click="onCheckBoxClick(2)">
+            <div class="cause-of-vacation" @click="onCheckBoxClick(2)">
+              <div class="checkbox-button">
                 <span class="" id="checkbox-2"></span>
               </div>
               Ежегодный оплачиваемый отпуск

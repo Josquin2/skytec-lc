@@ -21,16 +21,20 @@ function onServicesChangeClick(value: string) {
     document.getElementById('additional')?.classList.remove('clicked')
   }
 }
+
+function onNavigationClick(to: string) {
+  document.getElementById(to)?.scrollIntoView()
+}
 </script>
 
 <template>
   <div class="about-company-block">
     <div class="navigation">
-      <div class="one-nav">Кто мы?</div>
-      <div class="one-nav">Ключевые лица компании</div>
-      <div class="one-nav">Структура компании</div>
+      <div class="one-nav" @click="onNavigationClick('who-are-we')">Кто мы?</div>
+      <div class="one-nav" @click="onNavigationClick('key-persons')">Ключевые лица компании</div>
+      <div class="one-nav" @click="onNavigationClick('company-structure')">Структура компании</div>
     </div>
-    <div class="advantages">
+    <div class="advantages" id="who-are-we">
       <div class="one-adv">
         <img src="/img/about-company/logo-1.png" alt="" />
         <div class="gradient-line"></div>
@@ -76,7 +80,7 @@ function onServicesChangeClick(value: string) {
       <StandardServices v-if="services == 'standard'" />
       <AdditionalServices v-else-if="services == 'additional'" />
     </div>
-    <div class="team">
+    <div class="team" id="key-persons">
       <div class="team-header">
         <div class="gradient-line"></div>
         <h1>Ключевые лица компании</h1>
@@ -127,7 +131,7 @@ function onServicesChangeClick(value: string) {
         </div>
       </div>
     </div>
-    <div class="structure">
+    <div class="structure" id="company-structure">
       <div class="structure-header">
         <div class="gradient-line"></div>
         <h1>Структура</h1>
@@ -161,7 +165,14 @@ function onServicesChangeClick(value: string) {
       </div>
       <StructureOfCompany />
 
-      <div class="page-arrows"></div>
+      <div class="page-arrows">
+        <div class="one-page-arrow cannot-click"></div>
+
+        <span class="active-stucture-page"></span>
+        <span class="default"></span>
+
+        <div class="right one-page-arrow"></div>
+      </div>
     </div>
   </div>
 </template>

@@ -68,6 +68,7 @@
     .contact {
       margin-top: 24px;
       display: flex;
+      gap: 16px;
       .phone-number {
         width: max-content;
         display: flex;
@@ -81,9 +82,10 @@
         }
       }
       .email {
+        width: max-content;
         display: flex;
         align-items: center;
-        margin-left: 16px;
+
         border: 1px solid #4766af;
         border-radius: 8px;
         padding: 8px;
@@ -111,6 +113,8 @@
 
       h2 {
         font-size: 20px;
+        color: #474747;
+        font-weight: 400;
       }
       .requests {
         border: 1px solid #cccccc;
@@ -127,17 +131,49 @@
           border-radius: 0 0 20px 20px;
           .request-title {
             display: flex;
+            align-items: center;
+
+            svg {
+              fill: #b5b5b5;
+              margin-right: 8px;
+            }
             h3 {
+              color: #474747;
+              font-weight: 400;
               font-size: 16px;
               margin: 0;
             }
           }
+          .response {
+            display: flex;
+            align-items: center;
+            p {
+              color: #b5b5b5;
+              font-size: 14px;
+              margin: 0;
+            }
+            span {
+              margin-left: 8px;
+              width: 16px;
+              height: 16px;
+              background: url(/img/cabinet/icons/request-status-gray.svg) no-repeat;
+              background-position: 50%;
+            }
+          }
         }
-        .response {
-          display: flex;
-          p {
-            font-size: 14px;
-            margin: 0;
+        .approved {
+          .request-title {
+            svg {
+              fill: #46bed6;
+            }
+          }
+          .response {
+            p {
+              color: #46bed6;
+            }
+            span {
+              background: url(/img/cabinet/icons/request-status-blue.svg) no-repeat;
+            }
           }
         }
       }
@@ -237,6 +273,18 @@
         div {
           width: 19.17vw;
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1600px) {
+  .about-user-profile-main-block {
+    .about-user {
+      .contact {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
       }
     }
   }

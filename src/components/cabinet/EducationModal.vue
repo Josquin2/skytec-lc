@@ -1,16 +1,35 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import EducationDropDown from './EducationDropDown.vue'
 function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
 
-function onDropdownTitleClick() {
-  document.getElementById('dropdown')?.classList.toggle('closed')
+const chosenLesson = ref('')
+const chosenDate = ref([])
+
+function chosedEducation(lesson: string, dates: Array) {
+  document.getElementById('education-modal-common')?.classList.add('extended')
+
+  document.getElementById('chosen-info')?.classList.remove('empty')
+
+  chosenLesson.value = lesson
+  chosenDate.value = dates
+  console.log(dates)
+}
+
+const ChosedEducationDateId = ref('')
+
+function onOneDateClick(id: string) {
+  document.getElementById(ChosedEducationDateId.value)?.classList.toggle('one-date-chosed')
+  document.getElementById(id)?.classList.toggle('one-date-chosed')
+  ChosedEducationDateId.value = id
 }
 </script>
 
 <template>
   <div class="education-modal modal-hidden" id="education-modal">
-    <div class="education-common">
+    <div class="education-common" id="education-modal-common">
       <div class="background">
         <div class="h-white">
           <div class="title">
@@ -18,27 +37,35 @@ function onDropdownTitleClick() {
             Заявка на обучение
           </div>
 
-          <div class="choose-dropdown">
-            <div class="dropdown-title" @click="onDropdownTitleClick()">
-              <h2>Текущие обучения</h2>
-              <img src="/img/cabinet/icons/arrow-white.svg" alt="" />
+          <EducationDropDown @chosedEducation="chosedEducation" />
+
+          <div class="chosen" id="chosen-info">
+            <div class="chosen-lesson-title">
+              <p>Выбрано:</p>
+              <p class="lesson-title">{{ chosenLesson }}</p>
             </div>
-            <div class="dropdown-common closed" id="dropdown">
-              <p>Современный маркетинг</p>
-              <p>Реклама в 2024 году</p>
-              <p>Ораторское искусство</p>
-              <p>Английский язык для начинающих</p>
-              <p>Рисование</p>
-              <p>Английский язык для продвинутых</p>
-              <p>Старый маркетинг</p>
-              <p>Реклама в 2032 году</p>
+            <div class="chosen-lesson-date">
+              <p>Даты прохождения:</p>
+              <p
+                class="one-date"
+                :id="'date-' + String(index)"
+                v-for="(date, index) in chosenDate"
+                :key="index"
+                @click="onOneDateClick('date-' + String(index))"
+              >
+                {{ date }}
+              </p>
             </div>
           </div>
 
-          <div class="chosen"></div>
-
           <div class="text">
-            <textarea placeholder="Какое обучение хотите пройти?"></textarea>
+            <textarea
+              :placeholder="
+                String(chosenDate) != ''
+                  ? 'Не нашли подходящее обучение? Напишите здесь...'
+                  : 'Какое обучение хотите пройти?'
+              "
+            ></textarea>
           </div>
           <button>Отправить</button>
         </div>

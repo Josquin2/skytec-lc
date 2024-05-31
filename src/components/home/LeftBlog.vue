@@ -55,6 +55,8 @@ function onOneBlogClick(blog: string) {
         </div>
       </div>
     </div>
-    <div class="all-blogs-link" @click="onAllBlogsClick()">Все блоги</div>
+    <div class="all-blogs-link" @click="onAllBlogsClick()">
+      Все блоги <img src="/icons/arrow-blue.svg" alt="" />
+    </div>
   </div>
 </template>

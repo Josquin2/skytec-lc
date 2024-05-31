@@ -4,70 +4,42 @@ import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
 import router from '@/router'
 
+import {
+  onMainPageClick,
+  onCabinetPageClick,
+  onVacanciesPageClick,
+  onAboutCompanyPageClick,
+  onPrivilegePageClick,
+  onNewEmployeePageClick
+} from './routing-functions.ts'
+
 const route = useRoute()
-const currentPath = ref(route.path)
+const currentPath = ref(route.name)
 const pathName = ref(route.name)
 
 watch(
-  () => route.path,
+  () => route.name,
   (newPath) => {
     currentPath.value = newPath
   }
 )
 
 // this is a bad thing, I know -_-
-// document.addEventListener('DOMContentLoaded', (event) => {
-//   watch(
-//     () => route.name,
-//     (newName) => {
-//       if (newName && pathName.value && document.getElementById(pathName.value)) {
-//         document.getElementById(pathName.value)?.classList.remove('clicked-theme')
-//         pathName.value = newName
-//         if (document.getElementById(pathName.value)) {
-//           document.getElementById(pathName.value)?.classList.add('clicked-theme')
-//           console.log(pathName.value)
-//         }
-//       }
-//     }
-//   )
-// })
+document.addEventListener('DOMContentLoaded', (event) => {
+  watch(
+    () => route.name,
+    (newName) => {
+      pathName.value = newName
+    }
+  )
+})
 
 function isLogged() {
-  if (currentPath.value != '/') {
+  if (currentPath.value != 'home') {
     return true
   } else {
     return false
   }
-}
-
-function onMainPageClick() {
-  const login = route.params.login
-  router.push({ name: 'main', params: { login: login } })
-}
-
-function onCabinetPageClick() {
-  const login = route.params.login
-  router.push({ name: 'cabinet', params: { login: login } })
-}
-
-function onVacanciesPageClick() {
-  const login = route.params.login
-  router.push({ name: 'vacancies', params: { login: login } })
-}
-
-function onAboutCompanyClick() {
-  const login = route.params.login
-  router.push({ name: 'about', params: { login: login } })
-}
-
-function onPrivilegeClick() {
-  const login = route.params.login
-  router.push({ name: 'privilege', params: { login: login } })
-}
-
-function onNewEmployeeClick() {
-  const login = route.params.login
-  router.push({ name: 'new-employee', params: { login: login } })
 }
 </script>
 
@@ -77,12 +49,48 @@ function onNewEmployeeClick() {
     <div class="header-other-links" v-if="isLogged()">
       <!-- some other links and v-if -->
       <div class="links-with-bg">
-        <p class="theme" @click="onMainPageClick()" id="main">Главная</p>
-        <p class="theme" @click="onCabinetPageClick()" id="cabinet">Личный кабинет</p>
-        <p class="theme" @click="onAboutCompanyClick()">О компании</p>
-        <p class="theme" @click="onPrivilegeClick()">Привилегии для сотрудников</p>
-        <p class="theme" @click="onNewEmployeeClick()">Новому сотруднику</p>
-        <p class="theme" @click="onVacanciesPageClick()">Вакансии Sky</p>
+        <p
+          :class="currentPath == 'main' ? 'theme clicked-theme' : 'theme'"
+          @click="onMainPageClick()"
+          id="main"
+        >
+          Главная
+        </p>
+        <p
+          :class="
+            currentPath == 'cabinet' || currentPath == 'settings' ? 'theme clicked-theme' : 'theme'
+          "
+          @click="onCabinetPageClick()"
+          id="cabinet"
+        >
+          Личный кабинет
+        </p>
+        <p
+          :class="currentPath == 'about' ? 'theme clicked-theme' : 'theme'"
+          @click="onAboutCompanyPageClick()"
+        >
+          О компании
+        </p>
+        <p
+          :class="currentPath == 'privilege' ? 'theme clicked-theme' : 'theme'"
+          @click="onPrivilegePageClick()"
+        >
+          Привилегии для сотрудников
+        </p>
+        <p
+          :class="
+            (currentPath as string)?.endsWith('new-employee') ? 'theme clicked-theme' : 'theme'
+          "
+          @click="onNewEmployeePageClick()"
+        >
+          Новому сотруднику
+        </p>
+        <p
+          :class="currentPath == 'vacancies' ? 'theme clicked-theme' : 'theme'"
+          @click="onVacanciesPageClick()"
+        >
+          Вакансии Sky
+        </p>
       </div>
       <div class="search">
         <input type="text" class="search-input" placeholder="Поиск по порталу" />
@@ -124,10 +132,10 @@ function onNewEmployeeClick() {
         color: #fff;
         margin-left: 24px;
         cursor: pointer;
-        transition: 0.1s;
       }
       .clicked-theme {
         border-bottom: 1px solid #fff;
+        margin-bottom: -1px;
       }
     }
     .search {

@@ -58,11 +58,12 @@ import Calendar from '@/components/cabinet/Calendar.vue'
           margin-left: 31.5vw;
           margin-top: -12px;
         }
+      }
 
-        .pop-up-cal {
-          width: max-content;
-          margin-left: 19.5vw;
-        }
+      .pop-up-cal {
+        width: max-content;
+        margin-left: 0;
+        margin-top: 0;
       }
     }
 

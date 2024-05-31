@@ -19,7 +19,7 @@ const birthDays = [
 
 const date = new Date()
 const todaysDate = date.getDate().toString().padStart(2, '0')
-const todaysMonth = date.getMonth().toString().padStart(2, '0')
+const todaysMonth = (date.getMonth() + 1).toString().padStart(2, '0')
 const todaysYear = date.getFullYear()
 
 function onCongratulationsModalClick() {

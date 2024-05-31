@@ -1,13 +1,25 @@
+<script setup lang="ts">
+import { on } from 'events'
+import {
+  onMainPageClick,
+  onCabinetPageClick,
+  onVacanciesPageClick,
+  onAboutCompanyPageClick,
+  onPrivilegePageClick,
+  onNewEmployeePageClick
+} from './routing-functions.ts'
+</script>
+
 <template>
   <footer class="footer">
     <img src="/icons/logo-white.svg" alt="" />
     <div class="links">
-      <a href="" class="one-link">Главная</a>
-      <a href="" class="one-link">Личный кабинет</a>
-      <a href="" class="one-link">О компании</a>
-      <a href="" class="one-link">Привилегии для сотрудников</a>
-      <a href="" class="one-link">Новому сотруднику</a>
-      <a href="" class="one-link">Вакансии Sky</a>
+      <a class="one-link" @click="onMainPageClick()">Главная</a>
+      <a class="one-link" @click="onCabinetPageClick()">Личный кабинет</a>
+      <a class="one-link" @click="onAboutCompanyPageClick()">О компании</a>
+      <a class="one-link" @click="onPrivilegePageClick()">Привилегии для сотрудников</a>
+      <a class="one-link" @click="onNewEmployeePageClick()">Новому сотруднику</a>
+      <a class="one-link" @click="onVacanciesPageClick()">Вакансии Sky</a>
     </div>
   </footer>
 </template>

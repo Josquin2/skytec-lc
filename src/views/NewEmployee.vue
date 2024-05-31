@@ -7,6 +7,9 @@ const route = useRoute()
 
 function onCreateNewEmployeeClick() {
   const login = route.params.login
+
+  // here should be: if user can create new user -> router.push
+  // else do nothing I guess
   router.push({ name: 'create-new-employee', params: { login: login } })
 }
 </script>
@@ -14,7 +17,9 @@ function onCreateNewEmployeeClick() {
 <template>
   <div class="new-employee-block">
     <DownloadBlock title="Welcome-book" type="PDF" icon="/icons/file-white.svg" />
-    <div class="create">
+
+    <!-- here should be if or something to check if user allowed to create new user -->
+    <div class="create cannot-create">
       <div class="background">
         <div class="h-white">
           <div class="title">
@@ -29,9 +34,7 @@ function onCreateNewEmployeeClick() {
         </div>
         <div class="w-white"></div>
         <div class="full-bg">
-          <span class="close-button">
-            <img src="/icons/people-white.svg" alt="" />
-          </span>
+          <span class="close-button"> </span>
           <span class="bg-button"></span>
           <span class="bg-w"></span>
           <span class="bg-h"></span>

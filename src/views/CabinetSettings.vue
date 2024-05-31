@@ -49,8 +49,8 @@ function onPhotoChangeModal() {
         <img src="" alt="" />
       </div>
 
-      <div class="check">
-        <div class="checkbox-button" @click="onFirstCheckClick()">
+      <div class="check" @click="onFirstCheckClick()">
+        <div class="checkbox-button">
           <span id="checkbox-1"></span>
         </div>
         <p>Скрыть мобильный телефон</p>

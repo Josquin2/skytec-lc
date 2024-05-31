@@ -58,6 +58,12 @@
               padding-left: 80px;
               color: #4766af;
             }
+            input:focus {
+              outline-width: 0;
+            }
+            .to {
+              padding-left: 60px;
+            }
             textarea {
               width: 31.25vw;
               height: 96px;
@@ -66,16 +72,20 @@
               border-radius: 27px;
               padding: 16px;
             }
+            textarea:focus {
+              outline-width: 0;
+            }
           }
         }
         .check {
+          width: max-content;
+          cursor: pointer;
           margin-top: 24px;
           display: flex;
           align-items: center;
           font-size: 16px;
           color: #999999;
           .checkbox-button {
-            cursor: pointer;
             span {
               margin-right: 8px;
               width: 24px;
@@ -122,8 +132,8 @@
               input {
                 width: 16px;
                 position: absolute;
-                margin-top: -5.21vw;
-                margin-right: -5.21vw;
+                margin-top: -5.1vw;
+                margin-right: -5.1vw;
               }
               img {
                 width: 4.95vw;

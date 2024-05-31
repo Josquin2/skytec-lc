@@ -4,40 +4,19 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 
+import {
+  onAhoRequestClick,
+  onHelpDeskRequestClick,
+  onRemoteAccessInstructionsClick,
+  onMeetingRoomInstructionsClick,
+  onDocumentsClick,
+  onVacanciesPageClick
+} from '@/components/routing-functions'
+
 const route = useRoute()
-
-function onAhoRequestClick() {
-  const login = route.params.login
-  router.push({ name: 'aho-request', params: { login: login } })
-}
-
-function onHelpDeskRequestClick() {
-  const login = route.params.login
-  router.push({ name: 'help-desk-request', params: { login: login } })
-}
-
-function onRemoteAccessInstructionsClick() {
-  const login = route.params.login
-  router.push({ name: 'remote-access-instructions', params: { login: login } })
-}
-
-function onMeetingRoomInstructionsClick() {
-  const login = route.params.login
-  router.push({ name: 'meeting-room-instructions', params: { login: login } })
-}
-
-function onDocumentsClick() {
-  const login = route.params.login
-  router.push({ name: 'documents', params: { login: login } })
-}
 
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
-}
-
-function onVacanciesClick() {
-  const login = route.params.login
-  router.push({ name: 'vacancies', params: { login: login } })
 }
 
 // Search things
@@ -73,9 +52,11 @@ function onUserSearchEnter() {
       <p class="link" @click="onDocumentsClick()">Нормативные документы</p>
     </div>
     <div class="vacancies">
-      <div class="vacancy-common" @click="onVacanciesClick">Актуальные вакансии</div>
+      <div class="vacancy-common" @click="onVacanciesPageClick">Актуальные вакансии</div>
       <div class="invite-friend">
-        <b class="invite-friend-text" @click="onInviteFriendModalClick()">Приведи друга</b>
+        <b class="invite-friend-text" @click="onInviteFriendModalClick()"
+          >Приведи друга <img src="/icons/arrow-blue.svg" alt=""
+        /></b>
         <img src="/img/main-page/vacancies.png" alt="" class="vacancies-image" />
       </div>
     </div>

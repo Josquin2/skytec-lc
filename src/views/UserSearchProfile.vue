@@ -32,7 +32,7 @@ import LeftMain from '@/components/home/LeftMain.vue'
             <div class="phone-number">
               <img src="/icons/phone-blue.svg" alt="" />
               <p>user.phone</p>
-              <img src="" alt="" />
+              <img src="/icons/eye.svg" alt="" />
             </div>
             <div class="email">
               <img src="/icons/email-blue.svg" alt="" />
@@ -83,6 +83,17 @@ import LeftMain from '@/components/home/LeftMain.vue'
 
   .my-articles {
     margin-top: 0;
+
+    .my-articles-header {
+      cursor: pointer;
+    }
+    .common-articles {
+      .one-article {
+        .article-info {
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 </style>
