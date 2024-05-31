@@ -100,7 +100,7 @@ watch(
     <hr />
     <div class="comments">
       <div class="count">
-        <h2>23 Комментария</h2>
+        <h2 v-if="Object.keys(data).length > 0">{{ Object.keys(data?.comments).length }} Комментария</h2>
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />

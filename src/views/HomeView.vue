@@ -35,7 +35,7 @@ async function checkAuth() {
     try {
       await UserClass.getUserData(token)
       let user = JSON.parse(localStorage.getItem('user'))
-      router.push({ name: 'main', params: { login: user.login } })
+      router.push({ name: 'main' })
     } catch (error) {
       console.error('error')
     }
@@ -64,7 +64,7 @@ async function onSignInButton() {
       localStorage.setItem('user', JSON.stringify(resp.data.user))
       localStorage.setItem('token', resp.data.token)
 
-      router.push({ name: 'main', params: { login: state.value.login } })
+      router.push({ name: 'main' })
 
       state.value.formError = ''
     }

@@ -1,6 +1,20 @@
 <script setup lang="ts">
 import LoadPhotoModal from '@/components/cabinet/LoadPhotoModal.vue'
 
+import { Api } from '@/api/api'
+import { User } from '@/api/user'
+import { onMounted, ref, type Ref } from 'vue'
+import type { User as UserInterface } from '@/types/User'
+
+let ApiClass = new Api()
+let UserClass = new User()
+
+let userData: Ref<UserInterface[]> = ref([])
+
+onMounted(() => {
+  userData.value = JSON.parse(localStorage.getItem('user'));
+})
+
 function onFirstCheckClick() {
   document.getElementById('checkbox-1')?.classList.toggle('clicked')
 }
@@ -18,7 +32,7 @@ function onPhotoChangeModal() {
   <div class="settings-block">
     <div class="photo-and-accept-changes">
       <div class="change-photo">
-        <img src="/img/cabinet/user.png" alt="" class="photo" />
+        <img :src="userData?.avatar" alt="" class="photo" />
         <span
           ><img src="/img/cabinet/icons/pen-white.svg" alt="" @click="onPhotoChangeModal()"
         /></span>
@@ -35,11 +49,11 @@ function onPhotoChangeModal() {
         <img src="/img/cabinet/icons/lock-gray.svg" alt="" />
       </div>
 
-      <input type="text" value="Иванов" />
+      <input type="text" placeholder="Иванов" v-model="userData.lastname" />
 
-      <input type="text" value="Александр" />
+      <input type="text" placeholder="Александр" v-model="userData.firstname" />
 
-      <input type="text" value="Сергеевич" />
+      <input type="text" placeholder="Сергеевич" v-model="userData.surname" />
     </div>
     <div class="contacts">
       <div class="contact-common phone">

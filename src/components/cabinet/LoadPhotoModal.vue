@@ -1,4 +1,13 @@
 <script setup lang="ts">
+import { onMounted, ref, type Ref } from 'vue'
+import type { User as UserInterface } from '@/types/User'
+
+let userData: Ref<UserInterface[]> = ref([])
+
+onMounted(() => {
+  userData.value = JSON.parse(localStorage.getItem('user'));
+})
+
 function onPhotoChangeModal() {
   document.getElementById('photo-modal')?.classList.toggle('modal-hidden')
 }
@@ -17,7 +26,7 @@ function onPhotoChangeModal() {
             <span class="photo-squad">
               <span class="photo-circle"></span>
             </span>
-            <img src="/img/cabinet/user-on-change.png" alt="" />
+            <img style="width:240px;" :src="userData?.avatar" alt="" />
           </div>
           <div class="buttons-save-choose">
             <button class="choose">
