@@ -19,8 +19,8 @@ function onPhotoChangeModal() {
     <div class="photo-and-accept-changes">
       <div class="change-photo">
         <img src="/img/cabinet/user.png" alt="" class="photo" />
-        <span
-          ><img src="/img/cabinet/icons/pen-white.svg" alt="" @click="onPhotoChangeModal()"
+        <span @click="onPhotoChangeModal()"
+          ><img src="/img/cabinet/icons/pen-white.svg" alt=""
         /></span>
       </div>
 
