@@ -70,7 +70,7 @@ function onDropdownTitleClick() {
 
 const emit = defineEmits(['chosedEducation'])
 
-function chooseLesson(title: string, dates: Array) {
+function chosedLesson(title: string, dates: Array<string>) {
   document.getElementById('dropdown')?.classList.toggle('closed')
   emit('chosedEducation', title, dates)
 }
@@ -82,7 +82,7 @@ function chooseLesson(title: string, dates: Array) {
       <img src="/img/cabinet/icons/arrow-white.svg" alt="" />
     </div>
     <div class="dropdown-common closed" id="dropdown">
-      <p v-for="edu in allLessons" @click="chooseLesson(edu.title, edu.dates)">{{ edu.title }}</p>
+      <p v-for="edu in allLessons" @click="chosedLesson(edu.title, edu.dates)">{{ edu.title }}</p>
     </div>
   </div>
 </template>

@@ -1,8 +1,34 @@
 <script setup lang="ts">
 import Calendar from '@/components/cabinet/Calendar.vue'
 
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+import { ref } from 'vue'
+import { Api } from '@/api/api'
+let ApiClass = new Api()
+
 function onJobModalClick() {
   document.getElementById('job-modal')?.classList.toggle('modal-hidden')
+}
+
+const inputStartValue = ref('')
+const inputEndValue = ref('')
+const token = localStorage.getItem('token')
+
+async function onSendButtonClick() {
+  try {
+    if (token) {
+      await ApiClass.post('business-trip', {
+        start_date: inputStartValue.value,
+        end_date: inputEndValue.value
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      onJobModalClick()
+    }
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
 }
 </script>
 
@@ -19,15 +45,23 @@ function onJobModalClick() {
           <div class="dates">
             <div class="start">
               <h3>Начало командировки:</h3>
-              <Calendar idCalendar="first-job-calendar" idInput="first-job-input" />
+              <Calendar
+                @chosedDate="(dateToSend) => (inputStartValue = dateToSend)"
+                idCalendar="first-job-calendar"
+                idInput="first-job-input"
+              />
             </div>
             <div class="end">
               <h3>Окончание командировки:</h3>
-              <Calendar idCalendar="second-job-calendar" idInput="second-job-input" />
+              <Calendar
+                @chosedDate="(dateToSend) => (inputEndValue = dateToSend)"
+                idCalendar="second-job-calendar"
+                idInput="second-job-input"
+              />
             </div>
           </div>
 
-          <button>Отправить</button>
+          <button @click="onSendButtonClick()">Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">
@@ -40,3 +74,9 @@ function onJobModalClick() {
     </div>
   </div>
 </template>
+
+<style>
+:root {
+  --toastify-color-progress-light: linear-gradient(to left, #4766af, #46bed6);
+}
+</style>

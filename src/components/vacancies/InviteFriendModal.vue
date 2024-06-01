@@ -1,6 +1,26 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
+}
+
+const resumeStatus = ref('Прикрепить резюме')
+
+function handleFile(event: Event) {
+  resumeStatus.value = 'Резюме прикреплено!'
+  const inputElement = event.target as HTMLInputElement
+  if (inputElement && inputElement.files && inputElement.files.length > 0) {
+    const file = inputElement.files[0]
+    const url = URL.createObjectURL(file)
+
+    // delete this
+    const link = document.createElement('a')
+    link.href = url
+    link.download = file.name
+    link.click()
+    //
+  }
 }
 </script>
 
@@ -20,10 +40,11 @@ function onInviteFriendModalClick() {
             <input type="text" name="" id="" placeholder="Вакансия:" />
           </div>
 
-          <div class="resume">
-            <p>Прикрепить резюме</p>
+          <label class="resume">
+            <p>{{ resumeStatus }}</p>
             <img src="/img/cabinet/icons/file-blue.svg" alt="" />
-          </div>
+            <input type="file" @change="handleFile" style="display: none" />
+          </label>
 
           <div class="my-name">
             <p>Укажите ваши данные</p>

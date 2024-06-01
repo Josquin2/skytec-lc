@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { on } from 'events'
 import {
   onMainPageClick,
   onCabinetPageClick,
@@ -7,7 +6,7 @@ import {
   onAboutCompanyPageClick,
   onPrivilegePageClick,
   onNewEmployeePageClick
-} from './routing-functions.ts'
+} from './routing-functions'
 </script>
 
 <template>

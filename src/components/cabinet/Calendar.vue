@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref, computed } from 'vue'
+import { defineEmits, defineProps, ref, computed } from 'vue'
 
 function onCalendarImageClick() {
   if (props.idCalendar) {
@@ -45,7 +45,7 @@ const firstFewDaysOfMonth = computed(() =>
 )
 
 const a = ref(
-  new Date(chosedYear.value, chosedMonth.value - 1, 0).getDate() - firstFewDaysOfMonth.value
+  new Date(chosedYear.value, chosedMonth.value - 1, 0).getDate() - Number(firstFewDaysOfMonth.value)
 )
 
 function onNextMonthClick() {
@@ -65,11 +65,19 @@ function onPreviousMonthClick() {
 
 function onOneDateClick(date: number) {
   if (props.idInput && props.idCalendar) {
-    document.getElementById(props.idInput).value =
-      `${date.toString().padStart(2, '0')}/${(chosedMonth.value + 1).toString().padStart(2, '0')}/${chosedYear.value}`
-    document.getElementById(props.idCalendar)?.classList.toggle('cal-closed')
+    const calendarInput = document.getElementById(props.idInput) as HTMLInputElement
+    if (calendarInput) {
+      calendarInput.value = `${date.toString().padStart(2, '0')}/${(chosedMonth.value + 1).toString().padStart(2, '0')}/${chosedYear.value}`
+      emit(
+        'chosedDate',
+        `${chosedYear.value}-${(chosedMonth.value + 1).toString().padStart(2, '0')}-${date.toString().padStart(2, '0')}`
+      )
+      document.getElementById(props.idCalendar)?.classList.toggle('cal-closed')
+    }
   }
 }
+
+const emit = defineEmits(['chosedDate'])
 </script>
 
 <template>

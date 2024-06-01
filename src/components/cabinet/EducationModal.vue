@@ -1,14 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { Api } from '@/api/api'
+
 import EducationDropDown from './EducationDropDown.vue'
 function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
 
 const chosenLesson = ref('')
-const chosenDate = ref([])
+const chosenDate = ref()
 
-function chosedEducation(lesson: string, dates: Array) {
+function chosedEducation(lesson: string, dates: Array<string>) {
   document.getElementById('education-modal-common')?.classList.add('extended')
 
   document.getElementById('chosen-info')?.classList.remove('empty')
@@ -25,6 +27,18 @@ function onOneDateClick(id: string) {
   document.getElementById(id)?.classList.toggle('one-date-chosed')
   ChosedEducationDateId.value = id
 }
+
+// API
+
+// let ApiClass = new Api()
+
+// let educationPrograms: Prop<Object> = ref('')
+
+// onMounted(async () => {
+//   const response = await ApiClass.getObjects('education')
+//   educationPrograms.value = response
+//   console.log(educationPrograms.value)
+// })
 </script>
 
 <template>

@@ -11,7 +11,7 @@ import {
   onAboutCompanyPageClick,
   onPrivilegePageClick,
   onNewEmployeePageClick
-} from './routing-functions.ts'
+} from './routing-functions'
 
 const route = useRoute()
 const currentPath = ref(route.name)

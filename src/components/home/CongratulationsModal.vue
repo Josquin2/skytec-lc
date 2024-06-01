@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { User } from '@/api/user'
+import type { User } from '@/types/User'
 import { ref } from 'vue'
 
 function onCongratulationsModalClick() {

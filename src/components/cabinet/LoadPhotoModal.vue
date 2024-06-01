@@ -61,7 +61,6 @@ async function uploadImage() {
                 resizable: false,
                 aspectRatio: 1
               }"
-              @change="change"
             />
           </div>
           <div class="buttons-save-choose">

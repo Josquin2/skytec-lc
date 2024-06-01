@@ -7,6 +7,8 @@ import DocumentsIcon from '@/components/cabinet/icons/DocumentsIcon.vue'
 
 import RequestStatusCircle from '@/components/cabinet/icons/RequestStatusCircle.vue'
 
+import type { User as UserInterface } from '@/types/User'
+
 import { useRoute } from 'vue-router'
 import router from '@/router'
 
@@ -20,18 +22,17 @@ import LeftArticles from '@/components/home/LeftArticles.vue'
 import VacationModal from '@/components/cabinet/VacationModal.vue'
 import EducationModal from '@/components/cabinet/EducationModal.vue'
 import JobModal from '@/components/cabinet/JobModal.vue'
-import { onMounted, type Prop, ref } from 'vue'
+import { onMounted, type Ref, ref } from 'vue'
 
 import { onDocumentsClick } from '@/components/routing-functions'
 
 const route = useRoute()
 
-let user: Prop<Object> = ref('')
+let user: Ref<UserInterface | null> = ref(null)
 
 onMounted(async () => {
-  const response = await UserClass.getUserData(localStorage.getItem('token'))
-  user.value = response.data.data
-
+  const response = await ApiClass.getObjects('user')
+  user.value = response
   console.log(user.value)
 })
 
@@ -52,17 +53,17 @@ function onJobModalClick() {
 </script>
 
 <template>
-  <div class="cabinet-block" v-if="Object.keys(user).length">
+  <div class="cabinet-block" v-if="user && Object.keys(user).length">
     <div class="left">
       <div class="about-user-profile-main-block">
         <div class="photo">
           <span class="bg-circle"></span>
-          <img :src="user.avatar" alt="" class="user-image rounded-circle" />
+          <img :src="user?.avatar" alt="" class="user-image rounded-circle" />
         </div>
 
         <div class="about-user">
           <div class="name">
-            <h1>{{ user.name }}</h1>
+            <h1>{{ user?.name }}</h1>
           </div>
           <div class="job-info">
             <h2>Отдел досуга</h2>
@@ -76,12 +77,12 @@ function onJobModalClick() {
           <div class="contact">
             <div class="phone-number">
               <img src="/icons/phone-blue.svg" alt="" />
-              <p>{{ user.phone }}</p>
+              <p>{{ user?.phone }}</p>
               <img src="/img/cabinet/icons/eye-gray.svg" alt="" />
             </div>
             <div class="email">
               <img src="/icons/email-blue.svg" alt="" />
-              <p>{{ user.email }}</p>
+              <p>{{ user?.email }}</p>
             </div>
           </div>
         </div>
