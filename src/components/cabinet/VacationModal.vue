@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import Calendar from '@/components/cabinet/Calendar.vue'
 
-import { ref } from 'vue'
+import { defineEmits, ref } from 'vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -35,6 +35,8 @@ function onCheckBoxClick(e: number) {
   }
 }
 
+const emit = defineEmits(['checkAllRequests'])
+
 async function onSendButtonClick() {
   try {
     if (token) {
@@ -46,6 +48,7 @@ async function onSendButtonClick() {
       })
       toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
       onVacationModalClick()
+      emit('checkAllRequests')
     }
   } catch (error) {
     toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })

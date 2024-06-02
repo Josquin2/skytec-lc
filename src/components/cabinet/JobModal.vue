@@ -3,9 +3,11 @@ import Calendar from '@/components/cabinet/Calendar.vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
-import { ref } from 'vue'
+import { defineEmits, ref } from 'vue'
 import { Api } from '@/api/api'
 let ApiClass = new Api()
+
+const emit = defineEmits(['checkAllRequests'])
 
 function onJobModalClick() {
   document.getElementById('job-modal')?.classList.toggle('modal-hidden')
@@ -18,12 +20,13 @@ const token = localStorage.getItem('token')
 async function onSendButtonClick() {
   try {
     if (token) {
-      await ApiClass.post('business-trip', {
+      await ApiClass.post('application/business-trip', {
         start_date: inputStartValue.value,
         end_date: inputEndValue.value
       })
       toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
       onJobModalClick()
+      emit('checkAllRequests')
     }
   } catch (error) {
     toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })

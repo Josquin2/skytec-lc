@@ -8,6 +8,7 @@ import DocumentsIcon from '@/components/cabinet/icons/DocumentsIcon.vue'
 import RequestStatusCircle from '@/components/cabinet/icons/RequestStatusCircle.vue'
 
 import type { User as UserInterface } from '@/types/User'
+import type { Request } from '@/types/Request'
 
 import { useRoute } from 'vue-router'
 import router from '@/router'
@@ -29,12 +30,21 @@ import { onDocumentsClick } from '@/components/routing-functions'
 const route = useRoute()
 
 let user: Ref<UserInterface | null> = ref(null)
+let allReqests: Ref<Request[]> = ref([])
 
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
   user.value = response
   console.log(user.value)
+
+  checkAllRequests()
 })
+
+async function checkAllRequests() {
+  const responseRequests = await ApiClass.getObjects('application')
+  allReqests.value = responseRequests
+  console.log(allReqests.value)
+}
 
 function onSettingsClick() {
   const login = route.params.login
@@ -89,37 +99,19 @@ function onJobModalClick() {
       </div>
       <div class="l-footer">
         <h2>Мои заявки:</h2>
-        <div class="requests">
-          <div class="one-request">
+
+        <div class="requests" v-if="allReqests && Object.keys(user).length">
+          <div
+            :class="oneRequest.status == 'На рассмотрении' ? 'one-request' : 'one-request approved'"
+            v-for="oneRequest in allReqests"
+          >
             <div class="request-title">
               <RequestStatusCircle />
 
-              <h3>Заявка на командировку</h3>
+              <h3>{{ oneRequest.name }}</h3>
             </div>
             <div class="response">
-              <p>На рассмотрении</p>
-              <span></span>
-            </div>
-          </div>
-          <div class="one-request approved">
-            <div class="request-title">
-              <RequestStatusCircle />
-
-              <h3>Заявка на отпуск</h3>
-            </div>
-            <div class="response">
-              <p>Одобренно</p>
-              <span></span>
-            </div>
-          </div>
-          <div class="one-request approved">
-            <div class="request-title">
-              <RequestStatusCircle />
-
-              <h3>Заявка на обучение</h3>
-            </div>
-            <div class="response">
-              <p>Одобренно</p>
+              <p>{{ oneRequest.status }}</p>
               <span></span>
             </div>
           </div>
@@ -159,8 +151,8 @@ function onJobModalClick() {
     </div>
 
     <!-- Modals goes here -->
-    <VacationModal />
+    <VacationModal @checkAllRequests="checkAllRequests" />
     <EducationModal />
-    <JobModal />
+    <JobModal @checkAllRequests="checkAllRequests" />
   </div>
 </template>
