@@ -152,7 +152,7 @@ function onJobModalClick() {
 
     <!-- Modals goes here -->
     <VacationModal @checkAllRequests="checkAllRequests" />
-    <EducationModal />
+    <EducationModal @checkAllRequests="checkAllRequests" />
     <JobModal @checkAllRequests="checkAllRequests" />
   </div>
 </template>

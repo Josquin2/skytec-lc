@@ -1,44 +1,65 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { defineEmits, onMounted, ref } from 'vue'
 import { Api } from '@/api/api'
 
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 import EducationDropDown from './EducationDropDown.vue'
+
 function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
 
 const chosenLesson = ref('')
 const chosenDate = ref()
+const chosenLessonId = ref()
 
-function chosedEducation(lesson: string, dates: Array<string>) {
+function chosedEducation(lesson: string, dates: Array<string>, id: number) {
   document.getElementById('education-modal-common')?.classList.add('extended')
 
   document.getElementById('chosen-info')?.classList.remove('empty')
 
   chosenLesson.value = lesson
   chosenDate.value = dates
-  console.log(dates)
+  chosenLessonId.value = id
 }
 
 const ChosedEducationDateId = ref('')
+const finalDate = ref('')
 
-function onOneDateClick(id: string) {
+function onOneDateClick(id: string, date: string) {
   document.getElementById(ChosedEducationDateId.value)?.classList.toggle('one-date-chosed')
   document.getElementById(id)?.classList.toggle('one-date-chosed')
   ChosedEducationDateId.value = id
+  finalDate.value = date
+  console.log(finalDate.value)
 }
 
 // API
 
-// let ApiClass = new Api()
+const emit = defineEmits(['checkAllRequests'])
 
-// let educationPrograms: Prop<Object> = ref('')
+let ApiClass = new Api()
 
-// onMounted(async () => {
-//   const response = await ApiClass.getObjects('education')
-//   educationPrograms.value = response
-//   console.log(educationPrograms.value)
-// })
+const token = localStorage.getItem('user')
+
+async function onEducationSendButtonClick() {
+  try {
+    if (token) {
+      await ApiClass.post('application/education', {
+        education_id: chosenLessonId.value,
+        date: finalDate.value
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      emit('checkAllRequests')
+      onEducationModalClick()
+    }
+  } catch (error) {
+    toast('Ошибка при отправке статьи!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
+}
 </script>
 
 <template>
@@ -65,7 +86,7 @@ function onOneDateClick(id: string) {
                 :id="'date-' + String(index)"
                 v-for="(date, index) in chosenDate"
                 :key="index"
-                @click="onOneDateClick('date-' + String(index))"
+                @click="onOneDateClick('date-' + String(index), date)"
               >
                 {{ date }}
               </p>
@@ -81,7 +102,7 @@ function onOneDateClick(id: string) {
               "
             ></textarea>
           </div>
-          <button>Отправить</button>
+          <button @click="onEducationSendButtonClick()">Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">

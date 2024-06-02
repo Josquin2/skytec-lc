@@ -1,68 +1,6 @@
 <script setup lang="ts">
-import { defineEmits } from 'vue'
-
-const allLessons = [
-  {
-    title: 'Современный маркетинг',
-    dates: [
-      '21.01.2024 16:40',
-      '23.01.2024 17:30',
-      '03.02.2024 12:30',
-      '23.01.2024 17:20',
-      '03.02.2024 12:30'
-    ]
-  },
-  {
-    title: 'Реклама в 2024 году',
-    dates: [
-      '21.01.2024 16:40',
-      '23.01.2024 17:30',
-      '03.02.2024 12:30',
-      '23.01.2024 17:20',
-      '03.02.2024 12:30'
-    ]
-  },
-  {
-    title: 'Ораторское искусство',
-    dates: [
-      '21.01.2024 16:40',
-      '23.01.2024 17:30',
-      '03.02.2024 12:30',
-      '23.01.2024 17:20',
-      '03.02.2024 12:30'
-    ]
-  },
-  {
-    title: 'Английский язык для начинающих',
-    dates: [
-      '21.01.2024 16:40',
-      '23.01.2024 17:30',
-      '03.02.2024 12:30',
-      '23.01.2024 17:20',
-      '03.02.2024 12:30'
-    ]
-  },
-  {
-    title: 'Рисование',
-    dates: [
-      '21.01.2024 16:40',
-      '23.01.2024 17:30',
-      '03.02.2024 12:30',
-      '23.01.2024 17:20',
-      '03.02.2024 12:30'
-    ]
-  },
-  {
-    title: 'Английский язык для продвинутых',
-    dates: [
-      '21.01.2024 16:40',
-      '23.01.2024 17:30',
-      '03.02.2024 12:30',
-      '23.01.2024 17:20',
-      '03.02.2024 12:30'
-    ]
-  }
-]
+import { ref, onMounted, defineEmits } from 'vue'
+import { Api } from '@/api/api'
 
 function onDropdownTitleClick() {
   document.getElementById('dropdown')?.classList.toggle('closed')
@@ -70,10 +8,22 @@ function onDropdownTitleClick() {
 
 const emit = defineEmits(['chosedEducation'])
 
-function chosedLesson(title: string, dates: Array<string>) {
+function chosedLesson(title: string, dates: Array<string>, id) {
   document.getElementById('dropdown')?.classList.toggle('closed')
-  emit('chosedEducation', title, dates)
+  emit('chosedEducation', title, dates, id)
 }
+
+// API
+
+let ApiClass = new Api()
+
+let educationalPrograms = ref('')
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects('education')
+  educationalPrograms.value = response
+  console.log(educationalPrograms.value)
+})
 </script>
 <template>
   <div class="choose-dropdown">
@@ -82,7 +32,9 @@ function chosedLesson(title: string, dates: Array<string>) {
       <img src="/img/cabinet/icons/arrow-white.svg" alt="" />
     </div>
     <div class="dropdown-common closed" id="dropdown">
-      <p v-for="edu in allLessons" @click="chosedLesson(edu.title, edu.dates)">{{ edu.title }}</p>
+      <p v-for="edu in educationalPrograms" @click="chosedLesson(edu.title, edu.dates, edu.id)">
+        {{ edu.title }}
+      </p>
     </div>
   </div>
 </template>
