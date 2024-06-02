@@ -5,5 +5,5 @@ export interface Comment {
   id: number
   user: User
   news: News
-  content: string
+  comment: string
 }

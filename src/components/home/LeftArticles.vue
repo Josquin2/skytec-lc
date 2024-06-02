@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import router from '@/router'
 const articleInfo = [
   {
     articleName: 'Интернет магазины: секреты эффективног...',
@@ -11,6 +12,10 @@ const articleInfo = [
     authorImage: 'image'
   }
 ]
+
+function onNewArticleClick() {
+  router.push({ name: 'new-article' })
+}
 </script>
 
 <template>
@@ -25,7 +30,7 @@ const articleInfo = [
         </div>
       </div>
     </div>
-    <div class="add-article">
+    <div class="add-article" @click="onNewArticleClick()">
       <img src="/icons/plus.svg" alt="" />
     </div>
   </div>

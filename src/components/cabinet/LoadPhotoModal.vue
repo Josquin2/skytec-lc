@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Api } from '@/api/api'
 import { CircleStencil, Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
 
 function onPhotoChangeModal() {
   document.getElementById('photo-modal')?.classList.toggle('modal-hidden')
@@ -18,18 +21,26 @@ const handleFile = (event: Event) => {
 }
 
 // uploading to server
+
+let ApiClass = new Api()
+const token = localStorage.getItem('user')
+
 async function uploadImage() {
   const { canvas } = cropperValue.value.getResult()
   const croppedImageSrc = canvas.toDataURL()
 
-  // here should be post things
-
-  // delete this
-  const link = document.createElement('a')
-  link.href = croppedImageSrc
-  link.download = 'cropped-image.png'
-  link.click()
-  //
+  try {
+    if (token) {
+      await ApiClass.put('user', {
+        avatar: croppedImageSrc
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      onPhotoChangeModal()
+    }
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
 }
 </script>
 

@@ -109,7 +109,7 @@ watch(
     <hr />
     <div class="comments">
       <div class="count">
-        <h2>23 Комментария</h2>
+        <h2>{{ data?.comments.length }} Комментария</h2>
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />
@@ -124,7 +124,7 @@ watch(
           <img :src="comment.user.avatar" alt="" />
           <div>
             <p>{{ comment.user.name }}</p>
-            <h4>{{ comment.content }}</h4>
+            <h4>{{ comment.comment }}</h4>
           </div>
         </div>
       </div>
