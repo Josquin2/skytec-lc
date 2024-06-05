@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
 }
+const token = localStorage.getItem('user') || ''
+
+const myData = JSON.parse(token) // for value in myName and mySurname
 
 const resumeStatus = ref('Прикрепить резюме')
+
+const friendsName = ref('')
+const friendsContacts = ref('')
+const friendsVacancy = ref('')
+const myName = ref(myData.firstname)
+const mySurname = ref(myData.surname)
 
 function handleFile(event: Event) {
   resumeStatus.value = 'Резюме прикреплено!'
@@ -13,6 +22,8 @@ function handleFile(event: Event) {
   if (inputElement && inputElement.files && inputElement.files.length > 0) {
     const file = inputElement.files[0]
     const url = URL.createObjectURL(file)
+
+    // here goes api methods
 
     // delete this
     const link = document.createElement('a')
@@ -35,9 +46,9 @@ function handleFile(event: Event) {
           </div>
 
           <div class="text">
-            <input type="text" name="" id="" placeholder="Имя:" />
-            <input type="text" name="" id="" placeholder="Телефон/E-mail:" />
-            <input type="text" name="" id="" placeholder="Вакансия:" />
+            <input type="text" v-model="friendsName" placeholder="Имя:" />
+            <input type="text" v-model="friendsContacts" placeholder="Телефон/E-mail:" />
+            <input type="text" v-model="friendsVacancy" placeholder="Вакансия:" />
           </div>
 
           <label class="resume">
@@ -48,8 +59,8 @@ function handleFile(event: Event) {
 
           <div class="my-name">
             <p>Укажите ваши данные</p>
-            <input type="text" name="" id="" placeholder="Имя:" />
-            <input type="text" name="" id="" placeholder="Фамилия:" />
+            <input type="text" v-model="myName" placeholder="Имя:" />
+            <input type="text" v-model="mySurname" placeholder="Фамилия:" />
           </div>
 
           <button>Отправить</button>

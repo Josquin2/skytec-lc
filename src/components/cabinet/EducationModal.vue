@@ -56,7 +56,7 @@ async function onEducationSendButtonClick() {
       onEducationModalClick()
     }
   } catch (error) {
-    toast('Ошибка при отправке статьи!', { position: toast.POSITION.BOTTOM_RIGHT })
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
     console.error(error)
   }
 }

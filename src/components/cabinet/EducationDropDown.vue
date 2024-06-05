@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, defineEmits } from 'vue'
+import { type Ref } from 'vue'
+import { type Education } from '@/types/Education'
 import { Api } from '@/api/api'
 
 function onDropdownTitleClick() {
@@ -8,7 +10,7 @@ function onDropdownTitleClick() {
 
 const emit = defineEmits(['chosedEducation'])
 
-function chosedLesson(title: string, dates: Array<string>, id) {
+function chosedLesson(title: string, dates: Array<string>, id: number) {
   document.getElementById('dropdown')?.classList.toggle('closed')
   emit('chosedEducation', title, dates, id)
 }
@@ -17,7 +19,7 @@ function chosedLesson(title: string, dates: Array<string>, id) {
 
 let ApiClass = new Api()
 
-let educationalPrograms = ref('')
+let educationalPrograms: Ref<Education[]> = ref([])
 
 onMounted(async () => {
   const response = await ApiClass.getObjects('education')

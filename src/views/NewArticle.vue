@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import CKEditor from '@mayasabha/ckeditor4-vue3'
 
 import { toast } from 'vue3-toastify'
@@ -9,18 +9,20 @@ import { Api } from '@/api/api'
 import { ref } from 'vue'
 
 const articleTitle = ref('')
-const articleData = ref('')
+const articleContent = ref('')
 
 let ApiClass = new Api()
 const token = localStorage.getItem('user')
 
-function onCreateNewArticleClick() {
+async function onCreateNewArticleClick() {
   try {
     if (token) {
-      console.log(articleData.value)
-      //   await ApiClass.post('articles', {
-      //     //
-      //   })
+      await ApiClass.post('articles', {
+        title: articleTitle.value,
+        content: articleContent.value
+      })
+      console.log(articleTitle.value)
+      console.log(articleContent.value)
       toast('Статья отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
     }
   } catch (error) {
@@ -38,7 +40,7 @@ function onCreateNewArticleClick() {
     <div class="create-article-body">
       <input type="text" placeholder="Название статьи:" v-model="articleTitle" />
 
-      <ckeditor v-model="articleData" value=""></ckeditor>
+      <ckeditor v-model="articleContent" value="new"></ckeditor>
     </div>
     <div class="create-article-button">
       <button @click="onCreateNewArticleClick()">Создать</button>
