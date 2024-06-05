@@ -1,5 +1,33 @@
 <script setup lang="ts">
 import Calendar from '@/components/cabinet/Calendar.vue'
+import { ref } from 'vue'
+
+import { Api } from '@/api/api'
+
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+const name = ref('')
+const date = ref('')
+const subdivision = ref('')
+const entity = ref('')
+const jobTitle = ref('')
+const supervisor = ref('')
+const workstationRequirements = ref('')
+
+let ApiClass = new Api()
+
+async function onSendButtonClick() {
+  const token = localStorage.getItem('user') || ''
+
+  try {
+    await ApiClass.post('aaaaaaaaaaaaaaa', {})
+    toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
+}
 </script>
 
 <template>
@@ -9,21 +37,25 @@ import Calendar from '@/components/cabinet/Calendar.vue'
       <h2>Укажите данные сотрудника</h2>
     </div>
     <div class="create-body">
-      <input type="text" name="" id="" placeholder="ФИО:" />
-      <!-- <input type="text" name="" id="" placeholder="Дата выхода сотрудника:" /> -->
+      <input type="text" v-model="name" placeholder="ФИО:" />
+
       <Calendar
+        @chosedDate="(dateToSend) => (date = dateToSend)"
         id-calendar="new-employee-calendar"
         id-input="new-employee-input"
         placeholder="Дата выхода сотрудника:"
       />
-      <input type="text" name="" id="" placeholder="Подразделение:" />
-      <input type="text" name="" id="" placeholder="Юр. Лицо:" />
-      <input type="text" name="" id="" placeholder="Должность:" />
-      <input type="text" name="" id="" placeholder="Руководитель:" />
-      <textarea name="" id="" placeholder="Требования к компьютеру и рабочему месту:"></textarea>
+      <input type="text" v-model="subdivision" placeholder="Подразделение:" />
+      <input type="text" v-model="entity" placeholder="Юр. Лицо:" />
+      <input type="text" v-model="jobTitle" placeholder="Должность:" />
+      <input type="text" v-model="supervisor" placeholder="Руководитель:" />
+      <textarea
+        v-model="workstationRequirements"
+        placeholder="Требования к компьютеру и рабочему месту:"
+      ></textarea>
     </div>
     <div class="create-button">
-      <button>Отправить</button>
+      <button @click="onSendButtonClick()">Отправить</button>
     </div>
   </div>
 </template>
@@ -58,11 +90,12 @@ import Calendar from '@/components/cabinet/Calendar.vue'
           margin-left: 31.5vw;
           margin-top: -12px;
         }
+      }
 
-        .pop-up-cal {
-          width: max-content;
-          margin-left: 19.5vw;
-        }
+      .pop-up-cal {
+        width: max-content;
+        margin-left: 0;
+        margin-top: 0;
       }
     }
 

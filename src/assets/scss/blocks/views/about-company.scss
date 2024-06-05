@@ -14,6 +14,12 @@
       padding: 8px 16px;
       font-weight: 400;
       margin-right: 16px;
+      transition: 0.3s;
+    }
+    .one-nav:hover {
+      background-color: #4766af;
+      color: #fff;
+      border: 1px solid #4766af;
     }
   }
   .advantages {
@@ -64,9 +70,9 @@
         margin-right: 16px;
       }
       .clicked {
-        border: none;
         background-color: #4766af;
         color: #fff;
+        border: 1px solid #4766af;
       }
     }
   }
@@ -184,11 +190,49 @@
         }
       }
     }
-  }
 
-  .page-arrows {
-    margin-top: 40px;
-    margin-bottom: 72px;
+    .page-arrows {
+      margin-top: 40px;
+      margin-bottom: 72px;
+      align-self: center;
+      display: flex;
+      align-items: center;
+
+      .one-page-arrow {
+        margin-left: 24px;
+        margin-right: 24px;
+        cursor: pointer;
+        width: 32px;
+        height: 26px;
+        background: url(/img/about-company/arrow-blue.svg) no-repeat;
+      }
+
+      .cannot-click {
+        cursor: default;
+        background: url(/img/about-company/arrow-gray.svg) no-repeat;
+      }
+
+      .right {
+        rotate: 180deg;
+      }
+
+      span {
+        width: 8px;
+        height: 8px;
+        background-color: #dfdfdf;
+        border-radius: 50%;
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+
+      .active-stucture-page {
+        cursor: default;
+        background-color: #a9a9a9;
+      }
+      .default {
+        cursor: pointer;
+      }
+    }
   }
 }
 

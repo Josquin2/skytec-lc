@@ -3,16 +3,13 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 import DownloadBlock from '@/components/blocks/DownloadBlock.vue'
 
+import { onMainPageClick } from '@/components/routing-functions'
+
 const route = useRoute()
 
 function onBlogClick() {
   const login = route.params.login
   router.push({ name: 'all-blogs', params: { login: login } })
-}
-
-function onMainPageClick() {
-  const login = route.params.login
-  router.push({ name: 'main', params: { login: login } })
 }
 </script>
 
@@ -156,6 +153,25 @@ function onMainPageClick() {
           span {
             transform: rotate(45deg);
             background: url(/img/instructions/arrow-blue.svg);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 1800px) {
+  .meeting-room-block {
+    padding: 137px 12vw;
+    .left-block {
+      .download-block {
+        .background {
+          .h-white {
+            .title {
+              h1 {
+                font-size: 20px;
+              }
+            }
           }
         }
       }

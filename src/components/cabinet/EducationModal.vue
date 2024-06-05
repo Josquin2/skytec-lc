@@ -1,16 +1,70 @@
 <script setup lang="ts">
+import { defineEmits, onMounted, ref } from 'vue'
+import { Api } from '@/api/api'
+
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+import EducationDropDown from './EducationDropDown.vue'
+
 function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
 
-function onDropdownTitleClick() {
-  document.getElementById('dropdown')?.classList.toggle('closed')
+const chosenLesson = ref('')
+const chosenDate = ref()
+const chosenLessonId = ref()
+
+function chosedEducation(lesson: string, dates: Array<string>, id: number) {
+  document.getElementById('education-modal-common')?.classList.add('extended')
+
+  document.getElementById('chosen-info')?.classList.remove('empty')
+
+  chosenLesson.value = lesson
+  chosenDate.value = dates
+  chosenLessonId.value = id
+}
+
+const ChosedEducationDateId = ref('')
+const finalDate = ref('')
+
+function onOneDateClick(id: string, date: string) {
+  document.getElementById(ChosedEducationDateId.value)?.classList.toggle('one-date-chosed')
+  document.getElementById(id)?.classList.toggle('one-date-chosed')
+  ChosedEducationDateId.value = id
+  finalDate.value = date
+  console.log(finalDate.value)
+}
+
+// API
+
+const emit = defineEmits(['checkAllRequests'])
+
+let ApiClass = new Api()
+
+const token = localStorage.getItem('user')
+
+async function onEducationSendButtonClick() {
+  try {
+    if (token) {
+      await ApiClass.post('application/education', {
+        education_id: chosenLessonId.value,
+        date: finalDate.value
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      emit('checkAllRequests')
+      onEducationModalClick()
+    }
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
 }
 </script>
 
 <template>
   <div class="education-modal modal-hidden" id="education-modal">
-    <div class="education-common">
+    <div class="education-common" id="education-modal-common">
       <div class="background">
         <div class="h-white">
           <div class="title">
@@ -18,29 +72,37 @@ function onDropdownTitleClick() {
             Заявка на обучение
           </div>
 
-          <div class="choose-dropdown">
-            <div class="dropdown-title" @click="onDropdownTitleClick()">
-              <h2>Текущие обучения</h2>
-              <img src="/img/cabinet/icons/arrow-white.svg" alt="" />
+          <EducationDropDown @chosedEducation="chosedEducation" />
+
+          <div class="chosen" id="chosen-info">
+            <div class="chosen-lesson-title">
+              <p>Выбрано:</p>
+              <p class="lesson-title">{{ chosenLesson }}</p>
             </div>
-            <div class="dropdown-common closed" id="dropdown">
-              <p>Современный маркетинг</p>
-              <p>Реклама в 2024 году</p>
-              <p>Ораторское искусство</p>
-              <p>Английский язык для начинающих</p>
-              <p>Рисование</p>
-              <p>Английский язык для продвинутых</p>
-              <p>Старый маркетинг</p>
-              <p>Реклама в 2032 году</p>
+            <div class="chosen-lesson-date">
+              <p>Даты прохождения:</p>
+              <p
+                class="one-date"
+                :id="'date-' + String(index)"
+                v-for="(date, index) in chosenDate"
+                :key="index"
+                @click="onOneDateClick('date-' + String(index), date)"
+              >
+                {{ date }}
+              </p>
             </div>
           </div>
-
-          <div class="chosen"></div>
 
           <div class="text">
-            <textarea placeholder="Какое обучение хотите пройти?"></textarea>
+            <textarea
+              :placeholder="
+                String(chosenDate) != ''
+                  ? 'Не нашли подходящее обучение? Напишите здесь...'
+                  : 'Какое обучение хотите пройти?'
+              "
+            ></textarea>
           </div>
-          <button>Отправить</button>
+          <button @click="onEducationSendButtonClick()">Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">

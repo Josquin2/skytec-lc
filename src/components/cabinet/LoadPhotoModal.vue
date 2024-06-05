@@ -1,6 +1,46 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { Api } from '@/api/api'
+import { CircleStencil, Cropper } from 'vue-advanced-cropper'
+import 'vue-advanced-cropper/dist/style.css'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 function onPhotoChangeModal() {
   document.getElementById('photo-modal')?.classList.toggle('modal-hidden')
+}
+
+const imageSrc = ref('')
+const cropperValue = ref()
+
+const handleFile = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  if (target.files) {
+    imageSrc.value = URL.createObjectURL(target.files[0])
+  }
+}
+
+// uploading to server
+
+let ApiClass = new Api()
+const token = localStorage.getItem('user')
+
+async function uploadImage() {
+  const { canvas } = cropperValue.value.getResult()
+  const croppedImageSrc = canvas.toDataURL()
+
+  try {
+    if (token) {
+      await ApiClass.put('user', {
+        avatar: croppedImageSrc
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      onPhotoChangeModal()
+    }
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
 }
 </script>
 
@@ -14,16 +54,32 @@ function onPhotoChangeModal() {
             Изменить фото профиля
           </div>
           <div class="photo-change">
-            <span class="photo-squad">
-              <span class="photo-circle"></span>
-            </span>
-            <img src="/img/cabinet/user-on-change.png" alt="" />
+            <div class="cropper empty-image" v-if="imageSrc.length == 0">Выберите изображение</div>
+            <cropper
+              v-else
+              ref="cropperValue"
+              :stencil-component="CircleStencil"
+              image-restriction="stencil"
+              class="cropper"
+              :src="imageSrc"
+              :stencil-size="{
+                width: 220,
+                height: 220
+              }"
+              :stencil-props="{
+                handlers: {},
+                movable: false,
+                resizable: false,
+                aspectRatio: 1
+              }"
+            />
           </div>
           <div class="buttons-save-choose">
-            <button class="choose">
+            <label class="choose">
               Выбрать файл <img src="/img/cabinet/icons/file-blue.svg" />
-            </button>
-            <button class="save">Сохранить</button>
+              <input type="file" @change="handleFile" style="display: none" />
+            </label>
+            <button class="save" @click="uploadImage">Сохранить</button>
           </div>
         </span>
         <span class="w-white"></span>

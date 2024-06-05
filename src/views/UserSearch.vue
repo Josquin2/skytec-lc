@@ -25,7 +25,11 @@ function onUserClick() {
         <img src="" alt="" />
         <div class="user-info">
           <h2>Иванов Александр</h2>
-          <p>Отдел досуга | Менеджер по креативу</p>
+          <div class="job-info">
+            <p>Отдел досуга</p>
+            <hr class="job-divider" />
+            <p>Менеджер по креативу</p>
+          </div>
         </div>
       </div>
     </div>
@@ -62,6 +66,20 @@ function onUserClick() {
         margin-top: 4px;
         font-size: 16px;
         color: #9a9a9a;
+      }
+      .job-info {
+        display: flex;
+        align-items: center;
+
+        .job-divider {
+          height: 16px;
+          width: 1px;
+          background-color: #474747;
+          margin: 0;
+          margin-left: 6px;
+          margin-right: 6px;
+          margin-top: 2px;
+        }
       }
     }
     .user-info:hover {

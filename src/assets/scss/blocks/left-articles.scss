@@ -1,6 +1,7 @@
 .my-articles {
   margin-top: 48px;
   .my-articles-header {
+    cursor: pointer;
     height: 40px;
     width: 14.17vw;
     display: flex;
@@ -31,6 +32,7 @@
         border-radius: 50%;
       }
       .article-info {
+        cursor: pointer;
         width: 9.58vw;
         margin-left: 8px;
         .article-name {

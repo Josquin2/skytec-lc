@@ -33,7 +33,12 @@ import OneLittleBlog from '@/components/blogs/OneLittleBlog.vue'
             своих клиентов."
         />
       </div>
-      <div class="page-count"></div>
+      <div class="page-count">
+        <div class="one-page current-page">1</div>
+        <div class="one-page">2</div>
+        <div class="one-page">3</div>
+        <div class="one-page">4</div>
+      </div>
     </div>
   </div>
 </template>
@@ -42,10 +47,37 @@ import OneLittleBlog from '@/components/blogs/OneLittleBlog.vue'
 .all-blogs-block {
   .center {
     margin-left: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 64px;
     .blogs {
       display: flex;
       flex-wrap: wrap;
       gap: 24px;
+    }
+    .page-count {
+      align-self: center;
+      display: flex;
+
+      .one-page {
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        color: #999999;
+        font-size: 16px;
+        margin: 0;
+        margin-left: 8px;
+        margin-right: 8px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .current-page {
+        cursor: default;
+        background-color: #4766af;
+        color: #fff;
+        border-radius: 50%;
+      }
     }
   }
 }

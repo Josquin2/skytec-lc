@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { User } from '@/api/user'
+import type { User } from '@/types/User'
 import { ref } from 'vue'
 
 function onCongratulationsModalClick() {
@@ -51,15 +51,15 @@ if (userItem !== null) {
             </div>
             <div>
               <span>Кому:</span>
-              <input type="text" name="" id="" />
+              <input type="text" name="" id="" class="to" />
             </div>
             <div>
               <textarea name="" id="" cols="30" rows="10" placeholder="Желаю..."></textarea>
             </div>
           </div>
 
-          <div class="check">
-            <div class="checkbox-button" @click="onCheckboxAnonClick()">
+          <div class="check" @click="onCheckboxAnonClick()">
+            <div class="checkbox-button">
               <span id="checkbox-anon"></span>
             </div>
             Поздравить анонимно

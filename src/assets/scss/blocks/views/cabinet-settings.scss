@@ -3,6 +3,10 @@
   padding: 146px 15.63vw;
   display: flex;
 
+  input:focus {
+    outline-width: 0;
+  }
+
   .photo-and-accept-changes {
     .change-photo {
       .photo {
@@ -100,6 +104,7 @@
     .phone {
     }
     .check {
+      cursor: pointer;
       display: flex;
       align-items: center;
       margin-bottom: 24px;

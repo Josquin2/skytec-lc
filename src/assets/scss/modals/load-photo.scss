@@ -45,21 +45,26 @@
           .photo-change {
             margin-top: 16px;
 
-            .photo-squad {
+            .empty-image {
               display: flex;
               align-items: center;
               justify-content: center;
+              font-size: 32px;
+              color: #898989;
+              text-align: center;
+            }
+            .cropper {
+              border: 1px solid #cccccc;
               width: 240px;
               height: 240px;
               border-radius: 17px;
-              position: absolute;
               overflow: hidden;
 
-              .photo-circle {
-                width: 220px;
-                height: 220px;
-                border-radius: 50%;
-                outline: 100px solid rgba(0, 0, 0, 0.2);
+              .vue-line-wrapper {
+                display: none;
+              }
+              .vue-advanced-cropper__foreground {
+                opacity: 0.2;
               }
             }
           }
@@ -79,11 +84,18 @@
               font-size: 16px;
             }
             .choose {
+              cursor: pointer;
               background-color: #ffffff;
               padding: 0;
               border: none;
               color: #4766af;
               font-size: 14px;
+              display: flex;
+              align-items: center;
+
+              img {
+                margin-left: 4px;
+              }
             }
           }
         }

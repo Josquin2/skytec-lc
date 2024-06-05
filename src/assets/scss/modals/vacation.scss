@@ -39,6 +39,7 @@
             }
           }
           .cause-of-vacation {
+            cursor: pointer;
             margin-top: 16px;
             display: flex;
             align-items: center;
@@ -46,7 +47,7 @@
 
             .checkbox-button {
               margin-right: 8px;
-              cursor: pointer;
+
               span {
                 width: 24px;
                 height: 24px;

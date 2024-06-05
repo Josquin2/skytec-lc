@@ -30,11 +30,12 @@ onMounted(function () {
 // Проверим авторизацию и валидность токена
 async function checkAuth() {
   let token = localStorage.getItem('token')
+  let userFromLocalStorage = localStorage.getItem('user') || ''
 
   if (token) {
     try {
       await UserClass.getUserData(token)
-      let user = JSON.parse(localStorage.getItem('user'))
+      let user = JSON.parse(userFromLocalStorage)
       router.push({ name: 'main', params: { login: user.login } })
     } catch (error) {
       console.error('error')

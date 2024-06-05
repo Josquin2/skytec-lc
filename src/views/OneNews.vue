@@ -29,13 +29,15 @@ const currentComment = ref('')
 
 const sendButton = ref(false)
 
-let data: Ref<News[]> = ref([])
+let data: Ref<News | null> = ref(null)
 let comments: Ref<Comment[]> = ref([])
-let userData: Ref<UserInterface[]> = ref([])
+let userData: Ref<UserInterface | null> = ref(null)
 
 async function loadComments() {
   const commentsResponse = await ApiClass.getObjects('news/' + route.params.slug)
-  data.value.comments = commentsResponse.comments
+  if (data.value) {
+    data.value.comments = commentsResponse.comments
+  }
   currentComment.value = ''
 }
 
@@ -44,19 +46,26 @@ onMounted(async function () {
   data.value = response
   console.log(data.value)
 
-  const userDataResponse = await UserClass.getUserData(localStorage.getItem('token'))
-  userData.value = userDataResponse.data.data
+  const userDataResponse = await ApiClass.getObjects('user')
+  userData.value = userDataResponse
   console.log(userData)
 })
 
 async function sendComment() {
-  await ApiClass.post('news/comments', {
-    news_id: data.value.id,
-    user_id: userData.value.id,
-    comment: currentComment.value,
-  })
-
-  await loadComments()
+  if (data.value && userData.value) {
+    try {
+      await ApiClass.post('news/comments', {
+        news_id: data.value.id,
+        user_id: userData.value.id,
+        comment: currentComment.value
+      })
+      await loadComments()
+    } catch (error) {
+      console.error('Ошибка при отправке комментария:', error)
+    }
+  } else {
+    console.log('Данные пользователя или новости отсутствуют')
+  }
 }
 
 // watch на кнопку отправки сообщения
@@ -100,7 +109,7 @@ watch(
     <hr />
     <div class="comments">
       <div class="count">
-        <h2>23 Комментария</h2>
+        <h2>{{ data?.comments.length }} Комментария</h2>
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />
@@ -111,7 +120,7 @@ watch(
       </div>
       <div class="comments-common">
         <!-- v-for on one-comment -->
-        <div class="one-comment" v-for="comment in data?.comments" v-if="Object.keys(data).length > 0">
+        <div class="one-comment" v-for="(comment, index) in data?.comments" :key="index">
           <img :src="comment.user.avatar" alt="" />
           <div>
             <p>{{ comment.user.name }}</p>
