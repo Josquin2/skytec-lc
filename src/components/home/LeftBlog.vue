@@ -8,34 +8,6 @@ import { type Blog } from '@/types/Blog'
 
 import { Api } from '@/api/api'
 
-const blogInfo = [
-  {
-    blogName: 'Цифровые технологии',
-    author: 'Иванов Иван',
-    authorImage: 'image'
-  },
-  {
-    blogName: 'Маркетинг в 2023 году',
-    author: 'Смирнов Анатолий',
-    authorImage: 'image'
-  },
-  {
-    blogName: 'Социальные сети в маркетинге: инструм...',
-    author: 'Садова Анастасия',
-    authorImage: 'image'
-  },
-  {
-    blogName: 'Влияние видео-контента: как создать...',
-    author: 'Федов Владимир',
-    authorImage: 'image'
-  },
-  {
-    blogName: 'Социальные сети в маркетинге: инструм...',
-    author: 'Садова Анастасия',
-    authorImage: 'image'
-  }
-]
-
 const route = useRoute()
 
 function onAllBlogsClick() {
@@ -43,7 +15,7 @@ function onAllBlogsClick() {
   router.push({ name: 'all-blogs', params: { login: login } })
 }
 
-function onOneBlogClick(blog: string) {
+function onOneBlogClick(blog: number) {
   const login = route.params.login
   router.push({ name: 'one-blog', params: { login: login, blog: blog } })
 }
@@ -61,16 +33,17 @@ onMounted(async () => {
 })
 </script>
 
-<!-- todo -->
 <template>
   <div class="our-blog">
     <div class="our-blog-header" @click="onAllBlogsClick()">Наш Блог</div>
     <div class="blog-common">
       <div class="one-blog" v-for="blog in blogs">
         <img src="" alt="" class="blog-author-image" />
-        <div class="blog-info" @click="onOneBlogClick(blog.title)">
-          <h2 class="blog-name">{{ blog.title }}</h2>
-          <p class="blog-author">{{ blog.author }}</p>
+        <div class="blog-info" @click="onOneBlogClick(blog.id)">
+          <h2 class="blog-name">
+            {{ blog.title.length > 37 ? blog.title.slice(0, 37) + '...' : blog.title }}
+          </h2>
+          <p class="blog-author">{{ blog.user_id }}</p>
         </div>
       </div>
     </div>

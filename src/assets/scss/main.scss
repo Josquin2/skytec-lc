@@ -60,6 +60,9 @@ body {
     color 0.5s ease;
 }
 
-// Adaptive phone
-
-// Adaptive tablet and laptops
+input:focus {
+  outline-width: 0;
+}
+textarea:focus {
+  outline-width: 0;
+}

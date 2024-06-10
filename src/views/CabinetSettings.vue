@@ -6,8 +6,6 @@ import { Api } from '@/api/api'
 
 import type { User as UserInterface } from '@/types/User'
 
-const hidePhone = ref(false)
-
 function onFirstCheckClick() {
   const firstCheck = document.getElementById('checkbox-1')?.classList
   if (firstCheck) {
@@ -40,6 +38,16 @@ function checkAllCheckBoxes() {
   }
 }
 
+// data for send
+
+const hidePhone = ref(false)
+
+const userPhone = ref('')
+const firstName = ref('')
+const surname = ref('')
+const lastName = ref('')
+const email = ref('')
+
 // API
 
 let ApiClass = new Api()
@@ -57,10 +65,12 @@ onMounted(async () => {
   }
 })
 
-// Send changes
+// API | Send changes
 
 function onSaveChangesButtonClick() {
   // here is put function to current user
+
+  con
 }
 </script>
 

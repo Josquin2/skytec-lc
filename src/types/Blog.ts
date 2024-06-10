@@ -1,4 +1,5 @@
 export interface Blog {
   title: string
-  author: string
+  user_id: number
+  id: number
 }
