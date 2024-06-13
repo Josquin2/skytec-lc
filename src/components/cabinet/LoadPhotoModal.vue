@@ -23,7 +23,8 @@ const handleFile = (event: Event) => {
 // uploading to server
 
 let ApiClass = new Api()
-const token = localStorage.getItem('user')
+const token = localStorage.getItem('token')
+const userLocal = JSON.parse(localStorage.getItem('user') || '')
 
 async function uploadImage() {
   const { canvas } = cropperValue.value.getResult()
@@ -31,7 +32,7 @@ async function uploadImage() {
 
   try {
     if (token) {
-      await ApiClass.put('user', {
+      await ApiClass.put(`user?id=${userLocal.id}`, {
         avatar: croppedImageSrc
       })
       toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })

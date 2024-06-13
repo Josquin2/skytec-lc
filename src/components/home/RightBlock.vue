@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { onMounted, type Ref, ref } from 'vue'
+import { Api } from '@/api/api'
 const birthDays = [
   {
     day: '01.11.',
@@ -25,6 +27,18 @@ const todaysYear = date.getFullYear()
 function onCongratulationsModalClick() {
   document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
 }
+
+// API
+
+let ApiClass = new Api()
+
+const allBirthDays = ref('')
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects('birthdays')
+  allBirthDays.value = response
+  console.log(allBirthDays.value)
+})
 </script>
 
 <template>
@@ -36,20 +50,21 @@ function onCongratulationsModalClick() {
           <h4>Наши именинники сегодня</h4>
           <p>{{ todaysDate }}.{{ todaysMonth }}.{{ todaysYear }}</p>
         </div>
+        <!-- here should be v-for -->
         <div class="who">
-          <!-- here should be v-for -->
           <div class="happy-bd-to">
             <img src="" alt="" class="image-of-hbd" />
             <h2 class="name-of-hbd">Иванов Иван</h2>
             <p class="job-title-of-hbd">Менеджер по креативу</p>
           </div>
+          <button class="congratulations-button" @click="onCongratulationsModalClick()">
+            <img src="/icons/gift.svg" alt="" /> Поздравить!
+          </button>
         </div>
-        <button class="congratulations-button" @click="onCongratulationsModalClick()">
-          <img src="/icons/gift.svg" alt="" /> Поздравить!
-        </button>
       </div>
+      <hr class="border" />
     </div>
-    <hr class="border" />
+
     <!-- here should be v-if="someonesBirthday < today + 7days" -->
     <div class="next-week">
       <h2 class="other-hbd">Наши именинники на следующей неделе</h2>

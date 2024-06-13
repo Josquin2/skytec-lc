@@ -2,6 +2,9 @@
 import LoadPhotoModal from '@/components/cabinet/LoadPhotoModal.vue'
 import { onMounted, ref, type Ref } from 'vue'
 
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 import { Api } from '@/api/api'
 
 import type { User as UserInterface } from '@/types/User'
@@ -11,7 +14,7 @@ function onFirstCheckClick() {
   if (firstCheck) {
     if (firstCheck.contains('clicked')) {
       firstCheck.remove('clicked')
-      hidePhone.value = true
+      hidePhone.value = false
     } else {
       firstCheck.add('clicked')
       hidePhone.value = true
@@ -41,7 +44,6 @@ function checkAllCheckBoxes() {
 // data for send
 
 const hidePhone = ref(false)
-
 const userPhone = ref('')
 const firstName = ref('')
 const surname = ref('')
@@ -57,6 +59,12 @@ let user: Ref<UserInterface | null> = ref(null)
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
   user.value = response
+  userPhone.value = user.value?.phone || ''
+  firstName.value = user.value?.firstname || ''
+  surname.value = user.value?.surname || ''
+  lastName.value = user.value?.lastname || ''
+  email.value = user.value?.email || ''
+
   console.log(user.value)
 
   if (user.value) {
@@ -67,10 +75,29 @@ onMounted(async () => {
 
 // API | Send changes
 
-function onSaveChangesButtonClick() {
+const token = localStorage.getItem('token')
+const currentUserId = JSON.parse(localStorage.getItem('user') || '')
+
+async function onSaveChangesButtonClick() {
   // here is put function to current user
 
-  con
+  try {
+    if (token) {
+      await ApiClass.put(`user?id=${currentUserId.id}`, {
+        firstname: firstName.value,
+        lastname: lastName.value,
+        surname: surname.value,
+        name: lastName.value + ' ' + firstName.value + ' ' + surname.value,
+        phone: userPhone.value,
+        email: email.value,
+        hide_phone: hidePhone.value
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+    }
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
 }
 </script>
 
@@ -95,16 +122,16 @@ function onSaveChangesButtonClick() {
         <img src="/img/cabinet/icons/lock-gray.svg" alt="" />
       </div>
 
-      <input type="text" :value="user?.firstname" readonly />
+      <input type="text" v-model="firstName" readonly />
 
-      <input type="text" :value="user?.lastname" readonly />
+      <input type="text" v-model="lastName" readonly />
 
-      <input type="text" :value="user?.surname" readonly />
+      <input type="text" v-model="surname" readonly />
     </div>
     <div class="contacts">
       <div class="contact-common phone">
         <h2>Телефон:</h2>
-        <input type="text" :value="user?.phone" />
+        <input type="text" v-model="userPhone" />
 
         <img src="" alt="" />
       </div>
@@ -118,7 +145,7 @@ function onSaveChangesButtonClick() {
 
       <div class="contact-common email">
         <h2>E-mail:</h2>
-        <input type="text" :value="user?.email" />
+        <input type="text" v-model="email" />
       </div>
     </div>
     <div class="job-info">

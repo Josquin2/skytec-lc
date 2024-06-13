@@ -15,19 +15,23 @@ let ApiClass = new Api()
 const token = localStorage.getItem('user')
 
 async function onCreateNewArticleClick() {
-  try {
-    if (token) {
-      await ApiClass.post('articles', {
-        title: articleTitle.value,
-        content: articleContent.value
-      })
-      console.log(articleTitle.value)
-      console.log(articleContent.value)
-      toast('Статья отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+  if (articleTitle.value != '' && articleContent.value != '') {
+    try {
+      if (token) {
+        await ApiClass.post('articles', {
+          title: articleTitle.value,
+          content: articleContent.value
+        })
+        console.log(articleTitle.value)
+        console.log(articleContent.value)
+        toast('Статья отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      }
+    } catch (error) {
+      toast('Ошибка при отправке статьи!', { position: toast.POSITION.BOTTOM_RIGHT })
+      console.error(error)
     }
-  } catch (error) {
-    toast('Ошибка при отправке статьи!', { position: toast.POSITION.BOTTOM_RIGHT })
-    console.error(error)
+  } else {
+    toast('Поля должны быть заполнены!', { position: toast.POSITION.BOTTOM_RIGHT })
   }
 }
 </script>

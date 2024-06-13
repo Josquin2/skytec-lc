@@ -1,43 +1,85 @@
 <script setup lang="ts">
 import OneLittleBlog from '@/components/blogs/OneLittleBlog.vue'
+import { computed, ref, onMounted, type Ref } from 'vue'
+
+import { type Blog } from '@/types/Blog'
+import { Api } from '@/api/api'
+
+let ApiClass = new Api()
+let allBlogs: Ref<Blog[]> = ref([])
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects('articles')
+  allBlogs.value = response
+  console.log(allBlogs.value)
+  cutForPages(allBlogs.value)
+})
+
+const allPages = ref('')
+const cuttedBlogs: Ref<Blog[][]> = ref([])
+const currentPage = ref(0)
+
+function cutForPages(allBlogs: Array<Blog>) {
+  let n = 10
+  for (let i = 0; i < allBlogs.length; i += n) {
+    cuttedBlogs.value.push(allBlogs.slice(i, i + n))
+    console.log(cuttedBlogs.value)
+  }
+}
+
+let pagesToShow = computed(() => {
+  let start = Math.max(currentPage.value - 2, 0)
+  let end = Math.min(start + 5, cuttedBlogs.value.length)
+
+  if (currentPage.value < 3) {
+    end = 5
+  } else if (currentPage.value > cuttedBlogs.value.length - 4) {
+    start = cuttedBlogs.value.length - 5
+  }
+
+  return [...Array(end - start).keys()].map((i) => i + start)
+})
+
+function changePage(page: number) {
+  currentPage.value = page
+  window.scrollTo(0, 0)
+}
 </script>
 
 <template>
   <div class="all-blogs-block">
     <div class="center">
       <div class="blogs">
-        <!-- v-for down here -->
-        <!-- and here should be blog__id in props, I guess. For better url name -->
         <OneLittleBlog
-          date="21.09.2023 14:33"
-          author="Смирнов Анатолий"
-          title="Маркетинг в 2023 году. Трансформация в эпоху цифровой реальности"
-          text="В 2023 году маркетинг становится неотъемлемой частью цифровой реальности, которая
-            продолжает преображать способы, которыми компании привлекают, вовлекают и удерживают
-            своих клиентов."
-        />
-        <OneLittleBlog
-          date="21.09.2023 14:33"
-          author="Смирнов Анатолий"
-          title="Маркетинг в 2023 году. Трансформация в эпоху цифровой реальности"
-          text="В 2023 году маркетинг становится неотъемлемой частью цифровой реальности, которая
-            продолжает преображать способы, которыми компании привлекают, вовлекают и удерживают
-            своих клиентов."
-        />
-        <OneLittleBlog
-          date="21.09.2023 14:33"
-          author="Смирнов Анатолий"
-          title="Маркетинг в 2023 году. Трансформация в эпоху цифровой реальности"
-          text="В 2023 году маркетинг становится неотъемлемой частью цифровой реальности, которая
-            продолжает преображать способы, которыми компании привлекают, вовлекают и удерживают
-            своих клиентов."
+          v-for="blog in cuttedBlogs[currentPage]"
+          :avatar="blog.user.avatar"
+          :date="blog.created_at"
+          :author="blog.user.lastname + ' ' + blog.user.firstname"
+          :title="blog.title"
+          :text="blog.content"
+          :blog-id="blog.id"
         />
       </div>
       <div class="page-count">
-        <div class="one-page current-page">1</div>
-        <div class="one-page">2</div>
-        <div class="one-page">3</div>
-        <div class="one-page">4</div>
+        <div v-if="currentPage > 2" class="one-page" @click="changePage(0)">1</div>
+        <div v-if="currentPage > 2" class="one-page">...</div>
+        <div
+          v-for="page in pagesToShow"
+          :key="page"
+          class="one-page"
+          :class="{ 'current-page': currentPage === page }"
+          @click="changePage(page)"
+        >
+          {{ page + 1 }}
+        </div>
+        <div v-if="currentPage < cuttedBlogs.length - 3" class="one-page">...</div>
+        <div
+          v-if="currentPage < cuttedBlogs.length - 3"
+          class="one-page"
+          @click="changePage(cuttedBlogs.length - 1)"
+        >
+          {{ cuttedBlogs.length }}
+        </div>
       </div>
     </div>
   </div>

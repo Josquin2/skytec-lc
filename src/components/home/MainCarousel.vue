@@ -43,11 +43,15 @@
         <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="" class="d-block w-100" alt="..." />
+        <img src="/img/main-page/welcome-2.png" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="" class="d-block w-100" alt="..." />
+        <img src="/img/main-page/welcome-3.png" class="d-block w-100" alt="..." />
       </div>
+      <div class="carousel-item">
+        <img src="/img/main-page/welcome-4.webp" class="d-block w-100" alt="..." />
+      </div>
+      <!-- here should be another image -->
     </div>
     <button
       class="carousel-control-prev"
@@ -86,25 +90,34 @@
       margin-right: 8px;
     }
   }
-  .first-carousel-image-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    position: absolute;
-    color: #fff;
-    width: 39.58vw;
-    padding: 32px 30px;
-    h2 {
-      font-size: 36px;
-      font-weight: 400;
+  .carousel-item {
+    img {
+      border-radius: 20px;
+      height: 450px;
+    }
+
+    .first-carousel-image-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      position: absolute;
+      color: #fff;
+      width: 39.58vw;
+      padding: 32px 30px;
+      h2 {
+        font-size: 36px;
+        font-weight: 400;
+      }
     }
   }
 }
 
 @media only screen and (max-width: 1800px) {
   .carousel {
-    .first-carousel-image-text {
-      width: 49vw;
+    .carousel-item {
+      .first-carousel-image-text {
+        width: 49vw;
+      }
     }
   }
 }

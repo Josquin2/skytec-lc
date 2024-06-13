@@ -19,13 +19,14 @@ let ApiClass = new Api()
 
 async function onSendButtonClick() {
   const token = localStorage.getItem('user') || ''
-
-  try {
-    await ApiClass.post('aaaaaaaaaaaaaaa', {})
-    toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
-  } catch (error) {
-    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
-    console.error(error)
+  if (token) {
+    try {
+      await ApiClass.post('something', {})
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+    } catch (error) {
+      toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+      console.error(error)
+    }
   }
 }
 </script>

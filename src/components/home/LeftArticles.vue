@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import router from '@/router'
 import { onMounted, ref, type Ref } from 'vue'
+import { onOneBlogClick } from '@/components/routing-functions'
 
 import { type Blog } from '@/types/Blog'
 
@@ -30,13 +31,13 @@ onMounted(async () => {
   <div class="my-articles">
     <div class="my-articles-header">Мои статьи</div>
     <div class="common-articles">
-      <div class="one-article" v-for="article in myBlogs">
-        <img src="" alt="" class="article-author-image" />
-        <div class="article-info">
+      <div class="one-article" v-for="(article, index) in myBlogs.slice(0, 2)" :key="index">
+        <img :src="article.user.avatar" alt="" class="article-author-image" />
+        <div class="article-info" @click="onOneBlogClick(article.id)">
           <h2 class="article-name">
             {{ article.title.length > 37 ? article.title.slice(0, 37) + '...' : article.title }}
           </h2>
-          <p class="article-author">{{ article.user_id }}</p>
+          <p class="article-author">{{ article.user.lastname + ' ' + article.user.firstname }}</p>
         </div>
       </div>
     </div>

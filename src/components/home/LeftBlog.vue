@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import router from '@/router'
+import { onOneBlogClick } from '@/components/routing-functions'
 
 import { onMounted, ref, type Ref } from 'vue'
 
@@ -13,11 +14,6 @@ const route = useRoute()
 function onAllBlogsClick() {
   const login = route.params.login
   router.push({ name: 'all-blogs', params: { login: login } })
-}
-
-function onOneBlogClick(blog: number) {
-  const login = route.params.login
-  router.push({ name: 'one-blog', params: { login: login, blog: blog } })
 }
 
 // API integration
@@ -37,13 +33,13 @@ onMounted(async () => {
   <div class="our-blog">
     <div class="our-blog-header" @click="onAllBlogsClick()">Наш Блог</div>
     <div class="blog-common">
-      <div class="one-blog" v-for="blog in blogs">
-        <img src="" alt="" class="blog-author-image" />
+      <div class="one-blog" v-for="(blog, index) in blogs.slice(0, 5)" :key="index">
+        <img :src="blog.user.avatar" alt="" class="blog-author-image" />
         <div class="blog-info" @click="onOneBlogClick(blog.id)">
           <h2 class="blog-name">
             {{ blog.title.length > 37 ? blog.title.slice(0, 37) + '...' : blog.title }}
           </h2>
-          <p class="blog-author">{{ blog.user_id }}</p>
+          <p class="blog-author">{{ blog.user.lastname + ' ' + blog.user.firstname }}</p>
         </div>
       </div>
     </div>

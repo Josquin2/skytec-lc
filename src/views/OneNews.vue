@@ -5,7 +5,7 @@ import type { News } from '@/types/news/News'
 import type { Comment } from '@/types/Comment'
 import type { User as UserInterface } from '@/types/User'
 
-import { watch, ref, onMounted } from 'vue'
+import { computed, watch, ref, onMounted } from 'vue'
 import { Api } from '@/api/api'
 import { User } from '@/api/user'
 
@@ -79,6 +79,23 @@ watch(
     }
   }
 )
+
+let commentCountText = computed(() => {
+  if (data.value) {
+    const count = data.value.comments.length
+    let text = ''
+
+    if (count % 10 === 1 && count % 100 !== 11) {
+      text = `${count} Комментарий`
+    } else if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
+      text = `${count} Комментария`
+    } else {
+      text = `${count} Комментариев`
+    }
+
+    return text
+  }
+})
 </script>
 
 <template>
@@ -109,7 +126,7 @@ watch(
     <hr />
     <div class="comments">
       <div class="count">
-        <h2>{{ data?.comments.length }} Комментария</h2>
+        <h2>{{ commentCountText }}</h2>
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />

@@ -38,6 +38,9 @@
           }
         }
         .who {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
           .happy-bd-to {
             margin-top: 32px;
             display: flex;
@@ -84,9 +87,10 @@
       height: 2px;
       opacity: 100%;
       margin-top: 32px;
-      margin-bottom: 24px;
+      margin-bottom: 0;
     }
     .next-week {
+      margin-top: 24px;
       .other-hbd {
         font-size: 20px;
         color: #4766af;
