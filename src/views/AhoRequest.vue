@@ -1,4 +1,32 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Api } from '@/api/api'
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+const location = ref('')
+const request = ref('')
+
+// API
+
+let ApiClass = new Api()
+const token = localStorage.getItem('token')
+
+async function onSendRequestClick() {
+  try {
+    if (token) {
+      await ApiClass.post(`requests/axo`, {
+        location: location.value,
+        request: request.value
+      })
+      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+    }
+  } catch (error) {
+    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
+}
+</script>
 
 <template>
   <div class="create-new-employee-block">
@@ -7,12 +35,12 @@
       <h2>Укажите кому необходима помощь</h2>
     </div>
     <div class="create-body">
-      <input type="text" name="" id="" placeholder="Расположение:" />
+      <input type="text" v-model="location" placeholder="Расположение:" />
 
-      <textarea name="" id="" placeholder="Ваш запрос:"></textarea>
+      <textarea v-model="request" placeholder="Ваш запрос:"></textarea>
     </div>
     <div class="create-button">
-      <button>Отправить</button>
+      <button @click="onSendRequestClick">Отправить</button>
     </div>
   </div>
 </template>
