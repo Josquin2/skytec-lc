@@ -8,11 +8,9 @@ export interface News {
   content: string
   created_at: string
   news_category_id: number
-  slug: string,
+  slug: string
   title: string
   user: User
   user_id: number
   comments: Comment[]
 }
-
-

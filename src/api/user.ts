@@ -10,7 +10,7 @@ export class User extends Api {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       }
-    });
+    })
   }
 
   async checkAuth() {
@@ -20,7 +20,7 @@ export class User extends Api {
       try {
         return await this.getUserData(token)
       } catch (error) {
-        return false;
+        return false
       }
     } else {
       return false
