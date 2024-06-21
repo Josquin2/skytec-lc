@@ -1,3 +1,25 @@
+<script setup lang="ts">
+import { onMounted, type Ref, ref } from 'vue'
+import { Api } from '@/api/api'
+import router from '@/router'
+import type { Blog } from '@/types/Blog'
+
+let ApiClass = new Api()
+
+const categories: Ref<Blog[]> = ref([])
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects('articles/categories')
+  categories.value = response
+  console.log('here is blogs')
+  console.log(categories.value)
+})
+
+function onCategoryClick(id: number) {
+  router.push({ name: 'category-blogs', params: { id: id } })
+}
+</script>
+
 <template>
   <div class="blog-block">
     <div class="left-side">
@@ -8,10 +30,14 @@
       <div class="categories">
         <h1>Категории</h1>
         <div>
-          <p>Маркетинг</p>
-          <p>Реклама</p>
-          <p>Креатив</p>
-          <p class="last">Продвижение</p>
+          <p
+            v-for="(category, index) in categories"
+            :key="index"
+            :class="{ last: index === categories.length - 1 }"
+            @click="onCategoryClick(category.id)"
+          >
+            {{ category.title }}
+          </p>
         </div>
       </div>
     </div>

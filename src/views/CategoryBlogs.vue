@@ -1,19 +1,37 @@
 <script setup lang="ts">
 import OneLittleBlog from '@/components/blogs/OneLittleBlog.vue'
-import { computed, ref, onMounted, type Ref } from 'vue'
-
+import { computed, ref, watch, onMounted, type Ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { type Blog } from '@/types/Blog'
 import { Api } from '@/api/api'
 
 let ApiClass = new Api()
 let allBlogs: Ref<Blog[]> = ref([])
 
+const route = useRoute()
+
 onMounted(async () => {
-  const response = await ApiClass.getObjects('articles')
-  allBlogs.value = response
+  renderBlogs()
+})
+
+async function renderBlogs() {
+  const categoryId = route.params.id
+  allBlogs.value = []
+  cuttedBlogs.value = []
+  const response = await ApiClass.getObjects(`articles/categories/${categoryId}`)
+  allBlogs.value = response.articles
   console.log(allBlogs.value)
   cutForPages(allBlogs.value)
-})
+}
+
+watch(
+  () => route.params.id,
+  async (newId, oldId) => {
+    if (newId !== oldId) {
+      await renderBlogs()
+    }
+  }
+)
 
 const allPages = ref('')
 const cuttedBlogs: Ref<Blog[][]> = ref([])

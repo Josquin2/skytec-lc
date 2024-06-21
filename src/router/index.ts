@@ -73,7 +73,12 @@ const router = createRouter({
           component: () => import('@/views/AllBlogs.vue')
         },
         {
-          path: '/user/blogs/:blog',
+          path: '/user/blogs/:id',
+          name: 'category-blogs',
+          component: () => import('@/views/CategoryBlogs.vue')
+        },
+        {
+          path: '/user/blogs/one-blog/:blog',
           name: 'one-blog',
           component: () => import('@/views/OneBlog.vue')
         }
