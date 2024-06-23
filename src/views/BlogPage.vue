@@ -11,8 +11,7 @@ const categories: Ref<Blog[]> = ref([])
 onMounted(async () => {
   const response = await ApiClass.getObjects('articles/categories')
   categories.value = response
-  console.log('here is blogs')
-  console.log(categories.value)
+  // console.log(categories.value)
 })
 
 function onCategoryClick(id: number) {

@@ -16,11 +16,11 @@ onMounted(async () => {
 
 async function renderBlogs() {
   const categoryId = route.params.id
+  const response = await ApiClass.getObjects(`articles/categories/${categoryId}`)
   allBlogs.value = []
   cuttedBlogs.value = []
-  const response = await ApiClass.getObjects(`articles/categories/${categoryId}`)
   allBlogs.value = response.articles
-  console.log(allBlogs.value)
+  //   console.log(allBlogs.value)
   cutForPages(allBlogs.value)
 }
 
@@ -41,7 +41,7 @@ function cutForPages(allBlogs: Array<Blog>) {
   let n = 10
   for (let i = 0; i < allBlogs.length; i += n) {
     cuttedBlogs.value.push(allBlogs.slice(i, i + n))
-    console.log(cuttedBlogs.value)
+    // console.log(cuttedBlogs.value)
   }
 }
 
