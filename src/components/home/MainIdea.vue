@@ -44,12 +44,10 @@ const token = localStorage.getItem('token')
 async function onSendIdeaClick() {
   try {
     if (token) {
-      if (anon.value == true) {
-        name.value = 'Анонимно'
-      }
-      await ApiClass.post('idea', {
+      await ApiClass.post('business-idea', {
         name: name.value,
-        idea: idea.value
+        idea: idea.value,
+        anonimous: anon.value
       })
       toast('Ваша идея отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
     }
