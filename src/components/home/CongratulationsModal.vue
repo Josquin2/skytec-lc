@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import type { User } from '@/types/User'
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 
 import { Api } from '@/api/api'
+
+const props = defineProps({
+  toWho: String,
+  id: Number
+})
 
 function onCongratulationsModalClick() {
   document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
@@ -23,6 +28,8 @@ function onCheckboxAnonClick() {
     }
   }
 }
+
+const allSurprises = ['cake', 'cap', 'badge', 'nothing']
 
 const previousGift = ref(4)
 
@@ -43,14 +50,6 @@ function onGiftClick(value: number) {
 
 let user = ref<User | null>(null)
 
-const userLocal = localStorage.getItem('user')
-if (userLocal !== null) {
-  user.value = JSON.parse(userLocal) as User
-} else {
-  console.log('Пользователь не найден в localStorage')
-}
-
-const fromWho = ref(user.value?.name)
 const toWho = ref('')
 const wish = ref('')
 const anon = ref(false)
@@ -62,22 +61,19 @@ const token = localStorage.getItem('token')
 let ApiClass = new Api()
 
 async function sendPresent() {
-  if (anon.value == true) {
-    fromWho.value = 'anon'
-  }
   try {
     if (token) {
-      await ApiClass.post(`something`, {
-        from: fromWho.value,
-        to: toWho.value,
-        wish: wish.value,
-        present: previousGift.value
+      await ApiClass.post(`birthdays/send`, {
+        user_id: props.id,
+        message: wish.value,
+        anonymous: anon.value,
+        surprise: allSurprises[previousGift.value - 1]
       })
-      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      toast('Поздравление отправлено!', { position: toast.POSITION.BOTTOM_RIGHT })
       onCongratulationsModalClick()
     }
   } catch (error) {
-    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    toast('Ошибка при отправке поздравления!', { position: toast.POSITION.BOTTOM_RIGHT })
     console.error(error)
   }
 }
@@ -97,7 +93,7 @@ async function sendPresent() {
             </div>
             <div>
               <span>Кому:</span>
-              <input type="text" class="to" v-model="toWho" />
+              <input type="text" class="to" :value="props.toWho" />
             </div>
             <div>
               <textarea placeholder="Желаю..." v-model="wish"></textarea>

@@ -1,63 +1,69 @@
 <script setup lang="ts">
+import CongratulationsModal from '@/components/home/CongratulationsModal.vue'
 import { onMounted, type Ref, ref } from 'vue'
 import { Api } from '@/api/api'
-const birthDays = [
-  {
-    day: '01.11.',
-    name: 'Корнеева Наталья',
-    job: 'Директор по персоналу'
-  },
-  {
-    day: '02.11.',
-    name: 'Смирнов Анатолий',
-    job: 'Генеральный директор'
-  },
-  {
-    day: '03.11.',
-    name: 'Корнеева Наталья',
-    job: 'Директор по персоналу'
-  }
-]
+import type { User } from '@/types/User'
 
 const date = new Date()
 const todaysDate = date.getDate().toString().padStart(2, '0')
 const todaysMonth = (date.getMonth() + 1).toString().padStart(2, '0')
 const todaysYear = date.getFullYear()
 
-function onCongratulationsModalClick() {
-  document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
+function onCongratulationsModalClick(name: string, id: number) {
+  if (name && id) {
+    selectedName.value = name
+    selectedPersonsId.value = id
+    document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
+  }
 }
+
+const selectedName = ref('')
+const selectedPersonsId = ref()
 
 // API
 
 let ApiClass = new Api()
 
-const allBirthDays = ref('')
+const allBirthDays: Ref<User[]> = ref([])
+const todaysBirthDays: Ref<User[]> = ref([])
 
 onMounted(async () => {
+  getAllBirthdays()
+  getTodaysBirthdays()
+})
+
+async function getAllBirthdays() {
   const response = await ApiClass.getObjects('birthdays')
   allBirthDays.value = response
+  console.log('allBirthDays')
   console.log(allBirthDays.value)
-})
+}
+
+async function getTodaysBirthdays() {
+  const response = await ApiClass.getObjects('birthdays/today')
+  todaysBirthDays.value = response
+}
 </script>
 
 <template>
   <div class="right-block">
-    <div class="today">
+    <div class="today" v-if="todaysBirthDays.length > 0">
       <div class="congrats">
         <h3>Поздравляем! 🥳</h3>
         <div class="todays-date">
           <h4>Наши именинники сегодня</h4>
           <p>{{ todaysDate }}.{{ todaysMonth }}.{{ todaysYear }}</p>
         </div>
-        <!-- here should be v-for -->
-        <div class="who">
+        <div class="who" v-for="one in todaysBirthDays">
           <div class="happy-bd-to">
-            <img src="" alt="" class="image-of-hbd" />
-            <h2 class="name-of-hbd">Иванов Иван</h2>
-            <p class="job-title-of-hbd">Менеджер по креативу</p>
+            <img :src="one.avatar" alt="" class="image-of-hbd" />
+            <h2 class="name-of-hbd">{{ one.surname }} {{ one.firstname }}</h2>
+            <p class="job-title-of-hbd">{{ one.position }}</p>
           </div>
-          <button class="congratulations-button" @click="onCongratulationsModalClick()">
+          <button
+            class="congratulations-button"
+            @click="onCongratulationsModalClick(one.name, one.id)"
+          >
             <img src="/icons/gift.svg" alt="" /> Поздравить!
           </button>
         </div>
@@ -65,14 +71,14 @@ onMounted(async () => {
       <hr class="border" />
     </div>
 
-    <!-- here should be v-if="someonesBirthday < today + 7days" -->
-    <div class="next-week">
+    <div class="next-week" v-if="allBirthDays.length > 0">
       <h2 class="other-hbd">Наши именинники на следующей неделе</h2>
-      <div class="other-hbd-common" v-for="day in birthDays">
-        <p class="date">{{ day.day }}</p>
-        <h3 class="name-of-other-hbd">{{ day.name }}</h3>
-        <h4 class="job-title-of-other-hbd">{{ day.job }}</h4>
+      <div class="other-hbd-common" v-for="day in allBirthDays">
+        <p class="date">{{ day.birthdate.split('-')[2] + '.' + day.birthdate.split('-')[1] }}</p>
+        <h3 class="name-of-other-hbd">{{ day.surname }} {{ day.firstname }}</h3>
+        <h4 class="job-title-of-other-hbd">{{ day.position }}</h4>
       </div>
     </div>
   </div>
+  <CongratulationsModal :toWho="selectedName" :id="selectedPersonsId" />
 </template>

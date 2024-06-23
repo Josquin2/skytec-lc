@@ -83,7 +83,5 @@ function onNewsClick(slug: string) {
     <RightBlock />
 
     <!-- modals goes here! -->
-
-    <CongratulationsModal />
   </div>
 </template>

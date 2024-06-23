@@ -8,4 +8,6 @@ export interface User {
   lastname: string
   surname: string
   hide_phone: boolean
+  position: string
+  birthdate: string
 }
