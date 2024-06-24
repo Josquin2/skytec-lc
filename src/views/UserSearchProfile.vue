@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import LeftMain from '@/components/home/LeftMain.vue'
+import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { Api } from '@/api/api'
+
+const route = useRoute()
+let ApiClass = new Api()
+
+const user = ref('')
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects(`user/search?id=${route.params.user}`)
+  user.value = response
+  console.log(user.value)
+})
 </script>
 
 <template>

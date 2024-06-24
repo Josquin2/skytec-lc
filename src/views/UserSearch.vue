@@ -1,17 +1,41 @@
 <script setup lang="ts">
+import { type Ref, ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
 import LeftMain from '@/components/home/LeftMain.vue'
+import { Api } from '@/api/api'
+import type { User } from '@/types/User'
 
+const ApiClass = new Api()
 const route = useRoute()
 
-function onUserClick() {
+function onUserClick(id: number) {
   const login = route.params.login
   router.push({
     name: 'user-search-profile',
-    params: { login: login, user: 'user-should-be-here' }
+    params: { login: login, user: id }
   })
 }
+
+// API
+
+const users: Ref<User[]> = ref([])
+let nameOfUser = ref(route.params.search)
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects(`user/search?fullname=${route.params.search}`)
+  users.value = response
+  console.log(users.value)
+})
+
+watch(
+  () => route.params.search,
+  async (newName) => {
+    const response = await ApiClass.getObjects(`user/search?fullname=${newName}`)
+    users.value = []
+    users.value = response
+  }
+)
 </script>
 
 <template>
@@ -21,17 +45,23 @@ function onUserClick() {
     </div>
 
     <div class="user-search-center">
-      <div class="one-response" @click="onUserClick()">
-        <img src="" alt="" />
+      <div
+        class="one-response"
+        @click="onUserClick(user.id)"
+        v-for="user in users"
+        v-if="users.length > 0"
+      >
+        <img :src="user.avatar" alt="" />
         <div class="user-info">
-          <h2>Иванов Александр</h2>
+          <h2>{{ user.firstname + ' ' + user.surname }}</h2>
           <div class="job-info">
-            <p>Отдел досуга</p>
+            <p>Тут отдел должен быть</p>
             <hr class="job-divider" />
-            <p>Менеджер по креативу</p>
+            <p>{{ user.position }}</p>
           </div>
         </div>
       </div>
+      <div class="no-one-found" v-else>По вашему запросу ничего не найдено!</div>
     </div>
   </div>
 </template>
@@ -43,6 +73,8 @@ function onUserClick() {
   .one-response {
     display: flex;
     align-items: center;
+    margin-bottom: 24px;
+    padding: 8px 0;
     img {
       width: 56px;
       height: 56px;
