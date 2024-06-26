@@ -48,7 +48,7 @@ function onGiftClick(value: number) {
   previousGift.value = value
 }
 
-let user = ref<User | null>(null)
+let user = JSON.parse(localStorage.getItem('user') || '')
 
 const toWho = ref('')
 const wish = ref('')
@@ -89,11 +89,11 @@ async function sendPresent() {
           <div class="text">
             <div>
               <span>От кого:</span>
-              <input type="text" name="" id="" v-if="user" :value="user.name" />
+              <input type="text" name="" id="" :value="user.name" readonly />
             </div>
             <div>
               <span>Кому:</span>
-              <input type="text" class="to" :value="props.toWho" />
+              <input type="text" class="to" :value="props.toWho" readonly />
             </div>
             <div>
               <textarea placeholder="Желаю..." v-model="wish"></textarea>

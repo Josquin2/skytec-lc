@@ -41,8 +41,11 @@ function checkAllCheckBoxes() {
   }
 }
 
-// data for send
+// All variables
 
+const manager = ref('Менеджер')
+const department = ref('Какой-то отдел')
+const position = ref('')
 const hidePhone = ref(false)
 const userPhone = ref('')
 const firstName = ref('')
@@ -50,7 +53,7 @@ const surname = ref('')
 const lastName = ref('')
 const email = ref('')
 
-// API
+// API | Get info
 
 let ApiClass = new Api()
 
@@ -64,6 +67,7 @@ onMounted(async () => {
   surname.value = user.value?.surname || ''
   lastName.value = user.value?.lastname || ''
   email.value = user.value?.email || ''
+  position.value = user.value?.position || ''
 
   console.log(user.value)
 
@@ -79,8 +83,6 @@ const token = localStorage.getItem('token')
 const currentUserId = JSON.parse(localStorage.getItem('user') || '')
 
 async function onSaveChangesButtonClick() {
-  // here is put function to current user
-
   try {
     if (token) {
       await ApiClass.put(`user?id=${currentUserId.id}`, {
@@ -90,12 +92,13 @@ async function onSaveChangesButtonClick() {
         name: lastName.value + ' ' + firstName.value + ' ' + surname.value,
         phone: userPhone.value,
         email: email.value,
-        hide_phone: hidePhone.value
+        hide_phone: hidePhone.value,
+        position: position.value
       })
-      toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      toast('Изменения сохранены!', { position: toast.POSITION.BOTTOM_RIGHT })
     }
   } catch (error) {
-    toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
+    toast('Ошибка при отправке запроса!', { position: toast.POSITION.BOTTOM_RIGHT })
     console.error(error)
   }
 }
@@ -122,11 +125,11 @@ async function onSaveChangesButtonClick() {
         <img src="/img/cabinet/icons/lock-gray.svg" alt="" />
       </div>
 
+      <input type="text" v-model="surname" readonly />
+
       <input type="text" v-model="firstName" readonly />
 
       <input type="text" v-model="lastName" readonly />
-
-      <input type="text" v-model="surname" readonly />
     </div>
     <div class="contacts">
       <div class="contact-common phone">
@@ -151,15 +154,15 @@ async function onSaveChangesButtonClick() {
     <div class="job-info">
       <div class="info">
         <h2>Отдел:</h2>
-        <input type="text" value="Отдел досуга" />
+        <input type="text" v-model="department" />
       </div>
       <div class="info">
         <h2>Должность:</h2>
-        <input type="text" value="Менеджер по креативу" />
+        <input type="text" v-model="position" />
       </div>
       <div class="info">
         <h2>Непосредственный руководитель:</h2>
-        <input type="text" value="Корнеева Наталья" />
+        <input type="text" v-model="manager" />
       </div>
       <div class="check">
         <div class="checkbox-button" @click="onSecondCheckClick()">

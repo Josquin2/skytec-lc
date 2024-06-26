@@ -20,7 +20,6 @@ async function renderBlogs() {
   allBlogs.value = []
   cuttedBlogs.value = []
   allBlogs.value = response.articles
-  //   console.log(allBlogs.value)
   cutForPages(allBlogs.value)
 }
 
@@ -33,7 +32,6 @@ watch(
   }
 )
 
-const allPages = ref('')
 const cuttedBlogs: Ref<Blog[][]> = ref([])
 const currentPage = ref(0)
 
@@ -41,7 +39,6 @@ function cutForPages(allBlogs: Array<Blog>) {
   let n = 10
   for (let i = 0; i < allBlogs.length; i += n) {
     cuttedBlogs.value.push(allBlogs.slice(i, i + n))
-    // console.log(cuttedBlogs.value)
   }
 }
 

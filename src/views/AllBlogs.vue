@@ -11,7 +11,6 @@ let allBlogs: Ref<Blog[]> = ref([])
 onMounted(async () => {
   const response = await ApiClass.getObjects('articles')
   allBlogs.value = response
-  console.log(allBlogs.value)
   cutForPages(allBlogs.value)
 })
 
@@ -23,7 +22,6 @@ function cutForPages(allBlogs: Array<Blog>) {
   let n = 10
   for (let i = 0; i < allBlogs.length; i += n) {
     cuttedBlogs.value.push(allBlogs.slice(i, i + n))
-    console.log(cuttedBlogs.value)
   }
 }
 

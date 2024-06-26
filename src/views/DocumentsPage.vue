@@ -1,3 +1,33 @@
+<script setup lang="ts">
+// function onDocumentClick() {
+//   document.getElementById('full-huge-document')?.classList.toggle('closed')
+// }
+import { onMounted, onUnmounted } from 'vue'
+
+function onDocumentClick(event: any) {
+  event.stopPropagation()
+  document.getElementById('full-huge-document')?.classList.toggle('closed')
+}
+
+onMounted(() => {
+  document.addEventListener('click', () => {
+    const fullHugeDocument = document.getElementById('full-huge-document')
+    if (fullHugeDocument && !fullHugeDocument.classList.contains('closed')) {
+      fullHugeDocument.classList.add('closed')
+    }
+  })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', () => {
+    const fullHugeDocument = document.getElementById('full-huge-document')
+    if (fullHugeDocument && !fullHugeDocument.classList.contains('closed')) {
+      fullHugeDocument.classList.add('closed')
+    }
+  })
+})
+</script>
+
 <template>
   <div class="documents-block">
     <div class="documents-header">
@@ -5,7 +35,7 @@
       <h1>Нормативные документы</h1>
     </div>
     <div class="documents-common">
-      <div class="huge-document">
+      <div class="huge-document" @click="onDocumentClick">
         <img src="/img/documents/first-document.png" alt="" />
         <span class="open-full"></span>
       </div>
@@ -42,6 +72,9 @@
         </div>
       </div>
     </div>
+    <div class="full-huge-document noselect closed" id="full-huge-document">
+      <img src="/img/documents/first-document-full.png" alt="" />
+    </div>
   </div>
 </template>
 
@@ -50,6 +83,7 @@
   padding: 137px 15.63vw;
   display: flex;
   flex-direction: column;
+  min-height: 85vh;
 
   .documents-header {
     display: flex;
@@ -130,6 +164,34 @@
     }
     p {
       color: #4766af;
+    }
+  }
+  .full-huge-document {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    transition:
+      opacity 0.15s ease-in-out,
+      visibility 0.15s ease-in-out;
+    opacity: 0;
+    visibility: hidden;
+    &.closed {
+      opacity: 0;
+      visibility: hidden;
+    }
+    &:not(.closed) {
+      opacity: 1;
+      visibility: visible;
+    }
+    img {
+      position: absolute;
+      top: 2.5%;
+      left: 34%;
+      height: 95vh;
     }
   }
 }
