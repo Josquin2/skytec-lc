@@ -14,3 +14,9 @@ export interface News {
   user_id: number
   comments: Comment[]
 }
+
+export interface Emoji {
+  id: number
+  slug: string
+  image: string
+}

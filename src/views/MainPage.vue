@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import CongratulationsModal from '@/components/home/CongratulationsModal.vue'
 import LeftMain from '@/components/home/LeftMain.vue'
 import LeftBlog from '@/components/home/LeftBlog.vue'
 import LeftArticles from '@/components/home/LeftArticles.vue'
 import RightBlock from '@/components/home/RightBlock.vue'
 import MainIdea from '@/components/home/MainIdea.vue'
 import MainCarousel from '@/components/home/MainCarousel.vue'
+import EmojiBlock from '@/components/home/EmojiBlock.vue'
 
 import { useRoute } from 'vue-router'
 import router from '@/router'
@@ -17,9 +17,13 @@ import { Api } from '@/api/api'
 let ApiClass = new Api()
 
 const data: Ref<News[]> = ref([])
+const emoji = ref([])
 
 onMounted(async () => {
   data.value = await ApiClass.getObjects('news')
+  console.log(data.value)
+  emoji.value = await ApiClass.getObjects('emojis')
+  console.log(emoji.value)
 })
 
 const route = useRoute()
@@ -64,9 +68,8 @@ function onNewsClick(slug: string) {
           </div>
 
           <div class="likes">
-            <button class="like-button">
-              <img src="/icons/like-button.svg" alt="" />
-            </button>
+            <EmojiBlock :emoji="emoji" :id="index" />
+
             <hr class="horisontal-line" />
 
             <button class="see-more">
