@@ -14,8 +14,13 @@ onMounted(async () => {
   // console.log(categories.value)
 })
 
-function onCategoryClick(id: number) {
+const prevCategory = ref()
+
+function onCategoryClick(id: number, index: number) {
   router.push({ name: 'category-blogs', params: { id: id } })
+  document.getElementById(`category-${prevCategory.value}`)?.classList.remove('blue')
+  document.getElementById(`category-${index}`)?.classList.add('blue')
+  prevCategory.value = index
 }
 </script>
 
@@ -24,7 +29,7 @@ function onCategoryClick(id: number) {
     <div class="left-side">
       <div class="search">
         <input type="text" placeholder="Поиск..." />
-        <img src="" alt="" />
+        <img src="/icons/search.svg" alt="" />
       </div>
       <div class="categories">
         <h1>Категории</h1>
@@ -33,7 +38,8 @@ function onCategoryClick(id: number) {
             v-for="(category, index) in categories"
             :key="index"
             :class="{ last: index === categories.length - 1 }"
-            @click="onCategoryClick(category.id)"
+            :id="'category-' + index"
+            @click="onCategoryClick(category.id, index)"
           >
             {{ category.title }}
           </p>
@@ -62,6 +68,11 @@ function onCategoryClick(id: number) {
         border-radius: 10px;
         background-color: #fff;
         padding-left: 16px;
+      }
+      img {
+        position: absolute;
+        margin-left: -2vw;
+        margin-top: 11px;
       }
     }
 
@@ -93,6 +104,9 @@ function onCategoryClick(id: number) {
           border: none;
           margin: 0;
         }
+        .blue {
+          color: #4766af;
+        }
       }
     }
   }
@@ -101,6 +115,14 @@ function onCategoryClick(id: number) {
 @media only screen and (max-width: 1800px) {
   .blog-block {
     padding: 123px 12.46vw 72px 5.63vw;
+
+    .left-side {
+      .search {
+        img {
+          margin-left: -2.5vw;
+        }
+      }
+    }
   }
 }
 </style>
