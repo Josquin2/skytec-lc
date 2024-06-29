@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import LoadPhotoModal from '@/components/cabinet/LoadPhotoModal.vue'
+import SettingsPencil from '@/components/cabinet/icons/SettingsPencil.vue'
 import { onMounted, ref, type Ref } from 'vue'
 
 import { toast } from 'vue3-toastify'
@@ -132,11 +133,13 @@ async function onSaveChangesButtonClick() {
       <input type="text" v-model="lastName" readonly />
     </div>
     <div class="contacts">
-      <div class="contact-common phone">
+      <div class="contact-common">
         <h2>Телефон:</h2>
-        <input type="text" v-model="userPhone" />
+        <div class="phone">
+          <input type="text" v-model="userPhone" />
 
-        <img src="" alt="" />
+          <img src="/img/cabinet/icons/pen-blue.svg" alt="" />
+        </div>
       </div>
 
       <div class="check" @click="onFirstCheckClick()">

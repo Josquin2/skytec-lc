@@ -26,7 +26,7 @@ function onInviteFriendModalClick() {
       </div>
     </div>
     <div class="right-side">
-      <img src="/public/img/vacancies/photo.png" alt="" />
+      <img src="/img/vacancies/photo.png" alt="" />
       <h3 @click="onInviteFriendModalClick()">Приведи друга в SkyAlliance и получи бонусы</h3>
     </div>
 

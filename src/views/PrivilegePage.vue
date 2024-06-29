@@ -11,7 +11,7 @@ function onConnectButtonClick(id: string) {
         <div class="privilege-name">
           <h2>01/</h2>
           <h3>Привилегия</h3>
-          <img src="/public/img/prime-zone-logo.png" alt="" />
+          <img src="/img/prime-zone-logo.png" alt="" />
         </div>
         <div class="instruction instruction-hidden" id="instruction-prime-zone">
           <p>

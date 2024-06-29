@@ -77,6 +77,7 @@ const props = defineProps({
           border: none;
           border-radius: 7px;
           margin-right: 8px;
+          color: #4766af;
         }
         a {
           width: 20.05vw;
@@ -115,8 +116,8 @@ const props = defineProps({
 
       .close-button {
         cursor: pointer;
-        width: 107px;
-        height: 107px;
+        width: 5.57vw;
+        height: 5.57vw;
         background-color: #4766af;
         margin-right: 16px;
         margin-top: 0px;
@@ -155,13 +156,17 @@ const props = defineProps({
   }
 }
 
-@media only screen and (max-width: 1800px) {
+@media only screen and (max-width: 1700px) {
   .download-block {
     .background {
+      .w-white {
+        margin-top: 100.5px;
+        height: 147.75px;
+      }
       .full-bg {
-        .close-button {
-          margin-right: 0;
-          margin-top: 12px;
+        .bg-button {
+          height: 145.25px;
+          border-radius: 40px;
         }
       }
     }

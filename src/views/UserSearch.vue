@@ -120,5 +120,10 @@ watch(
       }
     }
   }
+  .no-one-found {
+    margin-top: 16px;
+    font-size: 20px;
+    color: #474747;
+  }
 }
 </style>

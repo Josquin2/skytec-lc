@@ -24,7 +24,6 @@ watch(
   }
 )
 
-// this is a bad thing, I know -_-
 document.addEventListener('DOMContentLoaded', (event) => {
   watch(
     () => route.name,
