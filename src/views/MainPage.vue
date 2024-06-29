@@ -56,7 +56,7 @@ function onNewsClick(slug: string) {
               <h4 class="hashtag">#{{ news.category.title }}</h4>
               <p class="time">{{ news.created_at }}</p>
             </div>
-            <div class="views"><img src="/icons/eye.svg" alt="" /> {{}}</div>
+            <div class="views"><img src="/icons/eye.svg" alt="" /> {{ news.views_count }}</div>
           </div>
           <div class="news-body" @click="onNewsClick(news.slug)">
             <div class="news-title">

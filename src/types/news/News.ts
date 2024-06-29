@@ -13,6 +13,7 @@ export interface News {
   user: User
   user_id: number
   comments: Comment[]
+  views_count: number
 }
 
 export interface Emoji {

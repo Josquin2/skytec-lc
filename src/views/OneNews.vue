@@ -1,36 +1,23 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, onBeforeRouteLeave } from 'vue-router'
 import type { Ref } from 'vue'
 import type { News } from '@/types/news/News'
-import type { Comment } from '@/types/Comment'
 import type { User as UserInterface } from '@/types/User'
 
 import { computed, watch, ref, onMounted } from 'vue'
 import { Api } from '@/api/api'
-import { User } from '@/api/user'
+
+import EmojiBlock from '@/components/home/EmojiBlock.vue'
 
 let ApiClass = new Api()
-let UserClass = new User()
-
-// // Поиск новости по названию (title)
-// onMounted(async () => {
-//   data.value = await ApiClass.getObjects(`news?title=${route.params.title}`)
-//   console.log(data.value)
-// })
 
 const route = useRoute()
-
-// title новости, по которому поиск конкретной новости, взял из url
-const title = route.params.title
-
-// Комментарий
 
 const currentComment = ref('')
 
 const sendButton = ref(false)
 
 let data: Ref<News | null> = ref(null)
-let comments: Ref<Comment[]> = ref([])
 let userData: Ref<UserInterface | null> = ref(null)
 
 async function loadComments() {
@@ -49,6 +36,8 @@ onMounted(async function () {
   const userDataResponse = await ApiClass.getObjects('user')
   userData.value = userDataResponse
   console.log(userData)
+
+  ViewsTimeout()
 })
 
 async function sendComment() {
@@ -96,6 +85,33 @@ let commentCountText = computed(() => {
     return text
   }
 })
+
+// ... остальной код ...
+
+let viewTimeout: number | null = null
+
+async function ViewsTimeout() {
+  viewTimeout = setTimeout(async () => {
+    if (data.value) {
+      try {
+        await ApiClass.put(`news/${data.value.id}`, {
+          views_count: data.value.views_count + 1
+        })
+        // Обновляем просмотры
+        data.value.views_count += 1
+      } catch (error) {
+        console.error('Ошибка при увеличении просмотров:', error)
+      }
+    }
+  }, 5000)
+}
+
+onBeforeRouteLeave(() => {
+  // Отменяем таймер при уходе с страницы
+  if (viewTimeout !== null) {
+    clearTimeout(viewTimeout)
+  }
+})
 </script>
 
 <template>
@@ -105,7 +121,7 @@ let commentCountText = computed(() => {
         <h4 class="hashtag">#{{ data?.category?.title }}</h4>
         <p class="time">{{ data?.created_at }}</p>
       </div>
-      <div class="views"><img src="/icons/eye.svg" alt="" />200</div>
+      <div class="views"><img src="/icons/eye.svg" alt="" />{{ data?.views_count }}</div>
     </div>
     <div class="news-body">
       <h1 class="news-title">{{ data?.title }}</h1>
@@ -114,9 +130,7 @@ let commentCountText = computed(() => {
       </p>
     </div>
     <div class="likes">
-      <button class="like-button">
-        <img src="/icons/like-button.svg" alt="" />
-      </button>
+      <EmojiBlock />
       <hr class="horisontal-line" />
 
       <button class="see-more">
