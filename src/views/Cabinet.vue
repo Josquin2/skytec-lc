@@ -35,6 +35,8 @@ let allReqests: Ref<Request[]> = ref([])
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
   user.value = response.data.user
+  phoneNumber.value = user.value?.phone || ''
+  onPhoneToggleClick()
   // console.log(response)
   // console.log(user.value)
 
@@ -61,6 +63,18 @@ function onEducationModalClick() {
 function onJobModalClick() {
   document.getElementById('job-modal')?.classList.toggle('modal-hidden')
 }
+
+const phoneNumber = ref('')
+const lastNumber = ref('')
+function onPhoneToggleClick() {
+  if (phoneNumber.value[phoneNumber.value.length - 1] != 'X') {
+    lastNumber.value = phoneNumber.value
+    const phonePart = phoneNumber.value.split('-')
+    phoneNumber.value = `${phonePart[0]}-XX-XX`
+  } else {
+    phoneNumber.value = lastNumber.value
+  }
+}
 </script>
 
 <template>
@@ -83,13 +97,22 @@ function onJobModalClick() {
           </div>
           <div class="boss">
             <h3>Непосредственный руководитель:</h3>
-            <!-- <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4> -->
+            <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4>
           </div>
           <div class="contact">
-            <div class="phone-number">
+            <div class="phone-number" v-if="user.hide_phone != true">
               <img src="/icons/phone-blue.svg" alt="" />
-              <p>{{ user?.phone }}</p>
-              <img src="/img/cabinet/icons/eye-gray.svg" alt="" />
+              <p>{{ phoneNumber }}</p>
+              <img
+                src="/img/cabinet/icons/eye-gray.svg"
+                alt=""
+                @click="onPhoneToggleClick()"
+                class="eye"
+              />
+            </div>
+            <div class="phone-number" v-else>
+              <img src="/icons/phone-blue.svg" alt="" />
+              <p>Номер скрыт</p>
             </div>
             <div class="email">
               <img src="/icons/email-blue.svg" alt="" />
