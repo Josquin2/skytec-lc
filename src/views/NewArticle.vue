@@ -1,33 +1,50 @@
 <script setup lang="ts">
 import CKEditor from '@mayasabha/ckeditor4-vue3'
+import CategoriesDropdown from '@/components/blogs/CategoriesDropdown.vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import router from '@/router'
 
 import { Api } from '@/api/api'
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const articleTitle = ref('')
 const articleContent = ref('')
+const articleCategoryId = ref()
 
 let ApiClass = new Api()
 const token = localStorage.getItem('user')
 
+const allCategories = ref([])
+onMounted(async () => {
+  const response = await ApiClass.getObjects(`articles/categories`)
+  console.log(response)
+  allCategories.value = response
+  //   console.log(allBlogs.value)
+})
 async function onCreateNewArticleClick() {
-  try {
-    if (token) {
-      await ApiClass.post('articles', {
-        title: articleTitle.value,
-        content: articleContent.value
-      })
-      console.log(articleTitle.value)
-      console.log(articleContent.value)
-      toast('Статья отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+  if (articleTitle.value != '' && articleContent.value != '') {
+    try {
+      if (token) {
+        const response = await ApiClass.post('articles', {
+          article_category_id: articleCategoryId.value,
+          title: articleTitle.value,
+          content: articleContent.value
+        })
+        console.log(response.data)
+        const articleId = response.data.id
+        router.push({ name: 'one-blog', params: { blog: articleId } })
+        toast('Статья отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+      }
+    } catch (error) {
+      toast('Ошибка при отправке статьи!', { position: toast.POSITION.BOTTOM_RIGHT })
+      console.error(error)
     }
-  } catch (error) {
-    toast('Ошибка при отправке статьи!', { position: toast.POSITION.BOTTOM_RIGHT })
-    console.error(error)
+  } else {
+    console.log(articleCategoryId.value)
+    toast('Поля должны быть заполнены!', { position: toast.POSITION.BOTTOM_RIGHT })
   }
 }
 </script>
@@ -38,6 +55,8 @@ async function onCreateNewArticleClick() {
       <h1>Cоздание статьи</h1>
     </div>
     <div class="create-article-body">
+      <CategoriesDropdown @chosedCategory="(value) => (articleCategoryId = value)" />
+
       <input type="text" placeholder="Название статьи:" v-model="articleTitle" />
 
       <ckeditor v-model="articleContent" value="new"></ckeditor>
@@ -73,6 +92,7 @@ async function onCreateNewArticleClick() {
       border-radius: 10px;
       padding-left: 16px;
       margin-bottom: 16px;
+      margin-top: 16px;
     }
     input:focus {
       outline-width: 0;

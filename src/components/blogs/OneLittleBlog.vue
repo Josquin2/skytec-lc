@@ -4,23 +4,24 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 
 const props = defineProps({
+  avatar: String,
   date: String,
   author: String,
   title: String,
-  text: String
+  text: String,
+  blogId: Number
 })
 
 const route = useRoute()
 
-function onOneBlogClick(blog: string) {
-  const login = route.params.login
-  router.push({ name: 'one-blog', params: { login: login, blog: blog } })
+function onOneBlogClick(blog: number | undefined) {
+  router.push({ name: 'one-blog', params: { blog: blog } })
 }
 </script>
 
-<template lang="">
-  <div class="one-little-blog">
-    <img src="" alt="" />
+<template>
+  <div class="one-little-blog" @click="onOneBlogClick(props.blogId)">
+    <img :src="props.avatar" alt="" />
     <div class="blog-common">
       <div class="blog-header">
         <p>{{ props.date }}</p>
@@ -28,14 +29,12 @@ function onOneBlogClick(blog: string) {
       <div class="name">
         <h4>{{ props.author }}</h4>
       </div>
-      <div class="blog-info-common" @click="onOneBlogClick(props.title)">
+      <div class="blog-info-common">
         <div class="blog-title">
           <h2>{{ props.title }}</h2>
         </div>
         <div class="blog-text">
-          <p>
-            {{ props.text }}
-          </p>
+          <div class="blog-text-common" v-html="props.text?.slice(0, 200) + '...'"></div>
         </div>
       </div>
     </div>
@@ -44,8 +43,10 @@ function onOneBlogClick(blog: string) {
 
 <style lang="scss">
 .one-little-blog {
+  cursor: pointer;
   width: 22.03vw;
   height: 271px;
+  overflow: hidden;
   border: 1px solid #c3c3c3;
   border-radius: 10px;
   transition: 0.2s;
@@ -82,7 +83,6 @@ function onOneBlogClick(blog: string) {
     }
 
     .blog-info-common {
-      cursor: pointer;
       .blog-title {
         margin-top: 8px;
         h2 {
@@ -93,11 +93,22 @@ function onOneBlogClick(blog: string) {
       }
       .blog-text {
         margin-top: 8px;
-        p {
+        .blog-text-common {
           font-size: 16px;
           color: #474747;
           margin: 0;
           line-height: 22px;
+          * {
+            border: 0;
+            overflow-wrap: break-word;
+            text-wrap: wrap;
+            padding: 0;
+            font-size: 16px;
+            color: #474747;
+            text-decoration: none;
+            margin: 0;
+            font-weight: 400;
+          }
         }
       }
     }

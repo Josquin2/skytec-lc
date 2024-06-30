@@ -28,7 +28,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-  <div class="choose-dropdown">
+  <div class="choose-dropdown noselect">
     <div class="dropdown-title" @click="onDropdownTitleClick()">
       <h2>Текущие обучения</h2>
       <img src="/img/cabinet/icons/arrow-white.svg" alt="" />

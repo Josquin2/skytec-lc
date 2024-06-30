@@ -176,6 +176,26 @@
             }
           }
         }
+        .denied {
+          .request-title {
+            svg {
+              fill: #ff4343;
+            }
+          }
+          .response {
+            p {
+              color: #ff4343;
+            }
+            span {
+              background: url(/img/cabinet/icons/cross-sign.png) no-repeat;
+            }
+          }
+        }
+      }
+      .zero-requests {
+        margin-top: 24px;
+        font-size: 20px;
+        color: #474747;
       }
     }
   }

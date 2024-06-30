@@ -1,14 +1,35 @@
 <script setup lang="ts">
 import type { User } from '@/types/User'
-import { ref } from 'vue'
+import { ref, defineProps } from 'vue'
+
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+import { Api } from '@/api/api'
+
+const props = defineProps({
+  toWho: String,
+  id: Number
+})
 
 function onCongratulationsModalClick() {
   document.getElementById('congratulations-modal')?.classList.toggle('modal-hidden')
 }
 
 function onCheckboxAnonClick() {
-  document.getElementById('checkbox-anon')?.classList.toggle('clicked')
+  const checkbox = document.getElementById('checkbox-anon')?.classList
+  if (checkbox) {
+    if (checkbox.contains('clicked')) {
+      checkbox.remove('clicked')
+      anon.value = false
+    } else {
+      checkbox.add('clicked')
+      anon.value = true
+    }
+  }
 }
+
+const allSurprises = ['cake', 'cap', 'badge', 'nothing']
 
 const previousGift = ref(4)
 
@@ -27,13 +48,34 @@ function onGiftClick(value: number) {
   previousGift.value = value
 }
 
-let user = ref<User | null>(null)
+let user = JSON.parse(localStorage.getItem('user') || '')
 
-const userItem = localStorage.getItem('user')
-if (userItem !== null) {
-  user.value = JSON.parse(userItem) as User
-} else {
-  console.log('Пользователь не найден в localStorage')
+const toWho = ref('')
+const wish = ref('')
+const anon = ref(false)
+
+// API
+
+const token = localStorage.getItem('token')
+
+let ApiClass = new Api()
+
+async function sendPresent() {
+  try {
+    if (token) {
+      await ApiClass.post(`birthdays/send`, {
+        user_id: props.id,
+        message: wish.value,
+        anonymous: anon.value,
+        surprise: allSurprises[previousGift.value - 1]
+      })
+      toast('Поздравление отправлено!', { position: toast.POSITION.BOTTOM_RIGHT })
+      onCongratulationsModalClick()
+    }
+  } catch (error) {
+    toast('Ошибка при отправке поздравления!', { position: toast.POSITION.BOTTOM_RIGHT })
+    console.error(error)
+  }
 }
 </script>
 
@@ -47,14 +89,14 @@ if (userItem !== null) {
           <div class="text">
             <div>
               <span>От кого:</span>
-              <input type="text" name="" id="" v-if="user" :value="user.name" />
+              <input type="text" name="" id="" :value="user.name" readonly />
             </div>
             <div>
               <span>Кому:</span>
-              <input type="text" name="" id="" class="to" />
+              <input type="text" class="to" :value="props.toWho" readonly />
             </div>
             <div>
-              <textarea name="" id="" cols="30" rows="10" placeholder="Желаю..."></textarea>
+              <textarea placeholder="Желаю..." v-model="wish"></textarea>
             </div>
           </div>
 
@@ -86,7 +128,7 @@ if (userItem !== null) {
             </div>
           </div>
 
-          <button><img src="/icons/gift.svg" alt="" />Отправить</button>
+          <button @click="sendPresent"><img src="/icons/gift.svg" alt="" />Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">

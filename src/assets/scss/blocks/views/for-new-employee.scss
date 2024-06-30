@@ -67,9 +67,8 @@
         justify-content: flex-end;
 
         .close-button {
-          width: 107px;
-          height: 107px;
-
+          width: 5.57vw;
+          height: 5.57vw;
           margin-right: 16px;
           margin-top: 0px;
           border-radius: 50%;
@@ -141,14 +140,18 @@
   }
 }
 
-@media only screen and (max-width: 1800px) {
+@media only screen and (max-width: 1700px) {
   .new-employee-block {
     .create {
       .background {
+        .w-white {
+          margin-top: 100.5px;
+          height: 147.75px;
+        }
         .full-bg {
-          .close-button {
-            margin-right: 0;
-            margin-top: 12px;
+          .bg-button {
+            height: 145.25px;
+            border-radius: 40px;
           }
         }
       }

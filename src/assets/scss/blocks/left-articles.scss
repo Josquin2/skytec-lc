@@ -38,6 +38,7 @@
         .article-name {
           font-size: 16px;
           margin: 0;
+          word-break: break-all;
         }
         .article-author {
           font-size: 16px;
@@ -45,6 +46,9 @@
           color: #9a9a9a;
         }
       }
+    }
+    .one-article:hover {
+      border: 1px solid #4766af;
     }
   }
   .add-article {
@@ -70,6 +74,9 @@
         width: 19.17vw;
         .article-info {
           width: 12.5vw;
+          .article-author {
+            font-size: 14px;
+          }
         }
       }
     }

@@ -45,3 +45,7 @@ export function onMeetingRoomInstructionsClick() {
 export function onDocumentsClick() {
   router.push({ name: 'documents' })
 }
+
+export function onOneBlogClick(blog: number) {
+  router.push({ name: 'one-blog', params: { blog: blog } })
+}

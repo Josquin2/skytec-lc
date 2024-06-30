@@ -1,40 +1,27 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
+import { useRoute, onBeforeRouteLeave } from 'vue-router'
 import type { Ref } from 'vue'
 import type { News } from '@/types/news/News'
-import type { Comment } from '@/types/Comment'
 import type { User as UserInterface } from '@/types/User'
 
-import { watch, ref, onMounted } from 'vue'
+import { computed, watch, ref, onMounted } from 'vue'
 import { Api } from '@/api/api'
-import { User } from '@/api/user'
+
+import EmojiBlock from '@/components/home/EmojiBlock.vue'
 
 let ApiClass = new Api()
-let UserClass = new User()
-
-// // Поиск новости по названию (title)
-// onMounted(async () => {
-//   data.value = await ApiClass.getObjects(`news?title=${route.params.title}`)
-//   console.log(data.value)
-// })
 
 const route = useRoute()
-
-// title новости, по которому поиск конкретной новости, взял из url
-const title = route.params.title
-
-// Комментарий
 
 const currentComment = ref('')
 
 const sendButton = ref(false)
 
 let data: Ref<News | null> = ref(null)
-let comments: Ref<Comment[]> = ref([])
 let userData: Ref<UserInterface | null> = ref(null)
 
 async function loadComments() {
-  const commentsResponse = await ApiClass.getObjects('news/' + route.params.slug)
+  const commentsResponse = await ApiClass.getObjects('news/' + route.params.id)
   if (data.value) {
     data.value.comments = commentsResponse.comments
   }
@@ -42,13 +29,15 @@ async function loadComments() {
 }
 
 onMounted(async function () {
-  const response = await ApiClass.getObjects('news/' + route.params.slug)
+  const response = await ApiClass.getObjects('news/' + route.params.id)
   data.value = response
   console.log(data.value)
 
   const userDataResponse = await ApiClass.getObjects('user')
-  userData.value = userDataResponse
+  userData.value = userDataResponse.data.user
   console.log(userData)
+
+  ViewsTimeout()
 })
 
 async function sendComment() {
@@ -79,6 +68,50 @@ watch(
     }
   }
 )
+
+let commentCountText = computed(() => {
+  if (data.value) {
+    const count = data.value.comments.length
+    let text = ''
+
+    if (count % 10 === 1 && count % 100 !== 11) {
+      text = `${count} Комментарий`
+    } else if (count % 10 >= 2 && count % 10 <= 4 && (count % 100 < 10 || count % 100 >= 20)) {
+      text = `${count} Комментария`
+    } else {
+      text = `${count} Комментариев`
+    }
+
+    return text
+  }
+})
+
+// views count things
+
+let viewTimeout: ReturnType<typeof setTimeout> | null = null
+
+async function ViewsTimeout() {
+  viewTimeout = setTimeout(async () => {
+    if (data.value) {
+      try {
+        await ApiClass.put(`news/${data.value.id}`, {
+          views_count: data.value.views_count + 1
+        })
+        // updating views
+        data.value.views_count += 1
+      } catch (error) {
+        console.error('Ошибка при увеличении просмотров:', error)
+      }
+    }
+  }, 5000)
+}
+
+onBeforeRouteLeave(() => {
+  // Отменяем таймер при уходе с страницы
+  if (viewTimeout !== null) {
+    clearTimeout(viewTimeout)
+  }
+})
 </script>
 
 <template>
@@ -88,7 +121,7 @@ watch(
         <h4 class="hashtag">#{{ data?.category?.title }}</h4>
         <p class="time">{{ data?.created_at }}</p>
       </div>
-      <div class="views"><img src="/icons/eye.svg" alt="" />200</div>
+      <div class="views"><img src="/icons/eye.svg" alt="" />{{ data?.views_count }}</div>
     </div>
     <div class="news-body">
       <h1 class="news-title">{{ data?.title }}</h1>
@@ -97,9 +130,7 @@ watch(
       </p>
     </div>
     <div class="likes">
-      <button class="like-button">
-        <img src="/icons/like-button.svg" alt="" />
-      </button>
+      <EmojiBlock />
       <hr class="horisontal-line" />
 
       <button class="see-more">
@@ -109,7 +140,7 @@ watch(
     <hr />
     <div class="comments">
       <div class="count">
-        <h2>{{ data?.comments.length }} Комментария</h2>
+        <h2>{{ commentCountText }}</h2>
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />
@@ -119,11 +150,11 @@ watch(
         <button>Оставить комментарий</button>
       </div>
       <div class="comments-common">
-        <!-- v-for on one-comment -->
+        <!-- v-for in one-comment -->
         <div class="one-comment" v-for="(comment, index) in data?.comments" :key="index">
           <img :src="comment.user.avatar" alt="" />
           <div>
-            <p>{{ comment.user.name }}</p>
+            <p>{{ comment.user.surname + ' ' + comment.user.firstname }}</p>
             <h4>{{ comment.comment }}</h4>
           </div>
         </div>

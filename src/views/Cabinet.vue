@@ -34,8 +34,9 @@ let allReqests: Ref<Request[]> = ref([])
 
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
-  user.value = response
-  console.log(user.value)
+  user.value = response.data.user
+  // console.log(response)
+  // console.log(user.value)
 
   checkAllRequests()
 })
@@ -43,7 +44,7 @@ onMounted(async () => {
 async function checkAllRequests() {
   const responseRequests = await ApiClass.getObjects('application')
   allReqests.value = responseRequests
-  console.log(allReqests.value)
+  // console.log(allReqests.value)
 }
 
 function onSettingsClick() {
@@ -76,13 +77,13 @@ function onJobModalClick() {
             <h1>{{ user?.name }}</h1>
           </div>
           <div class="job-info">
-            <h2>Отдел досуга</h2>
+            <h2>{{ user?.department.title }}</h2>
             <hr />
-            <h2>Менеджер по креативу</h2>
+            <h2>{{ user?.position }}</h2>
           </div>
           <div class="boss">
             <h3>Непосредственный руководитель:</h3>
-            <h4>Корнеева Наталья</h4>
+            <!-- <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4> -->
           </div>
           <div class="contact">
             <div class="phone-number">
@@ -102,7 +103,13 @@ function onJobModalClick() {
 
         <div class="requests" v-if="allReqests && Object.keys(user).length">
           <div
-            :class="oneRequest.status == 'На рассмотрении' ? 'one-request' : 'one-request approved'"
+            :class="
+              oneRequest.status == 'На рассмотрении'
+                ? 'one-request'
+                : oneRequest.status == 'Отказано'
+                  ? 'denied'
+                  : 'one-request approved'
+            "
             v-for="oneRequest in allReqests"
           >
             <div class="request-title">
@@ -116,6 +123,7 @@ function onJobModalClick() {
             </div>
           </div>
         </div>
+        <div v-if="allReqests.length == 0" class="zero-requests">У вас нет активных заявок!</div>
       </div>
     </div>
     <div class="right">

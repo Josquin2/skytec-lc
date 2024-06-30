@@ -58,7 +58,7 @@ const router = createRouter({
       component: () => import('@/views/CreateNewEmployee.vue')
     },
     {
-      path: '/user/news/:slug',
+      path: '/user/news/:id',
       name: 'one-news',
       component: () => import('@/views/OneNews.vue')
     },
@@ -73,7 +73,12 @@ const router = createRouter({
           component: () => import('@/views/AllBlogs.vue')
         },
         {
-          path: '/user/blogs/:blog',
+          path: '/user/blogs/:id',
+          name: 'category-blogs',
+          component: () => import('@/views/CategoryBlogs.vue')
+        },
+        {
+          path: '/user/blogs/one-blog/:blog',
           name: 'one-blog',
           component: () => import('@/views/OneBlog.vue')
         }

@@ -1,5 +1,6 @@
 .news-common {
   padding: 123px 33.13vw 72px 27.29vw;
+  min-height: 88vh;
 
   .news-header {
     display: flex;
@@ -106,9 +107,6 @@
         border: none;
         border-bottom: 1px solid #e1e1e1;
         padding: 8px 0px;
-      }
-      input:focus {
-        outline-width: 0;
       }
     }
     .send-comment-button {

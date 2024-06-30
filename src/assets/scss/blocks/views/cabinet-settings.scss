@@ -3,10 +3,6 @@
   padding: 146px 15.63vw;
   display: flex;
 
-  input:focus {
-    outline-width: 0;
-  }
-
   .photo-and-accept-changes {
     .change-photo {
       .photo {
@@ -102,12 +98,22 @@
       }
     }
     .phone {
+      display: flex;
+      input {
+        color: #4766af;
+      }
+      img {
+        position: absolute;
+        margin-top: 24px;
+        margin-left: 12.5vw;
+      }
     }
     .check {
       cursor: pointer;
       display: flex;
       align-items: center;
       margin-bottom: 24px;
+      margin-top: 8px;
 
       p {
         margin: 0;
@@ -213,6 +219,11 @@
       .contact-common {
         input {
           width: 15.83vw;
+        }
+      }
+      .phone {
+        img {
+          margin-left: 14vw;
         }
       }
     }

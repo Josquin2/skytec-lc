@@ -30,17 +30,29 @@
   .text {
     margin-top: 24px;
     width: 34.69vw;
-    h1 {
+    .blog-title {
       font-size: 20px;
-      font-weight: 400;
+      font-weight: 500;
       color: #4766af;
       margin: 0;
     }
-    p {
+    .blog-text-common {
       margin: 0;
       margin-top: 24px;
       font-size: 16px;
       color: #474747;
+      * {
+        font-size: 16px;
+        color: #474747;
+      }
+      h1,
+      h2 {
+        font-size: 20px;
+      }
+      h3,
+      h4 {
+        font-size: 18px;
+      }
     }
   }
 

@@ -20,6 +20,7 @@
       }
       .blog-common {
         .one-blog {
+          cursor: pointer;
           margin-top: 8px;
           width: 14.17vw;
           height: 72px;
@@ -37,12 +38,12 @@
             border-radius: 50%;
           }
           .blog-info {
-            cursor: pointer;
             width: 9.58vw;
             margin-left: 8px;
             .blog-name {
               font-size: 16px;
               margin: 0;
+              word-break: break-all;
             }
             .blog-author {
               font-size: 16px;
@@ -85,6 +86,10 @@
 
             .blog-info {
               width: 12.5vw;
+
+              .blog-author {
+                font-size: 14px;
+              }
             }
           }
         }
