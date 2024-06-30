@@ -58,7 +58,7 @@ const router = createRouter({
       component: () => import('@/views/CreateNewEmployee.vue')
     },
     {
-      path: '/user/news/:slug',
+      path: '/user/news/:id',
       name: 'one-news',
       component: () => import('@/views/OneNews.vue')
     },

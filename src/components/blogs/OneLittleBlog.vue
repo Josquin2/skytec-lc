@@ -20,7 +20,7 @@ function onOneBlogClick(blog: number | undefined) {
 </script>
 
 <template>
-  <div class="one-little-blog">
+  <div class="one-little-blog" @click="onOneBlogClick(props.blogId)">
     <img :src="props.avatar" alt="" />
     <div class="blog-common">
       <div class="blog-header">
@@ -29,7 +29,7 @@ function onOneBlogClick(blog: number | undefined) {
       <div class="name">
         <h4>{{ props.author }}</h4>
       </div>
-      <div class="blog-info-common" @click="onOneBlogClick(props.blogId)">
+      <div class="blog-info-common">
         <div class="blog-title">
           <h2>{{ props.title }}</h2>
         </div>
@@ -43,6 +43,7 @@ function onOneBlogClick(blog: number | undefined) {
 
 <style lang="scss">
 .one-little-blog {
+  cursor: pointer;
   width: 22.03vw;
   height: 271px;
   overflow: hidden;
@@ -82,7 +83,6 @@ function onOneBlogClick(blog: number | undefined) {
     }
 
     .blog-info-common {
-      cursor: pointer;
       .blog-title {
         margin-top: 8px;
         h2 {

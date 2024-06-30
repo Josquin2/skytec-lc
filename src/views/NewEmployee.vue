@@ -5,6 +5,8 @@ import router from '@/router'
 
 const route = useRoute()
 
+const user = JSON.parse(localStorage.getItem('user') || '')
+
 function onCreateNewEmployeeClick() {
   const login = route.params.login
 

@@ -43,15 +43,34 @@
         <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="/img/main-page/welcome-2.png" class="d-block w-100" alt="..." />
+        <div class="first-carousel-image-text">
+          <h2>Добро пожаловать на новый</h2>
+          <h2>портал Sky Alliance</h2>
+        </div>
+        <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="/img/main-page/welcome-3.png" class="d-block w-100" alt="..." />
+        <div class="first-carousel-image-text">
+          <h2>Добро пожаловать на новый</h2>
+          <h2>портал Sky Alliance</h2>
+        </div>
+        <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
+      </div>
+
+      <div class="carousel-item">
+        <div class="first-carousel-image-text">
+          <h2>Добро пожаловать на новый</h2>
+          <h2>портал Sky Alliance</h2>
+        </div>
+        <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
       </div>
       <div class="carousel-item">
-        <img src="/img/main-page/welcome-4.webp" class="d-block w-100" alt="..." />
+        <div class="first-carousel-image-text">
+          <h2>Добро пожаловать на новый</h2>
+          <h2>портал Sky Alliance</h2>
+        </div>
+        <img src="/img/main-page/welcome-1.png" class="d-block w-100" alt="..." />
       </div>
-      <!-- here should be another image -->
     </div>
     <button
       class="carousel-control-prev"

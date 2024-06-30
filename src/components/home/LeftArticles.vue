@@ -22,8 +22,8 @@ let myBlogs: Ref<Blog[]> = ref([])
 onMounted(async () => {
   const response = await ApiClass.getObjects(`articles?user_id=${user.id}`)
   myBlogs.value = response
-  console.log(`articles?user_id=${user.id}`)
-  console.log(myBlogs.value)
+  // console.log(`articles?user_id=${user.id}`)
+  // console.log(myBlogs.value)
 })
 </script>
 
@@ -37,7 +37,7 @@ onMounted(async () => {
           <h2 class="article-name">
             {{ article.title.length > 37 ? article.title.slice(0, 37) + '...' : article.title }}
           </h2>
-          <p class="article-author">{{ article.user.lastname + ' ' + article.user.firstname }}</p>
+          <p class="article-author">{{ article.user.firstname + ' ' + article.user.surname }}</p>
         </div>
       </div>
     </div>

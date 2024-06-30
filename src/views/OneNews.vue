@@ -21,7 +21,7 @@ let data: Ref<News | null> = ref(null)
 let userData: Ref<UserInterface | null> = ref(null)
 
 async function loadComments() {
-  const commentsResponse = await ApiClass.getObjects('news/' + route.params.slug)
+  const commentsResponse = await ApiClass.getObjects('news/' + route.params.id)
   if (data.value) {
     data.value.comments = commentsResponse.comments
   }
@@ -29,12 +29,12 @@ async function loadComments() {
 }
 
 onMounted(async function () {
-  const response = await ApiClass.getObjects('news/' + route.params.slug)
+  const response = await ApiClass.getObjects('news/' + route.params.id)
   data.value = response
   console.log(data.value)
 
   const userDataResponse = await ApiClass.getObjects('user')
-  userData.value = userDataResponse
+  userData.value = userDataResponse.data.user
   console.log(userData)
 
   ViewsTimeout()
@@ -86,9 +86,9 @@ let commentCountText = computed(() => {
   }
 })
 
-// ... остальной код ...
+// views count things
 
-let viewTimeout: number | null = null
+let viewTimeout: ReturnType<typeof setTimeout> | null = null
 
 async function ViewsTimeout() {
   viewTimeout = setTimeout(async () => {
@@ -97,7 +97,7 @@ async function ViewsTimeout() {
         await ApiClass.put(`news/${data.value.id}`, {
           views_count: data.value.views_count + 1
         })
-        // Обновляем просмотры
+        // updating views
         data.value.views_count += 1
       } catch (error) {
         console.error('Ошибка при увеличении просмотров:', error)
@@ -150,11 +150,11 @@ onBeforeRouteLeave(() => {
         <button>Оставить комментарий</button>
       </div>
       <div class="comments-common">
-        <!-- v-for on one-comment -->
+        <!-- v-for in one-comment -->
         <div class="one-comment" v-for="(comment, index) in data?.comments" :key="index">
           <img :src="comment.user.avatar" alt="" />
           <div>
-            <p>{{ comment.user.name }}</p>
+            <p>{{ comment.user.surname + ' ' + comment.user.firstname }}</p>
             <h4>{{ comment.comment }}</h4>
           </div>
         </div>

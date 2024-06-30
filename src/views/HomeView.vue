@@ -55,7 +55,7 @@ async function onSignInButton() {
     let resp = await ApiClass.post('user/login', {
       login: state.value.login,
       password: state.value.password
-    }) // konstantinova_marina_maksimovna_z0qvs
+    })
 
     if (resp.code !== 200) {
       console.log('error', resp)

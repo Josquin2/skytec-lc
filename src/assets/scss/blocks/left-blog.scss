@@ -20,6 +20,7 @@
       }
       .blog-common {
         .one-blog {
+          cursor: pointer;
           margin-top: 8px;
           width: 14.17vw;
           height: 72px;
@@ -37,7 +38,6 @@
             border-radius: 50%;
           }
           .blog-info {
-            cursor: pointer;
             width: 9.58vw;
             margin-left: 8px;
             .blog-name {

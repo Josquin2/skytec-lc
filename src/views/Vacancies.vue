@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Arrow from '@/components/icons/Arrow.vue'
 import InviteFriendModal from '@/components/vacancies/InviteFriendModal.vue'
 
 function onInviteFriendModalClick() {
@@ -27,7 +28,9 @@ function onInviteFriendModalClick() {
     </div>
     <div class="right-side">
       <img src="/img/vacancies/photo.png" alt="" />
-      <h3 @click="onInviteFriendModalClick()">Приведи друга в SkyAlliance и получи бонусы</h3>
+      <h3 @click="onInviteFriendModalClick()">
+        Приведи друга в SkyAlliance и получи бонусы <Arrow />
+      </h3>
     </div>
 
     <!-- modals -->

@@ -21,16 +21,16 @@ const emoji = ref([])
 
 onMounted(async () => {
   data.value = await ApiClass.getObjects('news')
-  console.log(data.value)
+  // console.log(data.value)
   emoji.value = await ApiClass.getObjects('emojis')
-  console.log(emoji.value)
+  // console.log(emoji.value)
 })
 
 const route = useRoute()
 
-function onNewsClick(slug: string) {
+function onNewsClick(id: number) {
   // console.log(slug)
-  router.push({ name: 'one-news', params: { slug: slug } })
+  router.push({ name: 'one-news', params: { id: id } })
 }
 </script>
 
@@ -58,7 +58,7 @@ function onNewsClick(slug: string) {
             </div>
             <div class="views"><img src="/icons/eye.svg" alt="" /> {{ news.views_count }}</div>
           </div>
-          <div class="news-body" @click="onNewsClick(news.slug)">
+          <div class="news-body" @click="onNewsClick(news.id)">
             <div class="news-title">
               <h2>{{ news.title }}</h2>
             </div>

@@ -47,7 +47,7 @@ async function onSendIdeaClick() {
       await ApiClass.post('business-idea', {
         name: name.value,
         idea: idea.value,
-        anonimous: anon.value
+        anonymous: anon.value
       })
       toast('Ваша идея отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
     }

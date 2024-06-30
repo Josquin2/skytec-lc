@@ -62,13 +62,15 @@ let user: Ref<UserInterface | null> = ref(null)
 
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
-  user.value = response
+  user.value = response.data.user
   userPhone.value = user.value?.phone || ''
   firstName.value = user.value?.firstname || ''
   surname.value = user.value?.surname || ''
   lastName.value = user.value?.lastname || ''
   email.value = user.value?.email || ''
   position.value = user.value?.position || ''
+  manager.value = user.value?.manager.surname + ' ' + user.value?.manager.firstname
+  department.value = user.value?.department.title || ' '
 
   console.log(user.value)
 
@@ -143,7 +145,7 @@ async function onSaveChangesButtonClick() {
       </div>
 
       <div class="check" @click="onFirstCheckClick()">
-        <div class="checkbox-button">
+        <div class="checkbox-button noselect">
           <span id="checkbox-1"></span>
         </div>
         <p>Скрыть мобильный телефон</p>
@@ -168,7 +170,7 @@ async function onSaveChangesButtonClick() {
         <input type="text" v-model="manager" />
       </div>
       <div class="check">
-        <div class="checkbox-button" @click="onSecondCheckClick()">
+        <div class="checkbox-button noselect" @click="onSecondCheckClick()">
           <span id="checkbox-2"></span>
         </div>
         <p>Я согласен на <a href=""> обработку персональных данных </a></p>

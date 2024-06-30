@@ -35,8 +35,8 @@ onMounted(async () => {
 async function getAllBirthdays() {
   const response = await ApiClass.getObjects('birthdays')
   allBirthDays.value = response
-  console.log('allBirthDays')
-  console.log(allBirthDays.value)
+  // console.log('allBirthDays')
+  // console.log(allBirthDays.value)
 }
 
 async function getTodaysBirthdays() {
@@ -74,7 +74,9 @@ async function getTodaysBirthdays() {
     <div class="next-week" v-if="allBirthDays.length > 0">
       <h2 class="other-hbd">Наши именинники на следующей неделе</h2>
       <div class="other-hbd-common" v-for="day in allBirthDays">
-        <p class="date">{{ day.birthdate.split('-')[2] + '.' + day.birthdate.split('-')[1] }}</p>
+        <p class="date">
+          {{ day.birthdate.split('.')[0] + '.' + day.birthdate.split('.')[1] }}
+        </p>
         <h3 class="name-of-other-hbd">{{ day.surname }} {{ day.firstname }}</h3>
         <h4 class="job-title-of-other-hbd">{{ day.position }}</h4>
       </div>

@@ -25,7 +25,7 @@ let blogs: Ref<Blog[]> = ref([])
 onMounted(async () => {
   const response = await ApiClass.getObjects('articles')
   blogs.value = response
-  console.log(blogs.value)
+  // console.log(blogs.value)s
 })
 </script>
 
@@ -33,13 +33,18 @@ onMounted(async () => {
   <div class="our-blog">
     <div class="our-blog-header" @click="onAllBlogsClick()">Наш Блог</div>
     <div class="blog-common">
-      <div class="one-blog" v-for="(blog, index) in blogs.slice(0, 5)" :key="index">
+      <div
+        class="one-blog"
+        v-for="(blog, index) in blogs.slice(0, 5)"
+        :key="index"
+        @click="onOneBlogClick(blog.id)"
+      >
         <img :src="blog.user.avatar" alt="" class="blog-author-image" />
-        <div class="blog-info" @click="onOneBlogClick(blog.id)">
+        <div class="blog-info">
           <h2 class="blog-name">
             {{ blog.title.length > 37 ? blog.title.slice(0, 37) + '...' : blog.title }}
           </h2>
-          <p class="blog-author">{{ blog.user.lastname + ' ' + blog.user.firstname }}</p>
+          <p class="blog-author">{{ blog.user.firstname + ' ' + blog.user.surname }}</p>
         </div>
       </div>
     </div>

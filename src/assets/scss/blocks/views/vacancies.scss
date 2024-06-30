@@ -120,6 +120,12 @@
     }
     h3:hover {
       color: #4766af;
+
+      svg {
+        path {
+          fill: #4766af;
+        }
+      }
     }
   }
 }
