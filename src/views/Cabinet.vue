@@ -69,11 +69,20 @@ const lastNumber = ref('')
 function onPhoneToggleClick() {
   if (phoneNumber.value[phoneNumber.value.length - 1] != 'X') {
     lastNumber.value = phoneNumber.value
-    const phonePart = phoneNumber.value.split('-')
-    phoneNumber.value = `${phonePart[0]}-XX-XX`
+    // const phonePart = phoneNumber.value.split('-')
+    // phoneNumber.value = `${phonePart[0]}-XX-XX`
+    phoneNumber.value = 'XXX XXX-XX-XX'
   } else {
     phoneNumber.value = lastNumber.value
   }
+}
+
+function onEmailClick(email: string) {
+  window.location.href = `mailto:${email}`
+}
+
+function onPhoneNumberClick(phone: string) {
+  window.location.href = `tel:${phone}`
 }
 </script>
 
@@ -95,14 +104,14 @@ function onPhoneToggleClick() {
             <hr />
             <h2>{{ user?.position }}</h2>
           </div>
-          <div class="boss">
+          <div class="boss" v-if="user.manager">
             <h3>Непосредственный руководитель:</h3>
             <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4>
           </div>
           <div class="contact">
-            <div class="phone-number" v-if="user.hide_phone != true">
+            <div class="phone-number noselect" v-if="user.hide_phone != true">
               <img src="/icons/phone-blue.svg" alt="" />
-              <p>{{ phoneNumber }}</p>
+              <p @click="onPhoneNumberClick(phoneNumber)">{{ phoneNumber }}</p>
               <img
                 src="/img/cabinet/icons/eye-gray.svg"
                 alt=""
@@ -110,11 +119,11 @@ function onPhoneToggleClick() {
                 class="eye"
               />
             </div>
-            <div class="phone-number" v-else>
+            <div class="phone-number noselect phone-hidden" v-else>
               <img src="/icons/phone-blue.svg" alt="" />
               <p>Номер скрыт</p>
             </div>
-            <div class="email">
+            <div class="email" @click="onEmailClick(user?.email)">
               <img src="/icons/email-blue.svg" alt="" />
               <p>{{ user?.email }}</p>
             </div>

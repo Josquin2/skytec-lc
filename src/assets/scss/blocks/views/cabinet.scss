@@ -70,6 +70,7 @@
       display: flex;
       gap: 16px;
       .phone-number {
+        cursor: pointer;
         width: max-content;
         display: flex;
         align-items: center;
@@ -84,7 +85,11 @@
           color: #4766af;
         }
       }
+      .phone-hidden {
+        cursor: default;
+      }
       .email {
+        cursor: pointer;
         width: max-content;
         display: flex;
         align-items: center;
