@@ -44,7 +44,7 @@ function isLogged() {
 
 <template>
   <header class="header-container">
-    <img :src="blackLogo" alt="" class="black-logo" />
+    <img :src="blackLogo" alt="" class="black-logo" @click="onMainPageClick()" />
     <div class="header-other-links" v-if="isLogged()">
       <!-- some other links and v-if -->
       <div class="links-with-bg">
@@ -112,6 +112,7 @@ function isLogged() {
   display: flex;
   align-items: center;
   .black-logo {
+    cursor: pointer;
     width: 4.8vw;
   }
   .header-other-links {
