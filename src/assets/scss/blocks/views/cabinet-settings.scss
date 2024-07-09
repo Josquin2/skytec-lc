@@ -65,6 +65,9 @@
         margin: 0;
         color: #999999;
       }
+      img {
+        cursor: pointer;
+      }
     }
 
     input {
@@ -74,6 +77,11 @@
       width: 13.75vw;
       margin-top: 24px;
       color: #9a9a9a;
+    }
+  }
+  .active {
+    input {
+      color: #474747;
     }
   }
   .contacts {

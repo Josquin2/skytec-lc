@@ -46,7 +46,7 @@ async function getTodaysBirthdays() {
 </script>
 
 <template>
-  <div class="right-block">
+  <div class="right-block" v-if="allBirthDays.length > 0 && todaysBirthDays.length > 0">
     <div class="today" v-if="todaysBirthDays.length > 0">
       <div class="congrats">
         <h3>Поздравляем! 🥳</h3>
