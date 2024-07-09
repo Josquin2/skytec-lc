@@ -26,6 +26,8 @@ import JobModal from '@/components/cabinet/JobModal.vue'
 import { onMounted, type Ref, ref } from 'vue'
 
 import { onDocumentsClick } from '@/components/routing-functions'
+import ExitIcon from '@/components/cabinet/icons/LogoutIcon.vue'
+import LogoutIcon from '@/components/cabinet/icons/LogoutIcon.vue'
 
 const route = useRoute()
 
@@ -84,6 +86,13 @@ function onEmailClick(email: string) {
 function onPhoneNumberClick(phone: string) {
   window.location.href = `tel:${phone}`
 }
+
+function logout() {
+  localStorage.removeItem('user')
+  localStorage.removeItem('token')
+
+  window.location.reload()
+}
 </script>
 
 <template>
@@ -100,7 +109,7 @@ function onPhoneNumberClick(phone: string) {
             <h1>{{ user?.name }}</h1>
           </div>
           <div class="job-info">
-            <h2>{{ user?.department.title }}</h2>
+            <h2>{{ user?.department?.title }}</h2>
             <hr />
             <h2>{{ user?.position }}</h2>
           </div>
@@ -183,6 +192,11 @@ function onPhoneNumberClick(phone: string) {
           <DocumentsIcon />
 
           Заказать справку
+        </div>
+        <div @click="logout">
+          <LogoutIcon style="margin-left: 26px;" />
+
+          Выйти
         </div>
       </div>
       <div class="r-right">
