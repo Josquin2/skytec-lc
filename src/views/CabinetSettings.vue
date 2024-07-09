@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoadPhotoModal from '@/components/cabinet/LoadPhotoModal.vue'
-import SettingsPencil from '@/components/cabinet/icons/SettingsPencil.vue'
-import { onMounted, ref, type Ref } from 'vue'
+import ConfirmPasswordModal from '@/components/cabinet/ConfirmPasswordModal.vue'
+import { onMounted, watch, ref, type Ref } from 'vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -32,6 +32,10 @@ function onSecondCheckClick() {
 
 function onPhotoChangeModal() {
   document.getElementById('photo-modal')?.classList.toggle('modal-hidden')
+}
+
+function onPasswordModalClick() {
+  document.getElementById('confirm-password-modal')?.classList.toggle('modal-hidden')
 }
 
 function checkAllCheckBoxes() {
@@ -88,7 +92,7 @@ const currentUserId = JSON.parse(localStorage.getItem('user') || '')
 async function onSaveChangesButtonClick() {
   try {
     if (token) {
-      await ApiClass.put(`user?id=${currentUserId.id}`, {
+      let resp = await ApiClass.put(`user?id=${currentUserId.id}`, {
         firstname: firstName.value,
         lastname: lastName.value,
         surname: surname.value,
@@ -98,11 +102,22 @@ async function onSaveChangesButtonClick() {
         hide_phone: hidePhone.value,
         position: position.value
       })
+      console.log(resp)
       toast('Изменения сохранены!', { position: toast.POSITION.BOTTOM_RIGHT })
     }
   } catch (error) {
     toast('Ошибка при отправке запроса!', { position: toast.POSITION.BOTTOM_RIGHT })
     console.error(error)
+  }
+}
+
+// unlock Name
+
+const isUnlocked = ref(false)
+
+function onNameClick() {
+  if (isUnlocked.value == false) {
+    onPasswordModalClick()
   }
 }
 </script>
@@ -122,17 +137,22 @@ async function onSaveChangesButtonClick() {
         Сохранить изменения
       </div>
     </div>
-    <div class="name">
+    <div :class="isUnlocked ? 'active name' : 'name'">
       <div>
         <h2>ФИО:</h2>
-        <img src="/img/cabinet/icons/lock-gray.svg" alt="" />
+        <img
+          src="/img/cabinet/icons/lock-gray.svg"
+          alt=""
+          @click="onPasswordModalClick"
+          v-if="!isUnlocked"
+        />
       </div>
 
-      <input type="text" v-model="surname" readonly />
+      <input type="text" v-model="surname" :readonly="!isUnlocked" @click="onNameClick" />
 
-      <input type="text" v-model="firstName" readonly />
+      <input type="text" v-model="firstName" :readonly="!isUnlocked" @click="onNameClick" />
 
-      <input type="text" v-model="lastName" readonly />
+      <input type="text" v-model="lastName" :readonly="!isUnlocked" @click="onNameClick" />
     </div>
     <div class="contacts">
       <div class="contact-common">
@@ -178,5 +198,6 @@ async function onSaveChangesButtonClick() {
     </div>
 
     <LoadPhotoModal />
+    <ConfirmPasswordModal @Confirmed="(val) => (isUnlocked = val)" />
   </div>
 </template>

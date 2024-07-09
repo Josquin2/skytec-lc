@@ -70,18 +70,26 @@
       display: flex;
       gap: 16px;
       .phone-number {
+        cursor: pointer;
         width: max-content;
         display: flex;
         align-items: center;
         border: 1px solid #4766af;
         border-radius: 8px;
         padding: 8px;
+        .eye {
+          cursor: pointer;
+        }
         p {
           margin: 0 8px;
           color: #4766af;
         }
       }
+      .phone-hidden {
+        cursor: default;
+      }
       .email {
+        cursor: pointer;
         width: max-content;
         display: flex;
         align-items: center;

@@ -96,7 +96,7 @@ async function onEducationSendButtonClick() {
           <div class="text">
             <textarea
               :placeholder="
-                String(chosenDate) != ''
+                chosenDate != undefined
                   ? 'Не нашли подходящее обучение? Напишите здесь...'
                   : 'Какое обучение хотите пройти?'
               "

@@ -26,6 +26,8 @@ import JobModal from '@/components/cabinet/JobModal.vue'
 import { onMounted, type Ref, ref } from 'vue'
 
 import { onDocumentsClick } from '@/components/routing-functions'
+import ExitIcon from '@/components/cabinet/icons/LogoutIcon.vue'
+import LogoutIcon from '@/components/cabinet/icons/LogoutIcon.vue'
 
 const route = useRoute()
 
@@ -35,6 +37,8 @@ let allReqests: Ref<Request[]> = ref([])
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
   user.value = response.data.user
+  phoneNumber.value = user.value?.phone || ''
+  onPhoneToggleClick()
   // console.log(response)
   // console.log(user.value)
 
@@ -61,6 +65,34 @@ function onEducationModalClick() {
 function onJobModalClick() {
   document.getElementById('job-modal')?.classList.toggle('modal-hidden')
 }
+
+const phoneNumber = ref('')
+const lastNumber = ref('')
+function onPhoneToggleClick() {
+  if (phoneNumber.value[phoneNumber.value.length - 1] != 'X') {
+    lastNumber.value = phoneNumber.value
+    // const phonePart = phoneNumber.value.split('-')
+    // phoneNumber.value = `${phonePart[0]}-XX-XX`
+    phoneNumber.value = 'XXX XXX-XX-XX'
+  } else {
+    phoneNumber.value = lastNumber.value
+  }
+}
+
+function onEmailClick(email: string) {
+  window.location.href = `mailto:${email}`
+}
+
+function onPhoneNumberClick(phone: string) {
+  window.location.href = `tel:${phone}`
+}
+
+function logout() {
+  localStorage.removeItem('user')
+  localStorage.removeItem('token')
+
+  window.location.reload()
+}
 </script>
 
 <template>
@@ -77,21 +109,30 @@ function onJobModalClick() {
             <h1>{{ user?.name }}</h1>
           </div>
           <div class="job-info">
-            <h2>{{ user?.department.title }}</h2>
+            <h2>{{ user?.department?.title }}</h2>
             <hr />
             <h2>{{ user?.position }}</h2>
           </div>
-          <div class="boss">
+          <div class="boss" v-if="user.manager">
             <h3>Непосредственный руководитель:</h3>
-            <!-- <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4> -->
+            <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4>
           </div>
           <div class="contact">
-            <div class="phone-number">
+            <div class="phone-number noselect" v-if="user.hide_phone != true">
               <img src="/icons/phone-blue.svg" alt="" />
-              <p>{{ user?.phone }}</p>
-              <img src="/img/cabinet/icons/eye-gray.svg" alt="" />
+              <p @click="onPhoneNumberClick(phoneNumber)">{{ phoneNumber }}</p>
+              <img
+                src="/img/cabinet/icons/eye-gray.svg"
+                alt=""
+                @click="onPhoneToggleClick()"
+                class="eye"
+              />
             </div>
-            <div class="email">
+            <div class="phone-number noselect phone-hidden" v-else>
+              <img src="/icons/phone-blue.svg" alt="" />
+              <p>Номер скрыт</p>
+            </div>
+            <div class="email" @click="onEmailClick(user?.email)">
               <img src="/icons/email-blue.svg" alt="" />
               <p>{{ user?.email }}</p>
             </div>
@@ -151,6 +192,11 @@ function onJobModalClick() {
           <DocumentsIcon />
 
           Заказать справку
+        </div>
+        <div @click="logout">
+          <LogoutIcon style="margin-left: 26px;" />
+
+          Выйти
         </div>
       </div>
       <div class="r-right">
