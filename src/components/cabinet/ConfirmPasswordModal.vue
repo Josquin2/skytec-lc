@@ -149,8 +149,8 @@ async function onCheckButtonClick() {
 
       .close-button {
         cursor: pointer;
-        width: 2.08vw;
-        height: 2.08vw;
+        width: 40px;
+        height: 40px;
         background: url(/img/cabinet/icons/cross-white.svg) no-repeat;
         background-position: 50%;
         background-color: #4766af;
@@ -185,30 +185,6 @@ async function onCheckButtonClick() {
         height: 100px;
         background-color: rgba(0, 0, 0, 0.5);
         position: absolute;
-      }
-    }
-  }
-}
-
-@media only screen and (max-width: 1800px) {
-  .vacation-modal {
-    .vacation-common {
-      .background {
-        margin-left: 28.18vw;
-        margin-top: 122px;
-        .h-white {
-          width: 40.78vw;
-
-          .right-text {
-            margin-left: 5vw;
-          }
-        }
-        .w-white {
-          width: 43.65vw;
-        }
-        .full-bg {
-          width: 43.65vw;
-        }
       }
     }
   }

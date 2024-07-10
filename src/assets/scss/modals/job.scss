@@ -1,20 +1,23 @@
 .job-modal {
   position: fixed;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .job-common {
+    width: 656px;
+    height: 283px;
     .background {
       position: absolute;
-      margin-left: 32.92vw;
-      margin-top: 222px;
       .h-white {
         position: absolute;
         display: flex;
-        width: 31.3vw;
+        width: 601px;
         height: 283px;
         background-color: #ffffff;
         z-index: 13;
@@ -39,8 +42,19 @@
         .dates {
           display: flex;
           margin-top: 24px;
+          .calendar {
+            width: 284px;
+            input {
+              width: 284px;
+            }
+            .closed {
+              img {
+                margin-left: 244px;
+              }
+            }
+          }
           .start {
-            width: 14.79vw;
+            width: 284px;
             h3 {
               font-size: 16px;
               font-weight: 400;
@@ -49,7 +63,7 @@
           }
           .end {
             margin-left: 8px;
-            width: 14.79vw;
+            width: 284px;
             h3 {
               font-size: 16px;
               font-weight: 400;
@@ -60,7 +74,7 @@
 
         button {
           margin-top: 32px;
-          width: 30vw;
+          width: 576px;
           height: 40px;
           background: linear-gradient(to right, #4766af, #46bed6);
           border: none;
@@ -73,7 +87,7 @@
         margin-top: 55px;
         position: absolute;
         display: flex;
-        width: 34.17vw;
+        width: 656px;
         height: 229px;
         background-color: #ffffff;
         z-index: 12;
@@ -81,7 +95,7 @@
       }
       .full-bg {
         overflow: hidden;
-        width: 34.17vw;
+        width: 656px;
         height: 283px;
         display: flex;
         position: absolute;
@@ -93,8 +107,8 @@
 
         .close-button {
           cursor: pointer;
-          width: 2.08vw;
-          height: 2.08vw;
+          width: 40px;
+          height: 40px;
           background: url(/img/cabinet/icons/cross-white.svg) no-repeat;
           background-position: 50%;
           background-color: #4766af;
@@ -105,7 +119,7 @@
           z-index: 12;
         }
         .bg-button {
-          width: 5.21vw;
+          width: 100px;
           height: 100px;
           background-color: rgba(0, 0, 0, 0.5);
 
@@ -113,7 +127,7 @@
           z-index: 9;
           border-radius: 20px;
           margin-top: -45px;
-          margin-right: -2.34vw;
+          margin-right: -45px;
         }
         .bg-w {
           width: 100px;
@@ -121,7 +135,7 @@
           background-color: rgba(0, 0, 0, 0.5);
           position: absolute;
 
-          margin-right: 2.86vw;
+          margin-right: 55px;
         }
         .bg-h {
           margin-top: 55px;
@@ -137,9 +151,9 @@
 
 @media only screen and (max-width: 1800px) {
   .job-modal {
+    zoom: 0.9;
     .job-common {
       .background {
-        margin-top: 142px;
       }
     }
   }

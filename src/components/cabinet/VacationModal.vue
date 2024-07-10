@@ -115,5 +115,3 @@ async function onSendButtonClick() {
     </div>
   </div>
 </template>
-
-<style lang="scss"></style>
