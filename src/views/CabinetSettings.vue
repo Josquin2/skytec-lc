@@ -198,6 +198,6 @@ function onNameClick() {
     </div>
 
     <LoadPhotoModal />
-    <ConfirmPasswordModal @Confirmed="(val) => (isUnlocked = val)" />
+    <ConfirmPasswordModal @Confirmed:boolean="(val: boolean) => (isUnlocked = val)" />
   </div>
 </template>

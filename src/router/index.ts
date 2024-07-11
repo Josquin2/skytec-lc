@@ -123,6 +123,11 @@ const router = createRouter({
       path: '/user/new-article',
       name: 'new-article',
       component: () => import('@/views/NewArticle.vue')
+    },
+    {
+      path: '/user/global-search/:request',
+      name: 'global-search',
+      component: () => import('@/views/GlobalSearch.vue')
     }
   ]
 })
