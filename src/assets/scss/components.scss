@@ -3,3 +3,30 @@
   width: 153px;
   background: linear-gradient(to right, #4768b0, #46bed6);
 }
+
+.reaction-block {
+  height: 35px;
+  width: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E1E1E1;
+  border-radius: 10px;
+  margin-right: 8px;
+
+  &.user-reacted-true {
+    background: #E1E1E1;
+  }
+
+  img {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+  }
+
+  b {
+    color: #4766AF;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

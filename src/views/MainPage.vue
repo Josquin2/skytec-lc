@@ -32,6 +32,16 @@ function onNewsClick(id: number) {
   // console.log(slug)
   router.push({ name: 'one-news', params: { id: id } })
 }
+
+async function setNewsReaction(id: number, news: News) {
+  const setReaction = await ApiClass.post('news/reactions', {
+    news_id: news.id,
+    emoji_id: id,
+  })
+
+  news.user_reaction = setReaction.user_reaction
+  news.users_reactions = setReaction.users_reactions
+}
 </script>
 
 <template>
@@ -68,13 +78,22 @@ function onNewsClick(id: number) {
           </div>
 
           <div class="likes">
-            <EmojiBlock :emoji="emoji" :id="index" />
+            <EmojiBlock :emoji="emoji" :id="index" @emoji-click="(id) => setNewsReaction(id, news)" />
 
             <hr class="horisontal-line" />
 
             <button class="see-more">
               <img src="/icons/see-more-emoji.svg" alt="" />
             </button>
+
+            <div v-for="reaction in news?.users_reactions" :class="'reaction-block user-reacted-' + (news.user_reaction === reaction.emoji_id)">
+              <img
+                :src="reaction.image"
+                width="20px"
+                height="20px"
+                alt="Эмоджи" />
+              <b>{{ reaction.count }}</b>
+            </div>
           </div>
         </div>
         <MainIdea />

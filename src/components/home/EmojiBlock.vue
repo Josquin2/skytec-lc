@@ -18,7 +18,7 @@ const props = defineProps({
 
 async function onOneEmojiClick(id: number) {
   // here is put function should be
-  console.log(id)
+  // console.log(id)
 }
 </script>
 
@@ -30,7 +30,7 @@ async function onOneEmojiClick(id: number) {
       </button>
     </div>
     <div class="extended-icons closed" :id="'extended-icons-' + props.id">
-      <div class="one-icon" v-for="icon in props.emoji" @click="onOneEmojiClick(icon.id)">
+      <div class="one-icon" v-for="icon in props.emoji" @click="$emit('emojiClick', icon.id)">
         <img :src="icon.image" alt="" />
       </div>
     </div>
@@ -63,6 +63,11 @@ async function onOneEmojiClick(id: number) {
       align-items: center;
       justify-content: center;
       cursor: pointer;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.25);
+      }
     }
   }
   .extended-icons:before,
