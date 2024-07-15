@@ -49,3 +49,7 @@ export function onDocumentsClick() {
 export function onOneBlogClick(blog: number) {
   router.push({ name: 'one-blog', params: { blog: blog } })
 }
+
+export function onGlobalSearchClick(request: string) {
+  router.push({ name: 'global-search', params: { request: request } })
+}

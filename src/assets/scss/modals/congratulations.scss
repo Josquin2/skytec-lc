@@ -3,21 +3,25 @@
 }
 .congratulations-modal {
   position: fixed;
-  width: 100vw;
-  height: 200%;
+  width: 100%;
+  height: 100%;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .congratulations-common {
+    width: 648px;
+    height: 711px;
     .background {
       position: absolute;
-      margin-left: 33.13vw;
-      margin-top: 19.44vh;
+
       .h-white {
         position: absolute;
         display: flex;
-        width: 30.89vw;
+        width: 593px;
         height: 711px;
         background-color: #ffffff;
         z-index: 13;
@@ -37,11 +41,11 @@
         .text {
           display: flex;
           flex-direction: column;
-          width: 31.25vw;
+          width: 600px;
           margin-top: 32px;
 
           div {
-            width: 31.25vw;
+            width: 600px;
             display: flex;
             span {
               position: absolute;
@@ -50,7 +54,7 @@
               color: #999999;
             }
             input {
-              width: 31.25vw;
+              width: 600px;
               height: 56px;
               border: 1px solid #9a9a9a;
               border-radius: 200px;
@@ -62,7 +66,7 @@
               padding-left: 60px;
             }
             textarea {
-              width: 31.25vw;
+              width: 600px;
               height: 96px;
               resize: none;
               border: 1px solid #9a9a9a;
@@ -108,17 +112,17 @@
 
           .presents-common {
             margin-top: 16px;
-            height: 6.56vw;
-            width: 31.25vw;
+            height: 126px;
+            width: 600px;
             display: flex;
+            gap: 32px;
 
             .gift {
               cursor: pointer;
-              width: 6.56vw;
-              height: 6.56vw;
+              width: 126px;
+              height: 126px;
               border: 1px solid #9a9a9a;
               border-radius: 10px;
-              margin-right: 1.67vw;
               display: flex;
               align-items: center;
               justify-content: center;
@@ -126,8 +130,8 @@
               input {
                 width: 16px;
                 position: absolute;
-                margin-top: -5.1vw;
-                margin-right: -5.1vw;
+                margin-top: -102px;
+                margin-right: -102px;
               }
               img {
                 width: 4.95vw;
@@ -150,7 +154,7 @@
           justify-content: center;
           align-items: center;
           margin-top: 24px;
-          width: 31.25vw;
+          width: 600px;
           height: 56px;
           border: none;
           border-radius: 200px;
@@ -170,7 +174,7 @@
         margin-top: 55px;
         position: absolute;
         display: flex;
-        width: 33.75vw;
+        width: 648px;
         height: 662px;
         background-color: #ffffff;
         z-index: 12;
@@ -178,7 +182,7 @@
       }
       .full-bg {
         overflow: hidden;
-        width: 33.75vw;
+        width: 648px;
         height: 711px;
         display: flex;
         position: absolute;
@@ -190,8 +194,8 @@
 
         .close-button {
           cursor: pointer;
-          width: 2.08vw;
-          height: 2.08vw;
+          width: 40px;
+          height: 40px;
           background: url(/img/cabinet/icons/cross-white.svg) no-repeat;
           background-position: 50%;
           background-color: #4766af;
@@ -202,7 +206,7 @@
           z-index: 12;
         }
         .bg-button {
-          width: 5.21vw;
+          width: 100px;
           height: 100px;
           background-color: rgba(0, 0, 0, 0.5);
           background-blend-mode: normal;
@@ -210,7 +214,7 @@
           z-index: 9;
           border-radius: 20px;
           margin-top: -45px;
-          margin-right: -2.34vw;
+          margin-right: -45px;
         }
         .bg-w {
           width: 100px;
@@ -218,7 +222,7 @@
           background-color: rgba(0, 0, 0, 0.5);
           position: absolute;
           background-blend-mode: normal;
-          margin-right: 2.86vw;
+          margin-right: 55px;
         }
         .bg-h {
           margin-top: 55px;
@@ -235,35 +239,7 @@
 @media only screen and (max-width: 1800px) {
   .congratulations-modal {
     .congratulations-common {
-      .background {
-        margin-top: 7vh;
-
-        .h-white {
-          height: 600px;
-          .text {
-            margin-top: 12px;
-
-            input {
-              margin-bottom: 8px;
-            }
-          }
-          .check {
-            margin-top: 12px;
-          }
-          .present {
-            margin-top: 12px;
-          }
-          button {
-            margin-top: 12px;
-          }
-        }
-        .w-white {
-          height: 550px;
-        }
-        .full-bg {
-          height: 600px;
-        }
-      }
+      zoom: 0.8;
     }
   }
 }

@@ -1,20 +1,24 @@
 .education-modal {
   position: fixed;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   left: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   .education-common {
+    width: 539px;
+    height: 542px;
     .background {
       position: absolute;
-      margin-left: 35.94vw;
-      margin-top: 222px;
+
       .h-white {
         position: absolute;
         display: flex;
-        width: 25.21vw;
+        width: 484px;
         height: 373px;
         background-color: #ffffff;
         z-index: 13;
@@ -42,7 +46,7 @@
           .dropdown-title {
             cursor: pointer;
             margin-top: 24px;
-            width: 22.24vw;
+            width: 427px;
             height: 35px;
             background-color: #4766af;
             display: flex;
@@ -71,7 +75,7 @@
             position: absolute;
             display: flex;
             flex-direction: column;
-            width: 22.24vw;
+            width: 427px;
             height: 197px;
             background-color: #fff;
             overflow: scroll;
@@ -100,7 +104,7 @@
         .text {
           textarea {
             margin-top: 83px;
-            width: 22.24vw;
+            width: 427px;
             height: 138px;
             resize: none;
             border: 1px solid #d6d6d6;
@@ -111,7 +115,7 @@
 
         button {
           margin-top: 15px;
-          width: 22.24vw;
+          width: 427px;
           height: 40px;
           border: none;
           border-radius: 10px;
@@ -125,7 +129,7 @@
         margin-top: 55px;
         position: absolute;
         display: flex;
-        width: 28.07vw;
+        width: 539px;
         height: 318px;
         background-color: #ffffff;
         z-index: 12;
@@ -133,7 +137,7 @@
       }
       .full-bg {
         overflow: hidden;
-        width: 28.07vw;
+        width: 539px;
         height: 373px;
         display: flex;
         position: absolute;
@@ -145,8 +149,8 @@
 
         .close-button {
           cursor: pointer;
-          width: 2.08vw;
-          height: 2.08vw;
+          width: 40px;
+          height: 40px;
           background: url(/img/cabinet/icons/cross-white.svg) no-repeat;
           background-position: 50%;
           background-color: #4766af;
@@ -157,7 +161,7 @@
           z-index: 12;
         }
         .bg-button {
-          width: 5.21vw;
+          width: 100px;
           height: 100px;
           background-color: rgba(0, 0, 0, 0.5);
           background-blend-mode: normal;
@@ -165,7 +169,7 @@
           z-index: 9;
           border-radius: 20px;
           margin-top: -45px;
-          margin-right: -2.34vw;
+          margin-right: -45px;
         }
         .bg-w {
           width: 100px;
@@ -173,7 +177,7 @@
           background-color: rgba(0, 0, 0, 0.5);
           position: absolute;
           background-blend-mode: normal;
-          margin-right: 2.86vw;
+          margin-right: 55px;
         }
         .bg-h {
           margin-top: 55px;
@@ -250,37 +254,6 @@
 
 @media only screen and (max-width: 1800px) {
   .education-modal {
-    .education-common {
-      .background {
-        margin-top: 122px;
-        .h-white {
-          padding: 36px 0 24px 42px;
-          .choose-dropdown {
-            .dropdown-title {
-              margin-top: 12px;
-            }
-          }
-          .text {
-            textarea {
-              margin-top: 56px;
-            }
-          }
-          button {
-            margin-top: 8px;
-          }
-        }
-      }
-    }
-    .extended {
-      .background {
-        .h-white {
-          .text {
-            textarea {
-              margin-top: 0;
-            }
-          }
-        }
-      }
-    }
+    zoom: 0.9;
   }
 }

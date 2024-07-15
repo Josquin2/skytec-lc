@@ -10,7 +10,8 @@ import {
   onVacanciesPageClick,
   onAboutCompanyPageClick,
   onPrivilegePageClick,
-  onNewEmployeePageClick
+  onNewEmployeePageClick,
+  onGlobalSearchClick
 } from './routing-functions'
 
 const route = useRoute()
@@ -40,6 +41,10 @@ function isLogged() {
     return false
   }
 }
+
+// Global search
+
+const searchRequest = ref('')
 </script>
 
 <template>
@@ -92,8 +97,19 @@ function isLogged() {
         </p>
       </div>
       <div class="search">
-        <input type="text" class="search-input" placeholder="Поиск по порталу" />
-        <img src="/icons/search.svg" alt="" class="search-icon" />
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Поиск по порталу"
+          v-model="searchRequest"
+          @keydown.enter="onGlobalSearchClick(searchRequest)"
+        />
+        <img
+          src="/icons/search.svg"
+          alt=""
+          class="search-icon"
+          @click="onGlobalSearchClick(searchRequest)"
+        />
       </div>
       <div class="profile" @click="onCabinetPageClick()">
         <img src="/icons/user.svg" alt="" />
@@ -132,6 +148,7 @@ function isLogged() {
         color: #fff;
         margin-left: 24px;
         cursor: pointer;
+        width: max-content;
       }
       .clicked-theme {
         border-bottom: 1px solid #fff;
