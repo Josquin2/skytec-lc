@@ -13,11 +13,19 @@ export interface News {
   user: User
   user_id: number
   comments: Comment[]
-  views_count: number
+  views_count: number,
+  users_reactions: Reaction[],
+  user_reaction: number,
 }
 
 export interface Emoji {
   id: number
   slug: string
   image: string
+}
+
+export interface Reaction {
+  count: number,
+  emoji_id: number,
+  image: string,
 }
