@@ -123,6 +123,13 @@ function onNameClick() {
     onPasswordModalClick()
   }
 }
+
+async function PhotoChanged() {
+  const response = await ApiClass.getObjects('user')
+  if (user.value) {
+    user.value.avatar = response.data.user.avatar
+  }
+}
 </script>
 
 <template>
@@ -200,7 +207,7 @@ function onNameClick() {
       </div>
     </div>
 
-    <LoadPhotoModal />
+    <LoadPhotoModal @photoChanged="PhotoChanged" />
     <ConfirmPasswordModal @Confirmed:boolean="(val: boolean) => (isUnlocked = val)" />
   </div>
 </template>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, defineEmits } from 'vue'
 import { FileApi } from '@/api/files'
 import { CircleStencil, Cropper } from 'vue-advanced-cropper'
 import 'vue-advanced-cropper/dist/style.css'
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+
+const emit = defineEmits(['photoChanged'])
 
 function onPhotoChangeModal() {
   document.getElementById('photo-modal')?.classList.toggle('modal-hidden')
@@ -27,41 +29,27 @@ const handleFile = (event: Event) => {
 
 const ApiClass = new FileApi()
 const token = localStorage.getItem('token')
-const userLocal = JSON.parse(localStorage.getItem('user') || '')
 
-// async function uploadImage() {
-//   const { canvas } = cropperValue.value.getResult()
-//   const croppedImageSrc = canvas.toDataURL()
-//   formData.append('photo', croppedImageSrc)
-
-//   try {
-//     if (token) {
-//       await ApiClass.put(`user`, {
-//         photo: formData
-//       })
-//       toast('Фото обновлено!', { position: toast.POSITION.BOTTOM_RIGHT })
-//       onPhotoChangeModal()
-//     }
-//   } catch (error) {
-//     toast('Ошибка при отправке фото!', { position: toast.POSITION.BOTTOM_RIGHT })
-//     console.error(error)
-//   }
-// }
 async function uploadImage() {
   const { canvas } = cropperValue.value.getResult()
 
   canvas.toBlob(async (blob: Blob) => {
     const file = new File([blob], 'avatar.png')
     const formData = new FormData()
-    formData.append('photo', file)
+    formData.append('avatar', file)
 
     try {
       if (token) {
-        await ApiClass.put(`user`, {
-          avatar: formData
-        })
+        const resp = await ApiClass.post(`user/avatar`, formData)
         toast('Фото обновлено!', { position: toast.POSITION.BOTTOM_RIGHT })
         onPhotoChangeModal()
+
+        const user = JSON.parse(localStorage.getItem('user') || '')
+        user.avatar = resp.avatar
+        localStorage.removeItem('user')
+        localStorage.setItem('user', JSON.stringify(user))
+
+        emit('photoChanged')
       }
     } catch (error) {
       toast('Ошибка при отправке фото!', { position: toast.POSITION.BOTTOM_RIGHT })
