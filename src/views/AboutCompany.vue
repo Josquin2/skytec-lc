@@ -2,11 +2,11 @@
 import StandardServices from '@/components/about-company/StandardServices.vue'
 import AdditionalServices from '@/components/about-company/AdditionalServices.vue'
 import OneWorker from '@/components/about-company/Worker.vue'
-
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
 import StructureOfCompany from '@/components/about-company/StructureOfCompany.vue'
-
-import { ref } from 'vue'
+import { Api } from '@/api/api'
+import { ref, onMounted, type Ref } from 'vue'
+import type { Structure } from '@/types/Structure'
 
 const services = ref('standard')
 
@@ -24,6 +24,41 @@ function onServicesChangeClick(value: string) {
 
 function onNavigationClick(to: string) {
   document.getElementById(to)?.scrollIntoView()
+}
+
+const ApiClass = new Api()
+const cutted: Ref<Structure[][]> = ref([])
+
+const currentPage = ref(0)
+
+onMounted(async () => {
+  const response = await ApiClass.getObjects('departments')
+  const array = response
+  cutForPages(array)
+})
+
+function cutForPages(allBlogs: Array<any>) {
+  let n = 3
+  for (let i = 0; i < allBlogs.length; i += n) {
+    cutted.value.push(allBlogs.slice(i, i + n))
+  }
+}
+
+function nextPage() {
+  if (cutted.value.length > currentPage.value + 1) {
+    onPageClick(currentPage.value + 1)
+  }
+}
+
+function prevPage() {
+  if (currentPage.value > 0) {
+    onPageClick(currentPage.value - 1)
+  }
+}
+
+function onPageClick(index: number) {
+  currentPage.value = index
+  document.getElementById('departments')?.scrollIntoView({ behavior: 'smooth' })
 }
 </script>
 
@@ -163,15 +198,28 @@ function onNavigationClick(to: string) {
           <span></span>
         </div>
       </div>
-      <StructureOfCompany />
+      <StructureOfCompany :data="cutted[currentPage]" />
 
       <div class="page-arrows">
-        <div class="one-page-arrow cannot-click"></div>
+        <div
+          class="one-page-arrow"
+          @click="prevPage()"
+          :class="{ 'cannot-click': currentPage - 1 < 0 }"
+        ></div>
 
-        <span class="active-stucture-page"></span>
-        <span class="default"></span>
+        <span
+          class="default"
+          :class="{ 'active-stucture-page': index == currentPage }"
+          @click="onPageClick(index)"
+          v-for="(page, index) in cutted.length"
+          :key="index"
+        ></span>
 
-        <div class="right one-page-arrow"></div>
+        <div
+          class="right one-page-arrow"
+          :class="{ 'cannot-click': currentPage + 2 > cutted.length }"
+          @click="nextPage()"
+        ></div>
       </div>
     </div>
   </div>

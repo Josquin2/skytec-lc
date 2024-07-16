@@ -1,12 +1,19 @@
 <script setup lang="ts">
+import type { Structure } from '@/types/Structure'
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
+
+const props = defineProps({
+  data: Array<Structure>
+})
+
+console.log(props.data)
 </script>
 
 <template>
-  <div class="department-main">
-    <div class="dep-worker">
+  <div class="department-main" id="departments">
+    <div class="dep-worker" v-for="one in props.data">
       <div class="upper">
-        <h2>Отдел досуга</h2>
+        <h2>{{ one?.title }}</h2>
         <hr />
         <StructureWorker
           name="Мария Ельчинова"
@@ -17,65 +24,10 @@ import StructureWorker from '@/components/about-company/StructureWorker.vue'
 
       <div class="dep-footer">
         <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-        <hr class="empty" />
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
-        />
-      </div>
-    </div>
-    <div class="dep-worker">
-      <div class="upper">
-        <h2>Отдел маркетинга</h2>
-        <hr />
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-      </div>
-
-      <div class="dep-footer">
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-        <hr class="empty" />
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
-        />
-      </div>
-    </div>
-    <div class="dep-worker">
-      <div class="upper">
-        <h2>Отдел рекламы</h2>
-        <hr />
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-      </div>
-
-      <div class="dep-footer">
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-        <hr class="empty" />
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
+          :name="user.firstname + ' ' + user.surname"
+          :job="user.position"
+          :image="user.avatar"
+          v-for="user in one.users"
         />
       </div>
     </div>
@@ -114,13 +66,9 @@ import StructureWorker from '@/components/about-company/StructureWorker.vue'
       border: 1px solid #cccccc;
       border-radius: 0 0 27px 27px;
       padding: 32px 24px;
-
-      .empty {
-        opacity: 0;
-        margin: 0;
-        width: 17.71vw;
-        height: 32px;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
     }
   }
 }
