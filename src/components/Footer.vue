@@ -42,6 +42,7 @@ import {
       margin-right: 24px;
       font-size: 16px;
       cursor: pointer;
+      width: max-content;
     }
   }
 }

@@ -104,6 +104,9 @@ async function onSaveChangesButtonClick() {
       })
       console.log(resp)
       toast('Изменения сохранены!', { position: toast.POSITION.BOTTOM_RIGHT })
+
+      localStorage.removeItem('user')
+      localStorage.setItem('user', JSON.stringify(resp))
     }
   } catch (error) {
     toast('Ошибка при отправке запроса!', { position: toast.POSITION.BOTTOM_RIGHT })
