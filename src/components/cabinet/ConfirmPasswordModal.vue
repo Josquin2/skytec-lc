@@ -11,7 +11,7 @@ function onPasswordModalClick() {
 const password = ref('')
 const error = ref('')
 
-const emit = defineEmits(['Confirmed'])
+const emit = defineEmits(['update:isUnlocked'])
 
 async function onCheckButtonClick() {
   const user = JSON.parse(localStorage.getItem('user') || '')
@@ -23,7 +23,7 @@ async function onCheckButtonClick() {
     console.log('error', resp)
     error.value = resp.data
   } else {
-    emit('Confirmed', true)
+    emit('update:isUnlocked', true)
     onPasswordModalClick()
     error.value = ''
   }

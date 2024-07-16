@@ -208,6 +208,6 @@ async function PhotoChanged() {
     </div>
 
     <LoadPhotoModal @photoChanged="PhotoChanged" />
-    <ConfirmPasswordModal @Confirmed:boolean="(val: boolean) => (isUnlocked = val)" />
+    <ConfirmPasswordModal v-model:isUnlocked="isUnlocked" />
   </div>
 </template>
