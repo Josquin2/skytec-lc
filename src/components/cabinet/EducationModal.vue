@@ -11,6 +11,7 @@ function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
 
+const textarea = ref('')
 const chosenLesson = ref('')
 const chosenDate = ref()
 const chosenLessonId = ref()
@@ -49,7 +50,8 @@ async function onEducationSendButtonClick() {
     if (token) {
       await ApiClass.post('application/education', {
         education_id: chosenLessonId.value,
-        date: finalDate.value
+        date: finalDate.value,
+        comment: textarea.value
       })
       toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
       emit('checkAllRequests')
@@ -95,6 +97,7 @@ async function onEducationSendButtonClick() {
 
           <div class="text">
             <textarea
+              v-model="textarea"
               :placeholder="
                 chosenDate != undefined
                   ? 'Не нашли подходящее обучение? Напишите здесь...'
