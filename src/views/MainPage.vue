@@ -36,11 +36,13 @@ function onNewsClick(id: number) {
 async function setNewsReaction(id: number, news: News) {
   const setReaction = await ApiClass.post('news/reactions', {
     news_id: news.id,
-    emoji_id: id,
+    emoji_id: id
   })
 
   news.user_reaction = setReaction.user_reaction
   news.users_reactions = setReaction.users_reactions
+
+  document.getElementById(`extended-icons-${news.id - 1}`)?.classList.add('closed')
 }
 </script>
 
@@ -78,7 +80,11 @@ async function setNewsReaction(id: number, news: News) {
           </div>
 
           <div class="likes">
-            <EmojiBlock :emoji="emoji" :id="index" @emoji-click="(id) => setNewsReaction(id, news)" />
+            <EmojiBlock
+              :emoji="emoji"
+              :id="index"
+              @emoji-click="(id) => setNewsReaction(id, news)"
+            />
 
             <hr class="horisontal-line" />
 
@@ -86,12 +92,11 @@ async function setNewsReaction(id: number, news: News) {
               <img src="/icons/see-more-emoji.svg" alt="" />
             </button>
 
-            <div v-for="reaction in news?.users_reactions" :class="'reaction-block user-reacted-' + (news.user_reaction === reaction.emoji_id)">
-              <img
-                :src="reaction.image"
-                width="20px"
-                height="20px"
-                alt="Эмоджи" />
+            <div
+              v-for="reaction in news?.users_reactions"
+              :class="'reaction-block user-reacted-' + (news.user_reaction === reaction.emoji_id)"
+            >
+              <img :src="reaction.image" width="20px" height="20px" alt="Эмоджи" />
               <b>{{ reaction.count }}</b>
             </div>
           </div>
