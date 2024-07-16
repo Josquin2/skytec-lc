@@ -29,4 +29,7 @@ export class FileApi {
   async post(endpoint: string, body: object): Promise<any> {
     return this.request('post', endpoint, body)
   }
+  async put(endpoint: string, body: object): Promise<any> {
+    return this.request('put', endpoint, body)
+  }
 }
