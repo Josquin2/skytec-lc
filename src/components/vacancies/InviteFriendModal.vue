@@ -2,6 +2,9 @@
 import { onMounted, ref } from 'vue'
 import { FileApi } from '@/api/files'
 
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
 const ApiClass = new FileApi()
 
 function onInviteFriendModalClick() {
@@ -18,29 +21,33 @@ const friendsContacts = ref('')
 const friendsVacancy = ref('')
 const myName = ref(myData.firstname)
 const mySurname = ref(myData.surname)
+const formData = new FormData()
 
-async function handleFile(event: Event) {
+function handleFile(event: Event) {
   resumeStatus.value = 'Резюме прикреплено!'
   const inputElement = event.target as HTMLInputElement
   if (inputElement && inputElement.files && inputElement.files.length > 0) {
     const file = inputElement.files[0]
-    const formData = new FormData()
-    formData.append('file', file)
 
-    try {
-      const returnedFile = await ApiClass.post('invite-friend', formData)
-      if (file.size === returnedFile.size && file.type === returnedFile.type) {
-        console.log('Файл успешно отправлен!')
-      } else {
-        console.log('Что-то пошло не так, файлы не совпадают.')
-        console.log(file.size)
-        console.log(returnedFile.size)
-        console.log(file.type)
-        console.log(returnedFile.type)
-      }
-    } catch (error) {
-      console.error(error)
-    }
+    formData.append('file', file)
+  }
+}
+
+async function onSendClick() {
+  formData.append('data[Имя Друга]', friendsName.value)
+  formData.append('data[Контакты Друга]', friendsContacts.value)
+  formData.append('data[Вакансия]', friendsVacancy.value)
+  formData.append('data[Имя Отправителя]', myName.value)
+  formData.append('data[Фамилия Отправителя]', mySurname.value)
+
+  try {
+    const returnedFile = await ApiClass.post('invite-friend', formData)
+    console.log(returnedFile)
+
+    toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+    onInviteFriendModalClick()
+  } catch (error) {
+    console.error(error)
   }
 }
 </script>
@@ -73,7 +80,7 @@ async function handleFile(event: Event) {
             <input type="text" v-model="mySurname" placeholder="Фамилия:" />
           </div>
 
-          <button>Отправить</button>
+          <button @click="onSendClick">Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">

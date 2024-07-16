@@ -98,7 +98,7 @@ async function onSignInButton() {
             <p class="mb-5 text-danger mt-2" v-if="state.formError.length">{{ state.formError }}</p>
           </div>
         </div>
-        <div class="bg-footer"><img src="/src/assets/icons/logo.png" alt="" /></div>
+        <div class="bg-footer"><img src="@/assets/img/logo-black.png" alt="" /></div>
         <div class="bg-bg">
           <span class="button-blue-bg-w"></span>
           <span class="button-blue-bg-h"></span>
