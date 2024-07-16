@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { FileApi } from '@/api/files'
+
+const ApiClass = new FileApi()
 
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
@@ -16,21 +19,28 @@ const friendsVacancy = ref('')
 const myName = ref(myData.firstname)
 const mySurname = ref(myData.surname)
 
-function handleFile(event: Event) {
+async function handleFile(event: Event) {
   resumeStatus.value = 'Резюме прикреплено!'
   const inputElement = event.target as HTMLInputElement
   if (inputElement && inputElement.files && inputElement.files.length > 0) {
     const file = inputElement.files[0]
-    const url = URL.createObjectURL(file)
+    const formData = new FormData()
+    formData.append('file', file)
 
-    // here goes api methods
-
-    // delete this
-    const link = document.createElement('a')
-    link.href = url
-    link.download = file.name
-    link.click()
-    //
+    try {
+      const returnedFile = await ApiClass.post('invite-friend', formData)
+      if (file.size === returnedFile.size && file.type === returnedFile.type) {
+        console.log('Файл успешно отправлен!')
+      } else {
+        console.log('Что-то пошло не так, файлы не совпадают.')
+        console.log(file.size)
+        console.log(returnedFile.size)
+        console.log(file.type)
+        console.log(returnedFile.type)
+      }
+    } catch (error) {
+      console.error(error)
+    }
   }
 }
 </script>
