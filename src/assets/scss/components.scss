@@ -10,12 +10,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #E1E1E1;
+  border: 1px solid #e1e1e1;
   border-radius: 10px;
   margin-right: 8px;
 
   &.user-reacted-true {
-    background: #E1E1E1;
+    background: #e1e1e1;
   }
 
   img {
@@ -25,7 +25,7 @@
   }
 
   b {
-    color: #4766AF;
+    color: #4766af;
     font-size: 16px;
     font-weight: 500;
   }

@@ -1,8 +1,15 @@
 <script setup lang="ts">
-// function onDocumentClick() {
-//   document.getElementById('full-huge-document')?.classList.toggle('closed')
-// }
-import { onMounted, onUnmounted } from 'vue'
+import { type Documents } from '@/types/Documents'
+import { Api } from '@/api/api'
+import { type Ref, ref, onMounted, onUnmounted } from 'vue'
+
+const ApiClass = new Api()
+
+const leftArr: Ref<Documents[]> = ref([])
+const rightArr: Ref<Documents[]> = ref([])
+
+const data: Ref<Documents[]> = ref([])
+const image: Ref<string> = ref('')
 
 function onDocumentClick(event: any) {
   event.stopPropagation()
@@ -10,6 +17,8 @@ function onDocumentClick(event: any) {
 }
 
 onMounted(() => {
+  getData()
+
   document.addEventListener('click', () => {
     const fullHugeDocument = document.getElementById('full-huge-document')
     if (fullHugeDocument && !fullHugeDocument.classList.contains('closed')) {
@@ -26,6 +35,25 @@ onUnmounted(() => {
     }
   })
 })
+
+async function getData() {
+  const resp = await ApiClass.getObjects('documents')
+  console.log(resp)
+  data.value = resp
+  image.value = resp[0].document
+  sliceArray(resp)
+}
+
+function selectDocument(url: string) {
+  image.value = url
+}
+
+function sliceArray(arr: Array<any>) {
+  rightArr.value = arr.slice(0, Math.floor(arr.length / 2))
+  leftArr.value = arr.slice(Math.floor(arr.length / 2), arr.length)
+  console.log(leftArr)
+  console.log(rightArr)
+}
 </script>
 
 <template>
@@ -36,39 +64,36 @@ onUnmounted(() => {
     </div>
     <div class="documents-common">
       <div class="huge-document" @click="onDocumentClick">
-        <img src="/img/documents/first-document.png" alt="" />
+        <iframe
+          :src="image + '#toolbar=0&scrollbar=0&view=FitV'"
+          allowtransparency="true"
+          height="100%"
+          width="100%"
+          style="border: 1px solid #474747; border-radius: 10px; background: #ffffff"
+          type="application/pdf"
+        ></iframe>
         <span class="open-full"></span>
       </div>
+      <!-- left -->
       <div class="documents-mini-block">
-        <div class="one-document-common">
+        <div
+          class="one-document-common"
+          v-for="doc in leftArr"
+          @click="selectDocument(doc.document)"
+        >
           <span></span>
-          <p>Договор на предоставление маркетинговых услуг</p>
-        </div>
-        <div class="one-document-common">
-          <span></span>
-          <p>Политика конфиденциальности</p>
-        </div>
-        <div class="one-document-common">
-          <span></span>
-          <p>Положение о внутреннем контроле и безопасности</p>
-        </div>
-        <div class="one-document-common">
-          <span></span>
-          <p>Прейскурант цен и услуг</p>
+          <p>{{ doc.title }}</p>
         </div>
       </div>
+      <!-- right -->
       <div class="documents-mini-block">
-        <div class="one-document-common">
+        <div
+          class="one-document-common"
+          v-for="doc in rightArr"
+          @click="selectDocument(doc.document)"
+        >
           <span></span>
-          <p>Политика работы с персоналом и правила внутреннего трудового распорядка</p>
-        </div>
-        <div class="one-document-common">
-          <span></span>
-          <p>Прейскурант цен и услуг</p>
-        </div>
-        <div class="one-document-common">
-          <span></span>
-          <p>Регламент или стандарты предоставления услуг</p>
+          <p>{{ doc.title }}</p>
         </div>
       </div>
     </div>
@@ -110,6 +135,11 @@ onUnmounted(() => {
       display: flex;
       flex-direction: column;
       cursor: pointer;
+      width: 312px;
+      height: 444px;
+      border: 1px solid #474747;
+      border-radius: 10px;
+      overflow: hidden;
 
       .open-full {
         width: 30px;
@@ -131,6 +161,7 @@ onUnmounted(() => {
       flex-direction: column;
       gap: 24px;
       width: 16.67vw;
+      height: min-content;
     }
   }
 

@@ -194,7 +194,7 @@ function logout() {
           Заказать справку
         </div>
         <div @click="logout">
-          <LogoutIcon style="margin-left: 26px;" />
+          <LogoutIcon style="margin-left: 26px" />
 
           Выйти
         </div>
