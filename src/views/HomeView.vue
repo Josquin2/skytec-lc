@@ -61,9 +61,10 @@ async function onSignInButton() {
       console.log('error', resp)
       state.value.formError = resp.data
     } else {
-      console.log(resp.data.user)
+      console.log(resp.data)
       localStorage.setItem('user', JSON.stringify(resp.data.user))
       localStorage.setItem('token', resp.data.token)
+      localStorage.setItem('permissions', JSON.stringify(resp.data.permissions))
 
       router.push({ name: 'main', params: { login: state.value.login } })
 
