@@ -182,11 +182,16 @@
       justify-content: center;
       border: 1px solid #999999;
       border-radius: 7px;
+      transition: 0.2s;
     }
     .clicked {
       background: url(/public/img/cabinet/icons/approve-white.svg) no-repeat;
       background-position: 50%;
       background-color: #4766af;
+    }
+    .error {
+      border: 1px solid #ff0000;
+      background: #ff000010;
     }
   }
 }

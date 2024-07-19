@@ -7,6 +7,7 @@
     stroke-width="5"
     stroke="#474747"
     fill="none"
+    class="stroke"
   >
     <polyline points="46.02 21.95 55.93 31.86 46.02 41.77" />
     <line x1="55.93" y1="31.86" x2="19.59" y2="31.86" />
