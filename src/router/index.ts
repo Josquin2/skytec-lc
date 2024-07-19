@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { User } from '@/api/user'
 
-let UserClass = new User()
+const UserClass = new User()
 
 import MainPage from '@/views/MainPage.vue'
 import CabinetSettings from '@/views/CabinetSettings.vue'

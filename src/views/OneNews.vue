@@ -83,7 +83,7 @@ let commentCountText = computed(() => {
     }
 
     return text
-  }
+  } else return 'Н/Д'
 })
 
 // views count things

@@ -2,7 +2,6 @@
 import blackLogo from '@/assets/img/logo-black.png'
 import { useRoute } from 'vue-router'
 import { ref, watch } from 'vue'
-import router from '@/router'
 
 import {
   onMainPageClick,
@@ -25,7 +24,7 @@ watch(
   }
 )
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   watch(
     () => route.name,
     (newName) => {

@@ -72,7 +72,7 @@ onMounted(() => {
 
 watch(
   () => route.params.request,
-  (newPath) => {
+  () => {
     searchQuery.value = route.params.request as string
     result.value = []
     search()
@@ -94,7 +94,12 @@ function onPageClick(camel: string) {
       <div class="found" v-if="result.length > 0">
         <h2>По вашему запросу найдено:</h2>
         <div class="result">
-          <div class="one-result" v-for="res in result" @click="onPageClick(res)">
+          <div
+            class="one-result"
+            v-for="(res, index) in result"
+            :key="index"
+            @click="onPageClick(res)"
+          >
             {{ routes[res] ?? 'Страница не найдена' }}
           </div>
         </div>

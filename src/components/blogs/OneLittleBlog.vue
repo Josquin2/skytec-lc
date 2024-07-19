@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import { useRoute } from 'vue-router'
 import router from '@/router'
 
 const props = defineProps({
@@ -11,8 +10,6 @@ const props = defineProps({
   text: String,
   blogId: Number
 })
-
-const route = useRoute()
 
 function onOneBlogClick(blog: number | undefined) {
   router.push({ name: 'one-blog', params: { blog: blog } })

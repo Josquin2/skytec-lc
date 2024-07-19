@@ -7,7 +7,6 @@ import MainIdea from '@/components/home/MainIdea.vue'
 import MainCarousel from '@/components/home/MainCarousel.vue'
 import EmojiBlock from '@/components/home/EmojiBlock.vue'
 
-import { useRoute } from 'vue-router'
 import router from '@/router'
 import { ref, onMounted } from 'vue'
 import type { Ref } from 'vue'
@@ -25,8 +24,6 @@ onMounted(async () => {
   emoji.value = await ApiClass.getObjects('emojis')
   // console.log(emoji.value)
 })
-
-const route = useRoute()
 
 function onNewsClick(id: number) {
   // console.log(slug)
@@ -93,7 +90,8 @@ async function setNewsReaction(id: number, news: News) {
             </button>
 
             <div
-              v-for="reaction in news?.users_reactions"
+              v-for="(reaction, index) in news?.users_reactions"
+              :key="index"
               :class="'reaction-block user-reacted-' + (news.user_reaction === reaction.emoji_id)"
             >
               <img :src="reaction.image" width="20px" height="20px" alt="Эмоджи" />

@@ -7,7 +7,6 @@ import type { Blog } from '@/types/Blog'
 import { Api } from '@/api/api'
 
 import OneLittleBlog from '@/components/blogs/OneLittleBlog.vue'
-import AllBlogs from './AllBlogs.vue'
 
 const route = useRoute()
 

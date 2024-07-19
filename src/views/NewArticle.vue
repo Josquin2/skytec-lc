@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import CKEditor from '@mayasabha/ckeditor4-vue3'
 import CategoriesDropdown from '@/components/blogs/CategoriesDropdown.vue'
 
 import { toast } from 'vue3-toastify'

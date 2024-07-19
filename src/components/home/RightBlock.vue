@@ -54,7 +54,7 @@ async function getTodaysBirthdays() {
           <h4>Наши именинники сегодня</h4>
           <p>{{ todaysDate }}.{{ todaysMonth }}.{{ todaysYear }}</p>
         </div>
-        <div class="who" v-for="one in todaysBirthDays">
+        <div class="who" v-for="(one, index) in todaysBirthDays" :key="index">
           <div class="happy-bd-to">
             <img :src="one.avatar" alt="" class="image-of-hbd" />
             <h2 class="name-of-hbd">{{ one.surname }} {{ one.firstname }}</h2>
@@ -73,7 +73,7 @@ async function getTodaysBirthdays() {
 
     <div class="next-week" v-if="allBirthDays.length > 0">
       <h2 class="other-hbd">Наши именинники на следующей неделе</h2>
-      <div class="other-hbd-common" v-for="day in allBirthDays">
+      <div class="other-hbd-common" v-for="(day, index) in allBirthDays" :key="index">
         <p class="date">
           {{ day.birthdate.split('.')[0] + '.' + day.birthdate.split('.')[1] }}
         </p>

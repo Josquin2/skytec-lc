@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoadPhotoModal from '@/components/cabinet/LoadPhotoModal.vue'
 import ConfirmPasswordModal from '@/components/cabinet/ConfirmPasswordModal.vue'
-import { onMounted, watch, ref, type Ref } from 'vue'
+import { onMounted, ref, type Ref } from 'vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'

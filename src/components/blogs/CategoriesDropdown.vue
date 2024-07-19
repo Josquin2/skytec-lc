@@ -56,7 +56,8 @@ const filteredCategories = computed(() => {
         class="dd-search"
       />
       <p
-        v-for="category in filteredCategories"
+        v-for="(category, index) in filteredCategories"
+        :key="index"
         @click="onCategoryClick(category.title, category.id)"
       >
         {{ category.title }}

@@ -9,12 +9,7 @@ export class Api {
     this.token = localStorage.getItem('token') || ''
   }
 
-  private async request(
-    method: string,
-    endpoint: string,
-    body?: object,
-    headers?: object
-  ): Promise<any> {
+  private async request(method: string, endpoint: string, body?: object): Promise<any> {
     try {
       const response = await axios.request({
         method,

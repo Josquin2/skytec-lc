@@ -66,7 +66,8 @@ function changePage(page: number) {
     <div class="center">
       <div class="blogs">
         <OneLittleBlog
-          v-for="blog in cuttedBlogs[currentPage]"
+          v-for="(blog, index) in cuttedBlogs[currentPage]"
+          :key="index"
           :avatar="blog.user.avatar"
           :date="blog.created_at"
           :author="blog.user.lastname + ' ' + blog.user.firstname"

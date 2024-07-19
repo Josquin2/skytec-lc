@@ -20,13 +20,11 @@ function onUserClick(id: number) {
 // API
 
 const users: Ref<User[]> = ref([])
-let nameOfUser = ref(route.params.search)
 
 onMounted(async () => {
   const response = await ApiClass.getObjects(`user/search?fullname=${route.params.search}`)
   console.log(response)
   users.value = response
-  // console.log(users.value)
 })
 
 watch(
@@ -49,8 +47,8 @@ watch(
       <div
         class="one-response"
         @click="onUserClick(user.id)"
-        v-for="user in users"
-        v-if="users.length > 0"
+        v-for="(user, index) in users"
+        :key="index"
       >
         <img :src="user.avatar" alt="" />
         <div class="user-info">
@@ -62,7 +60,7 @@ watch(
           </div>
         </div>
       </div>
-      <div class="no-one-found" v-else>По вашему запросу ничего не найдено!</div>
+      <div class="no-one-found" v-if="users.length < 1">По вашему запросу ничего не найдено!</div>
     </div>
   </div>
 </template>

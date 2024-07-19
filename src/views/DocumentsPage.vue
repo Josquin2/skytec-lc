@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Documents } from '@/types/Documents'
 import { Api } from '@/api/api'
-import { type Ref, ref, onMounted, onUnmounted } from 'vue'
+import { type Ref, ref, onMounted } from 'vue'
 
 const ApiClass = new Api()
 
@@ -59,7 +59,8 @@ function sliceArray(arr: Array<any>) {
       <div class="documents-mini-block">
         <div
           class="one-document-common"
-          v-for="doc in leftArr"
+          v-for="(doc, index) in leftArr"
+          :key="index"
           @click="selectDocument(doc.document)"
         >
           <span></span>
@@ -70,7 +71,8 @@ function sliceArray(arr: Array<any>) {
       <div class="documents-mini-block">
         <div
           class="one-document-common"
-          v-for="doc in rightArr"
+          v-for="(doc, index) in rightArr"
+          :key="index"
           @click="selectDocument(doc.document)"
         >
           <span></span>

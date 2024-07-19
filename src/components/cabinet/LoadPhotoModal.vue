@@ -15,8 +15,6 @@ function onPhotoChangeModal() {
 const imageSrc = ref('')
 const cropperValue = ref()
 
-const formData = new FormData()
-
 const handleFile = (event: Event) => {
   const target = event.target as HTMLInputElement
 

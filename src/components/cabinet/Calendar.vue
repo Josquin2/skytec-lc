@@ -44,10 +44,6 @@ const firstFewDaysOfMonth = computed(() =>
   ref(new Date(chosedYear.value, chosedMonth.value, 0).getDay())
 )
 
-const a = ref(
-  new Date(chosedYear.value, chosedMonth.value - 1, 0).getDate() - Number(firstFewDaysOfMonth.value)
-)
-
 function onNextMonthClick() {
   if (chosedMonth.value == 11) {
     chosedMonth.value = 0
@@ -106,7 +102,7 @@ const emit = defineEmits(['chosedDate'])
           <p>Вс</p>
         </div>
         <div class="numbers">
-          <p class="one-num" v-for="firstFew in firstFewDaysOfMonth.value"></p>
+          <p class="one-num" v-for="index in firstFewDaysOfMonth.value" :key="index"></p>
           <p
             :class="
               a == currentDay && currentMonth === chosedMonth && currentYear == chosedYear
@@ -114,7 +110,8 @@ const emit = defineEmits(['chosedDate'])
                 : 'one-num'
             "
             @click="onOneDateClick(a)"
-            v-for="a in lastDayOfMonth.value"
+            v-for="(a, index) in lastDayOfMonth.value"
+            :key="index"
           >
             {{ a }}
           </p>

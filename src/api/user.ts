@@ -1,6 +1,5 @@
 import { Api } from '@/api/api'
 import axios from 'axios'
-import router from '@/router'
 
 export class User extends Api {
   async getUserData(token: string): Promise<any> {

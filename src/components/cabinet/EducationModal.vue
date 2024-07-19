@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineEmits, onMounted, ref } from 'vue'
+import { defineEmits, ref } from 'vue'
 import { Api } from '@/api/api'
 
 import { toast } from 'vue3-toastify'

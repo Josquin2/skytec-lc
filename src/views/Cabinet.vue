@@ -14,10 +14,8 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 
 import { Api } from '@/api/api'
-import { User } from '@/api/user'
 
 let ApiClass = new Api()
-let UserClass = new User()
 
 import LeftArticles from '@/components/home/LeftArticles.vue'
 import VacationModal from '@/components/cabinet/VacationModal.vue'
@@ -26,7 +24,6 @@ import JobModal from '@/components/cabinet/JobModal.vue'
 import { onMounted, type Ref, ref } from 'vue'
 
 import { onDocumentsClick } from '@/components/routing-functions'
-import ExitIcon from '@/components/cabinet/icons/LogoutIcon.vue'
 import LogoutIcon from '@/components/cabinet/icons/LogoutIcon.vue'
 
 const route = useRoute()
@@ -151,7 +148,8 @@ function logout() {
                   ? 'denied'
                   : 'one-request approved'
             "
-            v-for="oneRequest in allReqests"
+            v-for="(oneRequest, index) in allReqests"
+            :key="index"
           >
             <div class="request-title">
               <RequestStatusCircle />

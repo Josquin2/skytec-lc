@@ -11,7 +11,7 @@ console.log(props.data)
 
 <template>
   <div class="department-main" id="departments">
-    <div class="dep-worker" v-for="one in props.data">
+    <div class="dep-worker" v-for="(one, index) in props.data" :key="index">
       <div class="upper">
         <h2>{{ one?.title }}</h2>
         <hr />
@@ -27,7 +27,8 @@ console.log(props.data)
           :name="user.firstname + ' ' + user.surname"
           :job="user.position"
           :image="user.avatar"
-          v-for="user in one.users"
+          v-for="(user, index) in one.users"
+          :key="index"
         />
       </div>
     </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import { FileApi } from '@/api/files'
 
 import { toast } from 'vue3-toastify'
