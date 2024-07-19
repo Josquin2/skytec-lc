@@ -11,29 +11,12 @@ const rightArr: Ref<Documents[]> = ref([])
 const data: Ref<Documents[]> = ref([])
 const image: Ref<string> = ref('')
 
-function onDocumentClick(event: any) {
-  event.stopPropagation()
-  document.getElementById('full-huge-document')?.classList.toggle('closed')
+function onDocumentClick(document: string) {
+  window.open(document)
 }
 
 onMounted(() => {
   getData()
-
-  document.addEventListener('click', () => {
-    const fullHugeDocument = document.getElementById('full-huge-document')
-    if (fullHugeDocument && !fullHugeDocument.classList.contains('closed')) {
-      fullHugeDocument.classList.add('closed')
-    }
-  })
-})
-
-onUnmounted(() => {
-  document.removeEventListener('click', () => {
-    const fullHugeDocument = document.getElementById('full-huge-document')
-    if (fullHugeDocument && !fullHugeDocument.classList.contains('closed')) {
-      fullHugeDocument.classList.add('closed')
-    }
-  })
 })
 
 async function getData() {
@@ -51,8 +34,6 @@ function selectDocument(url: string) {
 function sliceArray(arr: Array<any>) {
   rightArr.value = arr.slice(0, Math.floor(arr.length / 2))
   leftArr.value = arr.slice(Math.floor(arr.length / 2), arr.length)
-  console.log(leftArr)
-  console.log(rightArr)
 }
 </script>
 
@@ -63,7 +44,7 @@ function sliceArray(arr: Array<any>) {
       <h1>Нормативные документы</h1>
     </div>
     <div class="documents-common">
-      <div class="huge-document" @click="onDocumentClick">
+      <div class="huge-document" @click="onDocumentClick(image)">
         <iframe
           :src="image + '#toolbar=0&scrollbar=0&view=FitV'"
           allowtransparency="true"
@@ -96,9 +77,6 @@ function sliceArray(arr: Array<any>) {
           <p>{{ doc.title }}</p>
         </div>
       </div>
-    </div>
-    <div class="full-huge-document noselect closed" id="full-huge-document">
-      <img src="/img/documents/first-document-full.png" alt="" />
     </div>
   </div>
 </template>
@@ -195,34 +173,6 @@ function sliceArray(arr: Array<any>) {
     }
     p {
       color: #4766af;
-    }
-  }
-  .full-huge-document {
-    background-color: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-
-    transition:
-      opacity 0.15s ease-in-out,
-      visibility 0.15s ease-in-out;
-    opacity: 0;
-    visibility: hidden;
-    &.closed {
-      opacity: 0;
-      visibility: hidden;
-    }
-    &:not(.closed) {
-      opacity: 1;
-      visibility: visible;
-    }
-    img {
-      position: absolute;
-      top: 2.5%;
-      left: 34%;
-      height: 95vh;
     }
   }
 }
