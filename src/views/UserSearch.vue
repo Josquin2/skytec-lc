@@ -56,7 +56,7 @@ watch(
         <div class="user-info">
           <h2>{{ user.firstname + ' ' + user.surname }}</h2>
           <div class="job-info">
-            <p>{{ user.department.title || 'Н/Д' }}</p>
+            <p>{{ user.department?.title || 'Н/Д' }}</p>
             <hr class="job-divider" />
             <p>{{ user.position }}</p>
           </div>
