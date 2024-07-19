@@ -24,6 +24,7 @@ let nameOfUser = ref(route.params.search)
 
 onMounted(async () => {
   const response = await ApiClass.getObjects(`user/search?fullname=${route.params.search}`)
+  console.log(response)
   users.value = response
   // console.log(users.value)
 })
@@ -55,7 +56,7 @@ watch(
         <div class="user-info">
           <h2>{{ user.firstname + ' ' + user.surname }}</h2>
           <div class="job-info">
-            <p>{{ user.department.title }}</p>
+            <p>{{ user.department.title || 'Н/Д' }}</p>
             <hr class="job-divider" />
             <p>{{ user.position }}</p>
           </div>
