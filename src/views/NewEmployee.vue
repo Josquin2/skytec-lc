@@ -13,9 +13,12 @@ const canCreate = ref(false)
 onMounted(() => {
   if (localStorage.getItem('permissions')) {
     const permissions = JSON.parse(localStorage.getItem('permissions') || '')
-
-    if (permissions['users.create']) {
-      canCreate.value = permissions['users.create']
+    if (permissions === null) {
+      canCreate.value = false
+    } else {
+      if (permissions['users.create']) {
+        canCreate.value = permissions['users.create']
+      }
     }
   }
 })

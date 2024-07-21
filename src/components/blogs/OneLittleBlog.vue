@@ -18,20 +18,25 @@ function onOneBlogClick(blog: number | undefined) {
 
 <template>
   <div class="one-little-blog" @click="onOneBlogClick(props.blogId)">
-    <img :src="props.avatar" alt="" />
+    <img :src="props?.avatar" alt="" />
     <div class="blog-common">
       <div class="blog-header">
-        <p>{{ props.date }}</p>
+        <p>{{ props?.date }}</p>
       </div>
       <div class="name">
-        <h4>{{ props.author }}</h4>
+        <h4>{{ props?.author }}</h4>
       </div>
       <div class="blog-info-common">
         <div class="blog-title">
-          <h2>{{ props.title }}</h2>
+          <h2>{{ props?.title }}</h2>
         </div>
         <div class="blog-text">
-          <div class="blog-text-common" v-html="props.text?.slice(0, 200) + '...'"></div>
+          <div v-if="props.text && props.text.length < 200" v-html="props.text"></div>
+          <div
+            v-else-if="props.text && props.text.length > 200"
+            class="blog-text-common"
+            v-html="props.text?.slice(0, 200) + '...'"
+          ></div>
         </div>
       </div>
     </div>

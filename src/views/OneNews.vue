@@ -152,10 +152,10 @@ onBeforeRouteLeave(() => {
       <div class="comments-common">
         <!-- v-for in one-comment -->
         <div class="one-comment" v-for="(comment, index) in data?.comments" :key="index">
-          <img :src="comment.user.avatar" alt="" />
+          <img :src="comment?.user?.avatar" alt="" />
           <div>
-            <p>{{ comment.user.surname + ' ' + comment.user.firstname }}</p>
-            <h4>{{ comment.comment }}</h4>
+            <p>{{ comment?.user?.surname + ' ' + comment?.user?.firstname }}</p>
+            <h4>{{ comment?.comment }}</h4>
           </div>
         </div>
       </div>

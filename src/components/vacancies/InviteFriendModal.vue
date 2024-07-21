@@ -10,17 +10,17 @@ const ApiClass = new FileApi()
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
 }
-const token = localStorage.getItem('user') || ''
+const user = localStorage.getItem('user') || ''
 
-const myData = JSON.parse(token) // for value in myName and mySurname
+const myData = JSON.parse(user) // for value in myName and mySurname
 
 const resumeStatus = ref('Прикрепить резюме')
 
 const friendsName = ref('')
 const friendsContacts = ref('')
 const friendsVacancy = ref('')
-const myName = ref(myData.firstname)
-const mySurname = ref(myData.surname)
+const myName = ref(myData?.firstname)
+const mySurname = ref(myData?.surname)
 const formData = new FormData()
 
 function handleFile(event: Event) {

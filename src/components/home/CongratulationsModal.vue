@@ -87,7 +87,7 @@ async function sendPresent() {
           <div class="text">
             <div>
               <span>От кого:</span>
-              <input type="text" name="" id="" :value="user.name" readonly />
+              <input type="text" name="" id="" :value="user?.name" readonly />
             </div>
             <div>
               <span>Кому:</span>

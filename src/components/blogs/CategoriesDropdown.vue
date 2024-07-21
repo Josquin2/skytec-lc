@@ -58,9 +58,9 @@ const filteredCategories = computed(() => {
       <p
         v-for="(category, index) in filteredCategories"
         :key="index"
-        @click="onCategoryClick(category.title, category.id)"
+        @click="onCategoryClick(category?.title, category.id)"
       >
-        {{ category.title }}
+        {{ category?.title }}
       </p>
     </div>
   </div>

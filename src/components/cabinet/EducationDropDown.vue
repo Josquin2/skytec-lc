@@ -37,9 +37,9 @@ onMounted(async () => {
       <p
         v-for="(edu, index) in educationalPrograms"
         :key="index"
-        @click="chosedLesson(edu.title, edu.dates, edu.id)"
+        @click="chosedLesson(edu?.title, edu.dates, edu.id)"
       >
-        {{ edu.title }}
+        {{ edu?.title }}
       </p>
     </div>
   </div>

@@ -107,12 +107,12 @@ function logout() {
           </div>
           <div class="job-info">
             <h2>{{ user?.department?.title }}</h2>
-            <hr />
+            <hr v-if="user?.department?.title" />
             <h2>{{ user?.position }}</h2>
           </div>
           <div class="boss" v-if="user.manager">
             <h3>Непосредственный руководитель:</h3>
-            <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4>
+            <h4>{{ user?.manager?.surname + ' ' + user?.manager?.firstname }}</h4>
           </div>
           <div class="contact">
             <div class="phone-number noselect" v-if="user.hide_phone != true">
@@ -154,10 +154,10 @@ function logout() {
             <div class="request-title">
               <RequestStatusCircle />
 
-              <h3>{{ oneRequest.name }}</h3>
+              <h3>{{ oneRequest?.name }}</h3>
             </div>
             <div class="response">
-              <p>{{ oneRequest.status }}</p>
+              <p>{{ oneRequest?.status }}</p>
               <span></span>
             </div>
           </div>

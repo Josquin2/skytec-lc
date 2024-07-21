@@ -52,7 +52,7 @@ async function getCurrentBlog() {
 <template>
   <div class="one-blog-block">
     <div class="about-author">
-      <img :src="blogData?.user.avatar" alt="" />
+      <img :src="blogData?.user?.avatar" alt="" />
       <div class="time-and-name">
         <p>{{ blogData?.created_at }}</p>
         <h4>{{ blogData?.user?.lastname + ' ' + blogData?.user?.firstname }}</h4>
@@ -72,11 +72,11 @@ async function getCurrentBlog() {
           v-for="(oneLittle, index) in allBlogs.slice(0, 2)"
           :key="index"
           :blog-id="oneLittle.id"
-          :avatar="oneLittle.user.avatar"
-          :date="oneLittle.created_at"
-          :author="oneLittle.user?.lastname + ' ' + oneLittle.user?.firstname"
-          :title="oneLittle.title"
-          :text="oneLittle.content"
+          :avatar="oneLittle?.user?.avatar"
+          :date="oneLittle?.created_at"
+          :author="oneLittle.user?.surname + ' ' + oneLittle.user?.firstname"
+          :title="oneLittle?.title"
+          :text="oneLittle?.content"
         />
       </div>
     </div>

@@ -26,7 +26,7 @@ const props = defineProps({
         :key="index"
         @click="$emit('emojiClick', icon.id)"
       >
-        <img :src="icon.image" alt="" />
+        <img :src="icon?.image" alt="" />
       </div>
     </div>
   </div>

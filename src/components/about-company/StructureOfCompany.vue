@@ -24,9 +24,9 @@ console.log(props.data)
 
       <div class="dep-footer">
         <StructureWorker
-          :name="user.firstname + ' ' + user.surname"
-          :job="user.position"
-          :image="user.avatar"
+          :name="user?.firstname + ' ' + user?.surname"
+          :job="user?.position"
+          :image="user?.avatar"
           v-for="(user, index) in one.users"
           :key="index"
         />

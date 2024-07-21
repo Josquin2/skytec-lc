@@ -62,17 +62,17 @@ async function setNewsReaction(id: number, news: News) {
         <div class="one-news" v-for="(news, index) in data.slice(0, 5)" :key="index">
           <div class="news-header">
             <div class="about-news">
-              <h4 class="hashtag">#{{ news.category.title }}</h4>
-              <p class="time">{{ news.created_at }}</p>
+              <h4 class="hashtag">#{{ news.category?.title }}</h4>
+              <p class="time">{{ news?.created_at }}</p>
             </div>
-            <div class="views"><img src="/icons/eye.svg" alt="" /> {{ news.views_count }}</div>
+            <div class="views"><img src="/icons/eye.svg" alt="" /> {{ news?.views_count }}</div>
           </div>
           <div class="news-body" @click="onNewsClick(news.id)">
             <div class="news-title">
-              <h2>{{ news.title }}</h2>
+              <h2>{{ news?.title }}</h2>
             </div>
             <div class="news-info">
-              <p>{{ news.content }}</p>
+              <p>{{ news?.content }}</p>
             </div>
           </div>
 

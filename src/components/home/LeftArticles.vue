@@ -32,12 +32,14 @@ onMounted(async () => {
     <div class="my-articles-header">Мои статьи</div>
     <div class="common-articles">
       <div class="one-article" v-for="(article, index) in myBlogs.slice(0, 2)" :key="index">
-        <img :src="article.user.avatar" alt="" class="article-author-image" />
+        <img :src="article?.user?.avatar" alt="" class="article-author-image" />
         <div class="article-info" @click="onOneBlogClick(article.id)">
           <h2 class="article-name">
-            {{ article.title.length > 37 ? article.title.slice(0, 37) + '...' : article.title }}
+            {{ article?.title?.length > 37 ? article?.title.slice(0, 37) + '...' : article?.title }}
           </h2>
-          <p class="article-author">{{ article.user.firstname + ' ' + article.user.surname }}</p>
+          <p class="article-author">
+            {{ article?.user?.firstname + ' ' + article?.user?.surname }}
+          </p>
         </div>
       </div>
     </div>

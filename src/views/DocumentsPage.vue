@@ -46,6 +46,7 @@ function sliceArray(arr: Array<any>) {
     <div class="documents-common">
       <div class="huge-document" @click="onDocumentClick(image)">
         <iframe
+          v-if="data.length > 0"
           :src="image + '#toolbar=0&scrollbar=0&view=FitV'"
           allowtransparency="true"
           height="100%"
@@ -56,29 +57,30 @@ function sliceArray(arr: Array<any>) {
         <span class="open-full"></span>
       </div>
       <!-- left -->
-      <div class="documents-mini-block">
+      <div class="documents-mini-block" v-if="data.length > 0">
         <div
           class="one-document-common"
           v-for="(doc, index) in leftArr"
           :key="index"
-          @click="selectDocument(doc.document)"
+          @click="selectDocument(doc?.document)"
         >
           <span></span>
-          <p>{{ doc.title }}</p>
+          <p>{{ doc?.title }}</p>
         </div>
       </div>
       <!-- right -->
-      <div class="documents-mini-block">
+      <div class="documents-mini-block" v-if="data.length > 0">
         <div
           class="one-document-common"
           v-for="(doc, index) in rightArr"
           :key="index"
-          @click="selectDocument(doc.document)"
+          @click="selectDocument(doc?.document)"
         >
           <span></span>
-          <p>{{ doc.title }}</p>
+          <p>{{ doc?.title }}</p>
         </div>
       </div>
+      <div class="documents-mini-block" v-if="data.length < 1">Документы не найдены!</div>
     </div>
   </div>
 </template>

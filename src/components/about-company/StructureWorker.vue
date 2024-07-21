@@ -10,10 +10,10 @@ const props = defineProps({
 
 <template>
   <div class="one-structure-worker">
-    <img :src="props.image" alt="" />
+    <img :src="props?.image" alt="" />
     <div>
-      <h1>{{ props.name }}</h1>
-      <p>{{ props.job }}</p>
+      <h1>{{ props?.name }}</h1>
+      <p>{{ props?.job }}</p>
     </div>
   </div>
 </template>

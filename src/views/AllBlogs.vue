@@ -50,15 +50,15 @@ function changePage(page: number) {
         <OneLittleBlog
           v-for="(blog, index) in cuttedBlogs[currentPage]"
           :key="index"
-          :avatar="blog.user.avatar"
-          :date="blog.created_at"
-          :author="blog.user.lastname + ' ' + blog.user.firstname"
-          :title="blog.title"
-          :text="blog.content"
+          :avatar="blog?.user?.avatar"
+          :date="blog?.created_at"
+          :author="blog?.user?.surname + ' ' + blog?.user?.firstname"
+          :title="blog?.title"
+          :text="blog?.content"
           :blog-id="blog.id"
         />
       </div>
-      <div class="page-count">
+      <div class="page-count" v-if="allBlogs.length > 9">
         <div v-if="currentPage > 2" class="one-page" @click="changePage(0)">1</div>
         <div v-if="currentPage > 2" class="one-page">...</div>
         <div
