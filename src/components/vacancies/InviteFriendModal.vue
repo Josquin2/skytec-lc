@@ -10,7 +10,7 @@ const ApiClass = new FileApi()
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
 }
-const user = localStorage.getItem('user') || ''
+const user = localStorage.getItem('user') || '{}'
 
 const myData = JSON.parse(user) // for value in myName and mySurname
 
