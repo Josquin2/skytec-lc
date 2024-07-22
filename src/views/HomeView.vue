@@ -72,6 +72,7 @@ async function onSignInButton() {
     }
   }
 }
+defineExpose({ state, v$ })
 </script>
 
 <template>
