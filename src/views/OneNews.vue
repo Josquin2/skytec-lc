@@ -31,7 +31,7 @@ async function loadComments() {
 }
 
 onMounted(async function () {
-  const response = await ApiClass.getObjects('news/' + route.params.id)
+  const response = await ApiClass.getObjects('news/' + route?.params?.id)
   data.value = response
   console.log(data.value)
 
