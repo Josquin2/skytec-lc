@@ -45,8 +45,8 @@ const props = defineProps({
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 16px 8px;
     position: absolute;
-    margin-top: -200px;
-    margin-left: -110px;
+    margin-top: -192px;
+    margin-left: -96px;
     background-color: #ffffff;
     z-index: 20;
     border: 1px solid #e1e1e1;
