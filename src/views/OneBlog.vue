@@ -21,10 +21,10 @@ let ApiClass = new Api()
 const blogData: Ref<Blog | null> = ref(null)
 const allBlogs: Ref<Blog[]> = ref([])
 
-const articleId = ref(route.params.blog)
+const articleId = ref(route?.params?.blog)
 
 watch(
-  () => route.params.blog,
+  () => route?.params?.blog,
   (newVal) => {
     articleId.value = newVal
     getCurrentBlog()
@@ -69,7 +69,7 @@ async function getCurrentBlog() {
       <div class="two-blogs">
         <OneLittleBlog
           @click="getCurrentBlog"
-          v-for="(oneLittle, index) in allBlogs.slice(0, 2)"
+          v-for="(oneLittle, index) in allBlogs?.slice(0, 2)"
           :key="index"
           :blog-id="oneLittle.id"
           :avatar="oneLittle?.user?.avatar"
