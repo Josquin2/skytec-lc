@@ -35,7 +35,7 @@ onMounted(async () => {
     <div class="blog-common">
       <div
         class="one-blog"
-        v-for="(blog, index) in blogs.slice(0, 5)"
+        v-for="(blog, index) in blogs?.slice(0, 5)"
         :key="index"
         @click="onOneBlogClick(blog.id)"
       >
