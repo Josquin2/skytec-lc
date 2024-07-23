@@ -10,6 +10,11 @@ describe('LoginPage.vue', () => {
     expect(wrapper.vm.state.password).toBe('')
     expect(wrapper.vm.state.formError).toBe('')
   })
+
+  it('renders correctly', () => {
+    const wrapper = mount(HomeView)
+    expect(wrapper.element).toMatchSnapshot()
+  })
 })
 
 describe('LoginPage.vue - Validation', () => {

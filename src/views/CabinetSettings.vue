@@ -99,7 +99,7 @@ onMounted(async () => {
 // API | Send changes
 
 const token = localStorage.getItem('token')
-const currentUserId = JSON.parse(localStorage.getItem('user') || '')
+const currentUserId = JSON.parse(localStorage.getItem('user') || '{}')
 
 async function onSaveChangesButtonClick() {
   try {
