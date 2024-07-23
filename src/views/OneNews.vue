@@ -17,6 +17,8 @@ const currentComment = ref('')
 
 const sendButton = ref(false)
 
+const emoji = ref([])
+
 let data: Ref<News | null> = ref(null)
 let userData: Ref<UserInterface | null> = ref(null)
 
@@ -36,6 +38,8 @@ onMounted(async function () {
   const userDataResponse = await ApiClass.getObjects('user')
   userData.value = userDataResponse.data.user
   console.log(userData)
+
+  emoji.value = await ApiClass.getObjects('emojis')
 
   ViewsTimeout()
 })
@@ -112,6 +116,18 @@ onBeforeRouteLeave(() => {
     clearTimeout(viewTimeout)
   }
 })
+
+async function setNewsReaction(id: number, news: News) {
+  const setReaction = await ApiClass.post('news/reactions', {
+    news_id: news.id,
+    emoji_id: id
+  })
+
+  news.user_reaction = setReaction.user_reaction
+  news.users_reactions = setReaction.users_reactions
+
+  document.getElementById(`extended-icons-${news.id}`)?.classList.add('closed')
+}
 </script>
 
 <template>
@@ -130,12 +146,20 @@ onBeforeRouteLeave(() => {
       </p>
     </div>
     <div class="likes">
-      <EmojiBlock />
+      <EmojiBlock :emoji="emoji" :id="data?.id" @emoji-click="(id) => setNewsReaction(id, data)" />
       <hr class="horisontal-line" />
 
       <button class="see-more">
         <img src="/icons/see-more-emoji.svg" alt="" />
       </button>
+      <div
+        v-for="(reaction, index) in data?.users_reactions"
+        :key="index"
+        :class="'reaction-block user-reacted-' + (data?.user_reaction === reaction.emoji_id)"
+      >
+        <img :src="reaction.image" width="20px" height="20px" alt="Эмоджи" />
+        <b>{{ reaction.count }}</b>
+      </div>
     </div>
     <hr />
     <div class="comments">
