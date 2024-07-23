@@ -146,7 +146,11 @@ async function setNewsReaction(id: number, news: News) {
       </p>
     </div>
     <div class="likes">
-      <EmojiBlock :emoji="emoji" :id="data?.id" @emoji-click="(id) => setNewsReaction(id, data)" />
+      <EmojiBlock
+        :emoji="emoji"
+        :id="data?.id"
+        @emoji-click="(id) => data && setNewsReaction(id, data)"
+      />
       <hr class="horisontal-line" />
 
       <button class="see-more">
