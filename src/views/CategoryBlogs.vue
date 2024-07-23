@@ -15,7 +15,7 @@ onMounted(async () => {
 })
 
 async function renderBlogs() {
-  const categoryId = route.params.id
+  const categoryId = route?.params?.id
   const response = await ApiClass.getObjects(`articles/categories/${categoryId}`)
   allBlogs.value = []
   cuttedBlogs.value = []
@@ -24,7 +24,7 @@ async function renderBlogs() {
 }
 
 watch(
-  () => route.params.id,
+  () => route?.params?.id,
   async (newId, oldId) => {
     if (newId !== oldId) {
       await renderBlogs()
