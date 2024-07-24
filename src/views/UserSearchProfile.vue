@@ -14,7 +14,7 @@ const user: Ref<User | null> = ref(null)
 const blogs: Ref<Blog[]> = ref([])
 
 onMounted(async () => {
-  const response = await ApiClass.getObjects(`user/${route.params.user}`)
+  const response = await ApiClass.getObjects(`user/${route?.params?.user}`)
   user.value = response.data
   // console.log(user.value)
 
@@ -22,7 +22,7 @@ onMounted(async () => {
 })
 
 async function getArticles() {
-  const response = await ApiClass.getObjects(`articles?user_id=${route.params.user}`)
+  const response = await ApiClass.getObjects(`articles?user_id=${route?.params?.user}`)
   blogs.value = response
 }
 </script>
