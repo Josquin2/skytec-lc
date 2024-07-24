@@ -32,7 +32,7 @@ const routeDictionary: RoutesDictionary = {
   newArticle: ['article', 'blog', 'создание статьи', 'создать статью', 'статья', 'блог']
 }
 
-const searchQuery: Ref<string> = ref(route.params.request as string)
+const searchQuery: Ref<string> = ref(route?.params?.request as string)
 console.log(searchQuery.value)
 
 const result: Ref<Array<string>> = ref([])
@@ -71,9 +71,9 @@ onMounted(() => {
 })
 
 watch(
-  () => route.params.request,
+  () => route?.params?.request,
   () => {
-    searchQuery.value = route.params.request as string
+    searchQuery.value = route?.params?.request as string
     result.value = []
     search()
   }
@@ -91,7 +91,7 @@ function onPageClick(camel: string) {
       <LeftMain />
     </div>
     <div class="global-search">
-      <div class="found" v-if="result.length > 0">
+      <div class="found" v-if="result?.length > 0">
         <h2>По вашему запросу найдено:</h2>
         <div class="result">
           <div
