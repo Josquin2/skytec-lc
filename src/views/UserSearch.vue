@@ -10,7 +10,7 @@ const ApiClass = new Api()
 const route = useRoute()
 
 function onUserClick(id: number) {
-  const login = route.params.login
+  const login = route?.params?.login
   router.push({
     name: 'user-search-profile',
     params: { login: login, user: id }
@@ -22,13 +22,13 @@ function onUserClick(id: number) {
 const users: Ref<User[]> = ref([])
 
 onMounted(async () => {
-  const response = await ApiClass.getObjects(`user/search?fullname=${route.params.search}`)
+  const response = await ApiClass.getObjects(`user/search?fullname=${route?.params?.search}`)
   console.log(response)
   users.value = response
 })
 
 watch(
-  () => route.params.search,
+  () => route?.params?.search,
   async (newName) => {
     const response = await ApiClass.getObjects(`user/search?fullname=${newName}`)
     users.value = []
