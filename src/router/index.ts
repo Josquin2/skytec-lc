@@ -125,6 +125,11 @@ const router = createRouter({
       component: () => import('@/views/NewArticle.vue')
     },
     {
+      path: '/user/edit-article/:article',
+      name: 'edit-article',
+      component: () => import('@/views/EditArticle.vue')
+    },
+    {
       path: '/user/global-search/:request',
       name: 'global-search',
       component: () => import('@/views/GlobalSearch.vue')

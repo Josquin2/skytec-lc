@@ -23,6 +23,8 @@ const allBlogs: Ref<Blog[]> = ref([])
 
 const articleId = ref(route?.params?.blog)
 
+const userLocal = JSON.parse(localStorage.getItem('user') || '{}')
+
 watch(
   () => route?.params?.blog,
   (newVal) => {
@@ -47,6 +49,10 @@ async function getCurrentBlog() {
   console.log(blogData.value)
   window.scrollTo({ top: 0, behavior: 'smooth' })
 }
+
+function onEditClick() {
+  router.push({ name: 'edit-article', params: { article: articleId.value } })
+}
 </script>
 
 <template>
@@ -60,7 +66,10 @@ async function getCurrentBlog() {
     </div>
 
     <div class="text">
-      <h1 class="blog-title">{{ blogData?.title }}</h1>
+      <div class="blog-title">
+        <h1>{{ blogData?.title }}</h1>
+        <p v-if="blogData?.user_id === userLocal?.id" @click="onEditClick">Редактировать</p>
+      </div>
       <div class="blog-text-common" v-html="blogData?.content"></div>
     </div>
 
