@@ -14,10 +14,12 @@ const props = defineProps({
         <h2>{{ one?.title }}</h2>
         <hr />
         <StructureWorker
+          v-if="one?.department_head != null"
           :name="one?.department_head?.firstname + ' ' + one?.department_head?.surname"
           :job="one?.department_head?.position"
           :image="one?.department_head?.avatar"
         />
+        <StructureWorker v-else name="не назначен" />
       </div>
 
       <div class="dep-footer">

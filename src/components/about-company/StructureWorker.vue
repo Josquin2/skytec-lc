@@ -9,14 +9,16 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="one-structure-worker" v-if="props?.image && props?.name && props?.job">
+  <div class="one-structure-worker" v-if="props.name == 'не назначен'">
+    <h4>Руководитель пока не назначен!</h4>
+  </div>
+  <div class="one-structure-worker" v-else>
     <img :src="props?.image" alt="" />
     <div>
       <h1>{{ props?.name }}</h1>
       <p>{{ props?.job }}</p>
     </div>
   </div>
-  <div class="one-structure-worker" v-else><h4>Руководитель пока не назначен!</h4></div>
 </template>
 
 <style lang="scss">
