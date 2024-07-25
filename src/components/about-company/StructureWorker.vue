@@ -9,13 +9,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="one-structure-worker">
+  <div class="one-structure-worker" v-if="props?.image && props?.name && props?.job">
     <img :src="props?.image" alt="" />
     <div>
       <h1>{{ props?.name }}</h1>
       <p>{{ props?.job }}</p>
     </div>
   </div>
+  <div class="one-structure-worker" v-else><h4>Руководитель пока не назначен!</h4></div>
 </template>
 
 <style lang="scss">
@@ -23,6 +24,12 @@ const props = defineProps({
   height: 124px;
   width: 17.71vw;
   display: flex;
+
+  h4 {
+    align-self: center;
+    text-align: center;
+    color: #474747;
+  }
   img {
     width: 124px;
     height: 124px;

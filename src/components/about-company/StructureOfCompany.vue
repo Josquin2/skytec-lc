@@ -5,8 +5,6 @@ import StructureWorker from '@/components/about-company/StructureWorker.vue'
 const props = defineProps({
   data: Array<Structure>
 })
-
-console.log(props.data)
 </script>
 
 <template>
@@ -16,9 +14,9 @@ console.log(props.data)
         <h2>{{ one?.title }}</h2>
         <hr />
         <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
+          :name="one?.department_head?.firstname + ' ' + one?.department_head?.surname"
+          :job="one?.department_head?.position"
+          :image="one?.department_head?.avatar"
         />
       </div>
 

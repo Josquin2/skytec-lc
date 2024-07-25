@@ -35,6 +35,7 @@ onMounted(async () => {
   const response = await ApiClass.getObjects('departments')
   const array = response
   cutForPages(array)
+  console.log(array)
 })
 
 function cutForPages(allBlogs: Array<any>) {
