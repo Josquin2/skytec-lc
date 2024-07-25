@@ -114,6 +114,7 @@ const filteredCategories = computed(() => {
     border: 1px solid #9a9a9a;
     border-radius: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     .dd-search {
       width: 43.49vw;
