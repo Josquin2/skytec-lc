@@ -56,11 +56,10 @@ function sliceArray(arr: Array<any>) {
         ></iframe>
         <span class="open-full"></span>
       </div>
-      <!-- left -->
       <div class="documents-mini-block" v-if="data.length > 0">
         <div
           class="one-document-common"
-          v-for="(doc, index) in leftArr"
+          v-for="(doc, index) in data"
           :key="index"
           @click="selectDocument(doc?.document)"
         >
@@ -68,18 +67,7 @@ function sliceArray(arr: Array<any>) {
           <p>{{ doc?.title }}</p>
         </div>
       </div>
-      <!-- right -->
-      <div class="documents-mini-block" v-if="data.length > 0">
-        <div
-          class="one-document-common"
-          v-for="(doc, index) in rightArr"
-          :key="index"
-          @click="selectDocument(doc?.document)"
-        >
-          <span></span>
-          <p>{{ doc?.title }}</p>
-        </div>
-      </div>
+
       <div class="documents-mini-block" v-if="data.length < 1">Документы не найдены!</div>
     </div>
   </div>
@@ -87,7 +75,6 @@ function sliceArray(arr: Array<any>) {
 
 <style lang="scss">
 .documents-block {
-  padding: 137px 15.63vw;
   display: flex;
   flex-direction: column;
   min-height: 85vh;

@@ -46,7 +46,7 @@ async function getTodaysBirthdays() {
 </script>
 
 <template>
-  <div class="right-block" v-if="allBirthDays.length > 0 && todaysBirthDays.length > 0">
+  <div class="right-block-birthday" v-if="allBirthDays.length > 0 && todaysBirthDays.length > 0">
     <div class="today" v-if="todaysBirthDays.length > 0">
       <div class="congrats">
         <h3>Поздравляем! 🥳</h3>
@@ -80,6 +80,11 @@ async function getTodaysBirthdays() {
         <h3 class="name-of-other-hbd">{{ day?.surname }} {{ day?.firstname }}</h3>
         <h4 class="job-title-of-other-hbd">{{ day?.position }}</h4>
       </div>
+    </div>
+  </div>
+  <div class="right-block-birthday" v-if="allBirthDays.length < 1 && todaysBirthDays.length < 1">
+    <div class="next-week">
+      <h2 class="other-hbd" style="color: #474747">Нет ближайщих дней рождений.</h2>
     </div>
   </div>
   <CongratulationsModal :toWho="selectedName" :id="selectedPersonsId" />

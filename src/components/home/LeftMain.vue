@@ -1,17 +1,13 @@
 <script setup lang="ts">
 import InviteFriendModal from '../vacancies/InviteFriendModal.vue'
-import { ref } from 'vue'
+import { ref, onMounted, type Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '@/router'
+import { Api } from '@/api/api'
 
-import {
-  onAhoRequestClick,
-  onHelpDeskRequestClick,
-  onRemoteAccessInstructionsClick,
-  onMeetingRoomInstructionsClick,
-  onDocumentsClick,
-  onVacanciesPageClick
-} from '@/components/routing-functions'
+const ApiClass = new Api()
+
+import { onVacanciesPageClick } from '@/components/routing-functions'
 
 const route = useRoute()
 
@@ -25,7 +21,19 @@ const userSearch = ref('')
 
 function onUserSearchEnter() {
   const login = route.params.login
-  router.push({ name: 'user-search', params: { login: login, search: userSearch.value } })
+  router.push({ name: 'search', params: { login: login, search: userSearch.value } })
+}
+
+const pages: Ref<any> = ref([])
+
+onMounted(async () => {
+  const resp = await ApiClass.getObjects('pages')
+  console.log(resp)
+  pages.value = resp.data
+})
+
+function onPageClick(url: string) {
+  router.push({ name: 'additional-page', params: { url: url } })
 }
 </script>
 
@@ -33,7 +41,7 @@ function onUserSearchEnter() {
   <div class="some-info">
     <input
       type="text"
-      placeholder="+7/ФИО/e-mail"
+      placeholder="Поиск по порталу"
       class="search-something"
       id="user-search"
       v-model="userSearch"
@@ -41,15 +49,9 @@ function onUserSearchEnter() {
     />
     <img src="/icons/search.svg" alt="" class="search-icon" @click="onUserSearchEnter()" />
     <div class="other-links">
-      <p class="link" @click="onRemoteAccessInstructionsClick()">
-        Инструкция по удаленному доступу
+      <p v-for="(link, index) in pages" class="link" @click="onPageClick(link?.uri)" :key="index">
+        {{ link?.menu_title }}
       </p>
-      <p class="link" @click="onHelpDeskRequestClick()">Заявка в HelpDesk</p>
-      <p class="link" @click="onAhoRequestClick()">Заявка в АХО</p>
-      <p class="link" @click="onMeetingRoomInstructionsClick()">
-        Инструкция по настройке бронирования переговорных
-      </p>
-      <p class="link" @click="onDocumentsClick()">Нормативные документы</p>
     </div>
     <div class="vacancies">
       <div class="vacancy-common" @click="onVacanciesPageClick">Актуальные вакансии</div>

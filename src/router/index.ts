@@ -110,8 +110,8 @@ const router = createRouter({
       component: () => import('@/views/DocumentsPage.vue')
     },
     {
-      path: '/user/user-search/:search',
-      name: 'user-search',
+      path: '/user/search/:search',
+      name: 'search',
       component: () => import('@/views/UserSearch.vue')
     },
     {
@@ -133,6 +133,11 @@ const router = createRouter({
       path: '/user/global-search/:request',
       name: 'global-search',
       component: () => import('@/views/GlobalSearch.vue')
+    },
+    {
+      path: '/user/additional-page/:url',
+      name: 'additional-page',
+      component: () => import('@/views/AdditionalPage.vue')
     }
   ]
 })
