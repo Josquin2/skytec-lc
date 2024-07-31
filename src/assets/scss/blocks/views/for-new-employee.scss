@@ -105,39 +105,6 @@
       }
     }
   }
-
-  .cannot-create {
-    cursor: default;
-    .background {
-      .h-white {
-        background-color: #efefef;
-
-        .title {
-          h1 {
-            color: #9a9a9a;
-          }
-        }
-        .buttons {
-          button {
-            background-color: #dfdfdf;
-            color: #9a9a9a;
-            cursor: default;
-          }
-        }
-      }
-      .w-white {
-        background-color: #efefef;
-      }
-      .full-bg {
-        background-color: #efefef;
-        .close-button {
-          background: url(/icons/people-gray.svg) no-repeat;
-          background-position: 50%;
-          background-color: #efefef;
-        }
-      }
-    }
-  }
 }
 
 @media only screen and (max-width: 1700px) {

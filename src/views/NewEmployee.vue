@@ -1,45 +1,16 @@
 <script setup lang="ts">
 import DownloadBlock from '@/components/blocks/DownloadBlock.vue'
-import { useRoute } from 'vue-router'
 import router from '@/router'
-import { ref, onMounted } from 'vue'
-import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
-
-const route = useRoute()
-
-const canCreate = ref(0)
-
-onMounted(() => {
-  if (localStorage.getItem('permissions')) {
-    const permissions = JSON.parse(localStorage.getItem('permissions') || '')
-    if (permissions === null) {
-      canCreate.value = 0
-    } else {
-      if (permissions['users.create']) {
-        canCreate.value = permissions['users.create']
-      }
-    }
-  }
-})
 
 function onCreateNewEmployeeClick() {
-  const login = route.params.login
-
-  if (canCreate.value == 1) {
-    router.push({ name: 'create-new-employee', params: { login: login } })
-  } else {
-    toast('Вы не можете создать пользователя!', { position: toast.POSITION.BOTTOM_RIGHT })
-  }
+  router.push({ name: 'create-new-employee' })
 }
 </script>
 
 <template>
   <div class="new-employee-block">
     <DownloadBlock title="Welcome-book" type="PDF" icon="/icons/file-white.svg" />
-
-    <!-- here should be if or something to check if user allowed to create new user -->
-    <div class="create" :class="{ 'cannot-create': canCreate == 0 }">
+    <div class="create">
       <div class="background">
         <div class="h-white">
           <div class="title">
