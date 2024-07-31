@@ -85,31 +85,6 @@ const router = createRouter({
       ]
     },
     {
-      path: '/user/aho-request',
-      name: 'aho-request',
-      component: () => import('@/views/AhoRequest.vue')
-    },
-    {
-      path: '/user/help-desk-request',
-      name: 'help-desk-request',
-      component: () => import('@/views/HelpDeskRequest.vue')
-    },
-    {
-      path: '/user/remote-access-instructions',
-      name: 'remote-access-instructions',
-      component: () => import('@/views/RemoteAccess.vue')
-    },
-    {
-      path: '/user/meeting-room-instructions',
-      name: 'meeting-room-instructions',
-      component: () => import('@/views/MeetingRoom.vue')
-    },
-    {
-      path: '/user/documents',
-      name: 'documents',
-      component: () => import('@/views/DocumentsPage.vue')
-    },
-    {
       path: '/user/search/:search',
       name: 'search',
       component: () => import('@/views/UserSearch.vue')
@@ -128,11 +103,6 @@ const router = createRouter({
       path: '/user/edit-article/:article',
       name: 'edit-article',
       component: () => import('@/views/EditArticle.vue')
-    },
-    {
-      path: '/user/global-search/:request',
-      name: 'global-search',
-      component: () => import('@/views/GlobalSearch.vue')
     },
     {
       path: '/user/additional-page/:url',

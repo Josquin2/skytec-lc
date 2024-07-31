@@ -1,10 +1,17 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import type { Structure } from '@/types/Structure'
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
 
 const props = defineProps({
   data: Array<Structure>
 })
+
+const showAll = ref<Record<number, boolean>>({})
+
+function toggleShowAll(departmentId: number) {
+  showAll.value[departmentId] = !showAll.value[departmentId]
+}
 </script>
 
 <template>
@@ -27,9 +34,15 @@ const props = defineProps({
           :name="user?.firstname + ' ' + user?.surname"
           :job="user?.position"
           :image="user?.avatar"
-          v-for="(user, index) in one.users"
+          v-for="(user, index) in showAll[one.id] ? one.users : one.users.slice(0, 4)"
           :key="index"
         />
+      </div>
+
+      <div class="show-more-button" v-if="one?.users?.length > 4">
+        <button @click="toggleShowAll(one?.id)">
+          {{ showAll[one?.id] ? 'Показать меньше' : 'Показать все' }}
+        </button>
       </div>
     </div>
   </div>
@@ -47,7 +60,6 @@ const props = defineProps({
     border-radius: 27px;
     .upper {
       border: 1px solid #cccccc;
-
       border-radius: 27px 27px 0 0;
       padding: 40px 24px;
 
@@ -70,6 +82,21 @@ const props = defineProps({
       display: flex;
       flex-direction: column;
       gap: 32px;
+    }
+
+    .show-more-button {
+      display: flex;
+      justify-content: center;
+      padding: 24px 0px;
+
+      button {
+        padding: 8px 16px;
+        border: 1px solid #474747;
+        border-radius: 12px;
+        background-color: transparent;
+        color: #474747;
+        font-weight: 500;
+      }
     }
   }
 }
