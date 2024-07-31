@@ -35,8 +35,7 @@ onMounted(async () => {
 async function getAllBirthdays() {
   const response = await ApiClass.getObjects('birthdays')
   allBirthDays.value = response
-  // console.log('allBirthDays')
-  // console.log(allBirthDays.value)
+  console.log(allBirthDays.value)
 }
 
 async function getTodaysBirthdays() {
@@ -46,7 +45,7 @@ async function getTodaysBirthdays() {
 </script>
 
 <template>
-  <div class="right-block-birthday" v-if="allBirthDays.length > 0 && todaysBirthDays.length > 0">
+  <div class="right-block-birthday" v-if="allBirthDays.length > 0 || todaysBirthDays.length > 0">
     <div class="today" v-if="todaysBirthDays.length > 0">
       <div class="congrats">
         <h3>Поздравляем! 🥳</h3>
