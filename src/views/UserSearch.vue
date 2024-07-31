@@ -79,7 +79,7 @@ function onUserClick(id: number) {
 }
 
 function onAdditionalPageClick(page: Page) {
-  router.push({ name: 'additional-page', params: { url: page?.uri } })
+  router.push({ name: 'additional-page', params: { url: page?.url } })
 }
 
 function onPageClick(camel: string) {
