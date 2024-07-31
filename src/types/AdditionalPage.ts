@@ -1,7 +1,7 @@
 export interface Page {
   menu_title: string
   title: string
-  uri: string
+  url: string
   center: Array<string>
   left: Array<string>
   right: Array<string>

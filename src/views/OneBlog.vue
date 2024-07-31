@@ -53,6 +53,11 @@ async function getCurrentBlog() {
 function onEditClick() {
   router.push({ name: 'edit-article', params: { article: articleId.value } })
 }
+
+async function onDeleteClick() {
+  await ApiClass.delete(`articles/${articleId.value}`)
+  router.push({ name: 'main' })
+}
 </script>
 
 <template>
@@ -68,7 +73,10 @@ function onEditClick() {
     <div class="text">
       <div class="blog-title">
         <h1>{{ blogData?.title }}</h1>
-        <p v-if="blogData?.user_id === userLocal?.id" @click="onEditClick">Редактировать</p>
+        <div class="edit-delete" v-if="blogData?.user_id === userLocal?.id">
+          <p @click="onEditClick">Редактировать</p>
+          <p @click="onDeleteClick">Удалить</p>
+        </div>
       </div>
       <div class="blog-text-common" v-html="blogData?.content"></div>
     </div>

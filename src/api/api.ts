@@ -37,4 +37,7 @@ export class Api {
   async put(endpoint: string, body: object): Promise<any> {
     return this.request('put', endpoint, body)
   }
+  async delete(endpoint: string): Promise<any> {
+    return this.request('delete', endpoint)
+  }
 }

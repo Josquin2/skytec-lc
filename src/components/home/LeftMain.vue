@@ -27,13 +27,17 @@ function onUserSearchEnter() {
 const pages: Ref<any> = ref([])
 
 onMounted(async () => {
-  const resp = await ApiClass.getObjects('pages')
+  const resp = await ApiClass.getObjects('links/left')
   console.log(resp)
   pages.value = resp.data
 })
 
 function onPageClick(url: string) {
-  router.push({ name: 'additional-page', params: { url: url } })
+  if (url.startsWith('http')) {
+    window.open(url)
+  } else {
+    router.push({ name: 'additional-page', params: { url: url } })
+  }
 }
 </script>
 
@@ -49,8 +53,8 @@ function onPageClick(url: string) {
     />
     <img src="/icons/search.svg" alt="" class="search-icon" @click="onUserSearchEnter()" />
     <div class="other-links">
-      <p v-for="(link, index) in pages" class="link" @click="onPageClick(link?.uri)" :key="index">
-        {{ link?.menu_title }}
+      <p v-for="(link, index) in pages" class="link" @click="onPageClick(link?.url)" :key="index">
+        {{ link?.title }}
       </p>
     </div>
     <div class="vacancies">

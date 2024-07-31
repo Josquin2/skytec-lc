@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import blackLogo from '@/assets/img/logo-black.png'
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import router from '@/router'
+import { ref, watch, onMounted, type Ref } from 'vue'
+import type { Page } from '@/types/AdditionalPage'
+import { Api } from '@/api/api'
 
 import {
   onMainPageClick,
@@ -12,9 +15,13 @@ import {
   onNewEmployeePageClick
 } from './routing-functions'
 
+const ApiClass = new Api()
+
 const route = useRoute()
 const currentPath = ref(route.name)
 const pathName = ref(route.name)
+
+const linksApi: Ref<Page[]> = ref([])
 
 watch(
   () => route.name,
@@ -39,6 +46,20 @@ function isLogged() {
     return false
   }
 }
+
+function onPageClick(url: string) {
+  if (url.startsWith('http')) {
+    window.open(url)
+  } else {
+    router.push({ name: 'additional-page', params: { url: url } })
+  }
+}
+
+onMounted(async () => {
+  const resp = await ApiClass.getObjects('links/top')
+  console.log(resp)
+  linksApi.value = resp.data
+})
 
 // Global search
 </script>
@@ -90,6 +111,18 @@ function isLogged() {
           @click="onVacanciesPageClick()"
         >
           Вакансии Sky
+        </p>
+        <p
+          :class="
+            currentPath == 'additional-page' && route?.params?.url == link?.url
+              ? 'theme clicked-theme'
+              : 'theme'
+          "
+          v-for="(link, index) in linksApi"
+          :key="index"
+          @click="onPageClick(link?.url)"
+        >
+          {{ link.title }}
         </p>
       </div>
       <div class="profile" @click="onCabinetPageClick()">
