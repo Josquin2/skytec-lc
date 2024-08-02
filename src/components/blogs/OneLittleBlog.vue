@@ -28,7 +28,10 @@ function onOneBlogClick(blog: number | undefined) {
       </div>
       <div class="blog-info-common">
         <div class="blog-title">
-          <h2>{{ props?.title }}</h2>
+          <h2 v-if="props?.title && props?.title.length < 60">{{ props?.title }}</h2>
+          <h2 v-else-if="props?.title && props?.title.length > 60">
+            {{ props?.title.slice(0, 60) + '...' }}
+          </h2>
         </div>
         <div class="blog-text">
           <div v-if="props.text && props.text.length < 200" v-html="props.text"></div>

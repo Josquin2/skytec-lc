@@ -28,7 +28,7 @@ watch(
   props,
   (newProps) => {
     if (newProps.category) {
-      chosedCategory.value = allCategories.value[newProps.category - 1].title
+      chosedCategory.value = allCategories.value[newProps.category - 1]?.title
     }
   },
   { immediate: true }
