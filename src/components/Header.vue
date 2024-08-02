@@ -71,48 +71,6 @@ onMounted(async () => {
       <!-- some other links and v-if -->
       <div class="links-with-bg">
         <p
-          :class="currentPath == 'main' ? 'theme clicked-theme' : 'theme'"
-          @click="onMainPageClick()"
-          id="main"
-        >
-          Главная
-        </p>
-        <p
-          :class="
-            currentPath == 'cabinet' || currentPath == 'settings' ? 'theme clicked-theme' : 'theme'
-          "
-          @click="onCabinetPageClick()"
-          id="cabinet"
-        >
-          Личный кабинет
-        </p>
-        <p
-          :class="currentPath == 'about' ? 'theme clicked-theme' : 'theme'"
-          @click="onAboutCompanyPageClick()"
-        >
-          О компании
-        </p>
-        <p
-          :class="currentPath == 'privilege' ? 'theme clicked-theme' : 'theme'"
-          @click="onPrivilegePageClick()"
-        >
-          Привилегии для сотрудников
-        </p>
-        <p
-          :class="
-            (currentPath as string)?.endsWith('new-employee') ? 'theme clicked-theme' : 'theme'
-          "
-          @click="onNewEmployeePageClick()"
-        >
-          Новому сотруднику
-        </p>
-        <p
-          :class="currentPath == 'vacancies' ? 'theme clicked-theme' : 'theme'"
-          @click="onVacanciesPageClick()"
-        >
-          Вакансии Sky
-        </p>
-        <p
           :class="
             currentPath == 'additional-page' && route?.params?.url == link?.url
               ? 'theme clicked-theme'
