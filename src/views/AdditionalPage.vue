@@ -10,32 +10,58 @@ import RightBlock from '@/components/home/RightBlock.vue'
 import HelpDeskRequest from './HelpDeskRequest.vue'
 import MeetingRoom from './MeetingRoom.vue'
 import DocumentsPage from './DocumentsPage.vue'
+import MainPage from './MainPage.vue'
+import Cabinet from './Cabinet.vue'
+import AboutCompany from './AboutCompany.vue'
+import PrivilegePage from './PrivilegePage.vue'
+import NewEmployee from './NewEmployee.vue'
+import Vacancies from './Vacancies.vue'
+import TextBlock from '@/components/blocks/TextBlock.vue'
 
 const route = useRoute()
 
 const ApiClass = new Api()
 
-const leftComponents = ref<Array<typeof OurBlog>>([])
-const centerComponents = ref<Array<typeof OurBlog>>([])
-const rightComponents = ref<Array<typeof OurBlog>>([])
+const leftComponents = ref<Array<{ component: any; content: string }>>([])
+const centerComponents = ref<Array<{ component: any; content: string }>>([])
+const rightComponents = ref<Array<{ component: any; content: string }>>([])
 const page: Ref<Page | null> = ref(null)
 onMounted(async () => {
   const resp = await ApiClass.getObjects(`pages/${route?.params?.url}`)
   console.log(resp)
   page.value = resp.data
-  leftComponents.value = page.value?.left?.map((pageName) => allPages[pageName]) ?? []
-  centerComponents.value = page.value?.center?.map((pageName) => allPages[pageName]) ?? []
-  rightComponents.value = page.value?.right?.map((pageName) => allPages[pageName]) ?? []
+  leftComponents.value =
+    page.value?.left?.map((block) => ({
+      component: allPages[block?.type],
+      content: block.content
+    })) ?? []
+  centerComponents.value =
+    page.value?.center?.map((block) => ({
+      component: allPages[block?.type],
+      content: block.content
+    })) ?? []
+  rightComponents.value =
+    page.value?.right?.map((block) => ({
+      component: allPages[block?.type],
+      content: block.content
+    })) ?? []
 })
 
-const allPages: { [key: string]: typeof OurBlog } = {
+const allPages: { [key: string]: any } = {
   ourBlog: OurBlog,
   myBlog: MyBlog,
   download: TwoDownloads,
   birthdays: RightBlock,
   request: HelpDeskRequest,
   fastNavigation: MeetingRoom,
-  documents: DocumentsPage
+  documents: DocumentsPage,
+  MainPage: MainPage,
+  Cabinet: Cabinet,
+  AboutCompany: AboutCompany,
+  PrivilegePage: PrivilegePage,
+  NewEmployee: NewEmployee,
+  Vacancies: Vacancies,
+  text: TextBlock
 }
 </script>
 
@@ -43,23 +69,26 @@ const allPages: { [key: string]: typeof OurBlog } = {
   <div class="additional-page">
     <div class="side" v-if="leftComponents && rightComponents">
       <component
-        v-for="(component, index) in leftComponents"
-        :is="component"
+        v-for="(item, index) in leftComponents"
+        :is="item.component"
         :key="index"
+        :content="item.content"
       ></component>
     </div>
     <div class="center" :class="{ full: !leftComponents.length && !rightComponents.length }">
       <component
-        v-for="(component, index) in centerComponents"
-        :is="component"
+        v-for="(item, index) in centerComponents"
+        :is="item.component"
         :key="index"
+        :content="item.content"
       ></component>
     </div>
     <div class="side" v-if="leftComponents && rightComponents">
       <component
-        v-for="(component, index) in rightComponents"
-        :is="component"
+        v-for="(item, index) in rightComponents"
+        :is="item.component"
         :key="index"
+        :content="item.content"
       ></component>
     </div>
   </div>
@@ -84,6 +113,9 @@ const allPages: { [key: string]: typeof OurBlog } = {
     .our-blog {
       margin-top: 0;
     }
+    .additional-text-block {
+      width: 14vw;
+    }
   }
 
   .center {
@@ -96,9 +128,15 @@ const allPages: { [key: string]: typeof OurBlog } = {
   }
 
   .full {
+    width: 68.75vw;
     .additional {
       flex-direction: row !important;
       height: 250px;
+    }
+    .additional-text-block {
+      p {
+        max-width: 68.75vw;
+      }
     }
   }
 }
@@ -107,6 +145,9 @@ const allPages: { [key: string]: typeof OurBlog } = {
   .additional-page {
     .side {
       width: 22vw;
+      .additional-text-block {
+        width: 19vw;
+      }
     }
   }
 }
