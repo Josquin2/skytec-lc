@@ -49,7 +49,7 @@ function isLogged() {
 
 function onPageClick(url: string) {
   if (url.startsWith('http')) {
-    window.open(url)
+    window.open(url, '_self')
   } else {
     router.push({ name: 'additional-page', params: { url: url } })
   }
@@ -99,7 +99,6 @@ onMounted(async () => {
   padding: 0 15.6vw;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   .black-logo {
     cursor: pointer;
     width: 4.8vw;
@@ -108,6 +107,7 @@ onMounted(async () => {
     display: flex;
     align-items: center;
     margin-left: 16px;
+    width: 100%;
     .links-with-bg {
       display: flex;
       align-items: center;
@@ -115,6 +115,8 @@ onMounted(async () => {
       height: 48px;
       background: linear-gradient(to right, #4766af, #46bed6);
       border-radius: 10px;
+      width: 100%;
+
       .theme {
         font-size: 16px;
         margin: 0;
