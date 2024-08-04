@@ -99,6 +99,7 @@ onMounted(async () => {
   padding: 0 15.6vw;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   .black-logo {
     cursor: pointer;
     width: 4.8vw;
