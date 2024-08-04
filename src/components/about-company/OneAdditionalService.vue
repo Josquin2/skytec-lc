@@ -22,7 +22,6 @@ const props = defineProps({
   display: flex;
   flex-direction: column;
   width: 16.25vw;
-  margin-right: 80px;
   margin-top: 64px;
   span {
     width: 40px;
