@@ -99,8 +99,7 @@ async function onSendButtonClick() {
           width: 33.59vw;
         }
         img {
-          margin-left: 31.5vw;
-          margin-top: -12px;
+          display: none;
         }
       }
 

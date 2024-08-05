@@ -55,12 +55,12 @@ const allPages: { [key: string]: any } = {
   request: HelpDeskRequest,
   fastNavigation: MeetingRoom,
   documents: DocumentsPage,
-  MainPage: MainPage,
-  Cabinet: Cabinet,
-  AboutCompany: AboutCompany,
-  PrivilegePage: PrivilegePage,
-  NewEmployee: NewEmployee,
-  Vacancies: Vacancies,
+  mainPage: MainPage,
+  cabinet: Cabinet,
+  aboutCompany: AboutCompany,
+  privilegePage: PrivilegePage,
+  newEmployee: NewEmployee,
+  vacancies: Vacancies,
   text: TextBlock
 }
 </script>
