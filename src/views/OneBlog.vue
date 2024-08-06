@@ -20,6 +20,7 @@ function onOtherBlogsClick() {
 let ApiClass = new Api()
 const blogData: Ref<Blog | null> = ref(null)
 const allBlogs: Ref<Blog[]> = ref([])
+const shuffledBlogs: Ref<Blog[]> = ref([])
 
 const articleId = ref(route?.params?.blog)
 
@@ -30,6 +31,8 @@ watch(
   (newVal) => {
     articleId.value = newVal
     getCurrentBlog()
+    shuffledBlogs.value = []
+    shuffleBlogs()
   }
 )
 
@@ -41,6 +44,8 @@ onMounted(async () => {
   const respAllBlogs = await ApiClass.getObjects('articles')
   allBlogs.value = respAllBlogs
   console.log(allBlogs.value)
+
+  shuffleBlogs()
 })
 
 async function getCurrentBlog() {
@@ -57,6 +62,17 @@ function onEditClick() {
 async function onDeleteClick() {
   await ApiClass.delete(`articles/${articleId.value}`)
   router.push({ name: 'main' })
+}
+
+function shuffleBlogs() {
+  for (let i = allBlogs.value.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1))
+    if (allBlogs.value[randomIndex].id != Number(articleId.value)) {
+      shuffledBlogs.value.push(allBlogs.value[randomIndex])
+    } else {
+      console.log('current')
+    }
+  }
 }
 </script>
 
@@ -86,7 +102,7 @@ async function onDeleteClick() {
       <div class="two-blogs">
         <OneLittleBlog
           @click="getCurrentBlog"
-          v-for="(oneLittle, index) in allBlogs?.slice(0, 2)"
+          v-for="(oneLittle, index) in shuffledBlogs?.slice(0, 2)"
           :key="index"
           :blog-id="oneLittle.id"
           :avatar="oneLittle?.user?.avatar"
