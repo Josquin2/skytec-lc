@@ -1,11 +1,25 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
+import { Api } from '@/api/api'
+
+const ApiClass = new Api()
 
 const props = defineProps({
   title: String,
   type: String,
-  icon: String
+  icon: String,
+  url: String
 })
+
+async function onDownloadButtonClick() {
+  const resp = await ApiClass.getObjects(`download/${props.url}`)
+  const link = document.createElement('a')
+  link.href = resp?.download
+  link.target = '_blank'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
 </script>
 
 <template>
@@ -19,7 +33,7 @@ const props = defineProps({
         </div>
 
         <div class="buttons">
-          <button>Скачать</button>
+          <button @click="onDownloadButtonClick()">Скачать</button>
           <a>{{ props.type }}</a>
         </div>
       </div>

@@ -20,6 +20,7 @@ function onBlogClick() {
         title="Инструкция по настройке бронирования переговорных комнат"
         type="PDF"
         icon="/img/instructions/settings-white.svg"
+        url="instructions-booking"
       />
     </div>
     <div class="right-block">

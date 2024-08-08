@@ -5,6 +5,7 @@ export interface Page {
   center: Array<OneBlock>
   left: Array<OneBlock>
   right: Array<OneBlock>
+  left_menu: boolean
 }
 
 interface OneBlock {

@@ -1,13 +1,10 @@
 .vacancies-block {
-  padding: 0 15.63vw;
-  height: 90vh;
   display: flex;
   .left-side {
     width: 33.75vw;
     .background {
       position: absolute;
 
-      margin-top: 14.91vh;
       .h-white {
         position: absolute;
         display: flex;
@@ -102,7 +99,6 @@
   }
   .right-side {
     margin-left: 24px;
-    margin-top: 14.91vh;
     display: flex;
     flex-direction: column;
     img {
@@ -132,8 +128,6 @@
 
 @media only screen and (max-width: 1700px) {
   .vacancies-block {
-    padding: 0 14.63vw;
-    height: 100vh;
     .left-side {
       .background {
         .h-white {

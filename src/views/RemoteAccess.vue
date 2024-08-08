@@ -9,6 +9,7 @@ import DownloadBlock from '@/components/blocks/DownloadBlock.vue'
         title="Инструкция по настройке удаленного доступа"
         type="Для iOS"
         icon="/icons/apple-white.svg"
+        url="instructions-ios"
       />
     </div>
     <div class="right-instruction">
@@ -16,6 +17,7 @@ import DownloadBlock from '@/components/blocks/DownloadBlock.vue'
         title="Инструкция по настройке удаленного доступа"
         type="Для Android"
         icon="/icons/android-white.svg"
+        url="instructions-android"
       />
     </div>
   </div>

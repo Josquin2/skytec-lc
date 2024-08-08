@@ -1,11 +1,14 @@
 .new-employee-block {
-  padding: 137px 15.63vw 0 15.63vw;
-  height: 90vh;
   display: flex;
   gap: 24px;
-
+  flex-direction: column;
+  height: 524px;
+  .download-block {
+    height: 250px;
+  }
   .create {
     width: 33.75vw;
+    height: 250px;
     .background {
       position: absolute;
 

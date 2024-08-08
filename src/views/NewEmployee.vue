@@ -8,8 +8,13 @@ function onCreateNewEmployeeClick() {
 </script>
 
 <template>
-  <div class="new-employee-block">
-    <DownloadBlock title="Welcome-book" type="PDF" icon="/icons/file-white.svg" />
+  <div class="new-employee-block additional">
+    <DownloadBlock
+      title="Welcome-book"
+      type="PDF"
+      icon="/icons/file-white.svg"
+      url="welcome-book"
+    />
     <div class="create">
       <div class="background">
         <div class="h-white">

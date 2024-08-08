@@ -67,7 +67,7 @@ async function getTodaysBirthdays() {
           </button>
         </div>
       </div>
-      <hr class="border" />
+      <hr class="border" v-if="allBirthDays.length > 0 && todaysBirthDays.length > 0" />
     </div>
 
     <div class="next-week" v-if="allBirthDays.length > 0">

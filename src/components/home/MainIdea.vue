@@ -60,18 +60,18 @@ async function onSendIdeaClick() {
 
 <template>
   <div class="idea">
-    <h2>У меня есть идея для бизнеса</h2>
-    <button @click="onIdeaClick()">Предложить</button>
-  </div>
-  <div class="idea-message hidden" id="idea">
-    <input type="text" placeholder="Имя и Фамилия" class="name" id="name" v-model="name" />
-    <textarea placeholder="Ваша идея" class="your-idea" v-model="idea"></textarea>
-    <div class="checkbox">
-      <span class="checkbox-common" id="idea-checkbox" @click="onCheckBoxClick()"></span>
-      <p>Предложить анонимно</p>
+    <div class="main-idea-common">
+      <h2>У меня есть идея для бизнеса</h2>
+      <button @click="onIdeaClick()">Предложить</button>
     </div>
-    <button @click="onSendIdeaClick">Отправить</button>
+    <div class="idea-message hidden" id="idea">
+      <input type="text" placeholder="Имя и Фамилия" class="name" id="name" v-model="name" />
+      <textarea placeholder="Ваша идея" class="your-idea" v-model="idea"></textarea>
+      <div class="checkbox">
+        <span class="checkbox-common" id="idea-checkbox" @click="onCheckBoxClick()"></span>
+        <p>Предложить анонимно</p>
+      </div>
+      <button @click="onSendIdeaClick">Отправить</button>
+    </div>
   </div>
 </template>
-
-<style lang="scss"></style>

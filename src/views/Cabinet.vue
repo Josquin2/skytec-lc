@@ -21,6 +21,7 @@ import LeftArticles from '@/components/home/LeftArticles.vue'
 import VacationModal from '@/components/cabinet/VacationModal.vue'
 import EducationModal from '@/components/cabinet/EducationModal.vue'
 import JobModal from '@/components/cabinet/JobModal.vue'
+import DocumentsModal from '@/components/cabinet/DocumentsModal.vue'
 import { onMounted, type Ref, ref } from 'vue'
 
 import { onDocumentsClick } from '@/components/routing-functions'
@@ -61,6 +62,10 @@ function onEducationModalClick() {
 }
 function onJobModalClick() {
   document.getElementById('job-modal')?.classList.toggle('modal-hidden')
+}
+
+function onDocumentsModalClick() {
+  document.getElementById('documents-modal')?.classList.toggle('modal-hidden')
 }
 
 const phoneNumber = ref('')
@@ -186,7 +191,7 @@ function logout() {
 
           Заявка на отпуск
         </div>
-        <div @click="onDocumentsClick()">
+        <div @click="onDocumentsModalClick()">
           <DocumentsIcon />
 
           Заказать справку
@@ -206,5 +211,6 @@ function logout() {
     <VacationModal @checkAllRequests="checkAllRequests" />
     <EducationModal @checkAllRequests="checkAllRequests" />
     <JobModal @checkAllRequests="checkAllRequests" />
+    <DocumentsModal />
   </div>
 </template>

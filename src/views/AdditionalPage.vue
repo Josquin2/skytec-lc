@@ -17,6 +17,15 @@ import PrivilegePage from './PrivilegePage.vue'
 import NewEmployee from './NewEmployee.vue'
 import Vacancies from './Vacancies.vue'
 import TextBlock from '@/components/blocks/TextBlock.vue'
+import LeftMain from '@/components/home/LeftMain.vue'
+import News from '@/components/home/News.vue'
+import MainCarousel from '@/components/home/MainCarousel.vue'
+import MainIdea from '@/components/home/MainIdea.vue'
+import Advantages from '@/components/about-company/Advantages.vue'
+import Services from '@/components/about-company/Services.vue'
+import KeyPersons from '@/components/about-company/KeyPersons.vue'
+import Structure from '@/components/about-company/Structure.vue'
+import CreateNewEmployee from './CreateNewEmployee.vue'
 
 const route = useRoute()
 
@@ -25,11 +34,20 @@ const ApiClass = new Api()
 const leftComponents = ref<Array<{ component: any; content: string }>>([])
 const centerComponents = ref<Array<{ component: any; content: string }>>([])
 const rightComponents = ref<Array<{ component: any; content: string }>>([])
+const leftMenu = ref(false)
+
 const page: Ref<Page | null> = ref(null)
 onMounted(async () => {
   const resp = await ApiClass.getObjects(`pages/${route?.params?.url}`)
   console.log(resp)
   page.value = resp.data
+
+  // left menu
+  if (page?.value?.left_menu) {
+    leftMenu.value = page?.value?.left_menu
+  }
+
+  // components
   leftComponents.value =
     page.value?.left?.map((block) => ({
       component: allPages[block?.type],
@@ -58,16 +76,25 @@ const allPages: { [key: string]: any } = {
   mainPage: MainPage,
   cabinet: Cabinet,
   aboutCompany: AboutCompany,
-  privilegePage: PrivilegePage,
   newEmployee: NewEmployee,
+  createNewEmployee: CreateNewEmployee,
   vacancies: Vacancies,
-  text: TextBlock
+  text: TextBlock,
+  news: News,
+  carousel: MainCarousel,
+  idea: MainIdea,
+  advantages: Advantages,
+  services: Services,
+  keyPersons: KeyPersons,
+  structure: Structure,
+  privilege: PrivilegePage
 }
 </script>
 
 <template>
   <div class="additional-page">
     <div class="side" v-if="leftComponents && rightComponents">
+      <LeftMain v-if="leftMenu" />
       <component
         v-for="(item, index) in leftComponents"
         :is="item.component"
@@ -75,7 +102,10 @@ const allPages: { [key: string]: any } = {
         :content="item.content"
       ></component>
     </div>
-    <div class="center" :class="{ full: !leftComponents.length && !rightComponents.length }">
+    <div
+      class="center"
+      :class="{ full: !leftComponents.length && !rightComponents.length && leftMenu == false }"
+    >
       <component
         v-for="(item, index) in centerComponents"
         :is="item.component"
@@ -125,6 +155,10 @@ const allPages: { [key: string]: any } = {
     flex-direction: column;
     align-items: center;
     gap: 24px;
+
+    .create-new-employee-block {
+      padding: 0;
+    }
   }
 
   .full {
