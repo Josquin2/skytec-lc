@@ -34,9 +34,9 @@ onMounted(async () => {
 
 function onPageClick(url: string) {
   if (url.startsWith('http')) {
-    window.open(url)
+    window.open(url, '_self')
   } else {
-    router.push({ name: 'additional-page', params: { url: url } })
+    router.push(url)
   }
 }
 </script>
