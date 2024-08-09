@@ -49,7 +49,7 @@ const router = createRouter({
     {
       path: '/new-employee',
       name: 'new-employee',
-      component: () => import('@/views/NewEmployee.vue')
+      component: () => import('@/views/NewEmployeePage.vue')
     },
     {
       path: '/create-new-employee',

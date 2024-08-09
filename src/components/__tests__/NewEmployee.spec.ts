@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, it, expect } from 'vitest'
-import NewEmployee from '@/views/NewEmployee.vue'
+import NewEmployee from '@/views/NewEmployeePage.vue'
 
 describe('New Employee Page', () => {
   it('is a Vue instance', () => {
