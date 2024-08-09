@@ -149,7 +149,7 @@ function logout() {
             :class="
               oneRequest.status == 'На рассмотрении'
                 ? 'one-request'
-                : oneRequest.status == 'Отказано'
+                : oneRequest.status == 'Отказано' || oneRequest.status == 'Отклонен'
                   ? 'denied'
                   : 'one-request approved'
             "
