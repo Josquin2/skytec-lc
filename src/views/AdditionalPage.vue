@@ -13,7 +13,7 @@ import DocumentsPage from './DocumentsPage.vue'
 import MainPage from './MainPage.vue'
 import Cabinet from './Cabinet.vue'
 import AboutCompany from './AboutCompany.vue'
-import PrivilegePage from './PrivilegePage.vue'
+import Privilege from '@/components/privilege/Privilege.vue'
 import NewEmployee from './NewEmployee.vue'
 import Vacancies from '@/components/vacancies/Vacancies.vue'
 import TextBlock from '@/components/blocks/TextBlock.vue'
@@ -87,7 +87,7 @@ const allPages: { [key: string]: any } = {
   services: Services,
   keyPersons: KeyPersons,
   structure: Structure,
-  privilege: PrivilegePage
+  privilege: Privilege
 }
 </script>
 
