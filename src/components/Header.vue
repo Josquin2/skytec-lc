@@ -51,7 +51,7 @@ function onPageClick(url: string) {
   if (url.startsWith('/page/')) {
     router.push(url)
   } else {
-    window.open(url, '_self')
+    window.open(`http:/${url}`, '_self')
   }
 }
 
