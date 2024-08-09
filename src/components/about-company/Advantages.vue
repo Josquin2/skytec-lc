@@ -43,7 +43,7 @@
   .one-adv {
     background-color: #f6f6f6;
     width: 22.08vw;
-    height: 229px;
+    min-height: 229px;
     border-radius: 10px;
     margin-right: 24px;
     padding: 24px;
