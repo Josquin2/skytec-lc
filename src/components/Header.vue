@@ -48,10 +48,10 @@ function isLogged() {
 }
 
 function onPageClick(url: string) {
-  if (url.startsWith('http')) {
-    window.open(url, '_self')
+  if (url.startsWith('/page/')) {
+    router.push(url)
   } else {
-    router.push({ name: 'additional-page', params: { url: url } })
+    window.open(url, '_self')
   }
 }
 
