@@ -40,6 +40,18 @@ function onPageClick(index: number) {
   currentPage.value = index
   document.getElementById('departments')?.scrollIntoView({ behavior: 'smooth' })
 }
+
+// checks if department head is in users array
+function usersFilter(arr: Array<Structure>): Array<Structure> {
+  for (let i = 0; i < arr?.length; i++) {
+    for (let j = 0; j < arr[i]?.users?.length; j++) {
+      if (arr[i]?.users[j]?.id == arr[i]?.department_head?.id) {
+        arr[i]?.users?.splice(j, 1)
+      }
+    }
+  }
+  return arr
+}
 </script>
 
 <template>
@@ -75,7 +87,7 @@ function onPageClick(index: number) {
         <span></span>
       </div>
     </div>
-    <StructureOfCompany :data="cutted[currentPage]" />
+    <StructureOfCompany :data="usersFilter(cutted[currentPage])" />
 
     <div class="page-arrows">
       <div
