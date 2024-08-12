@@ -117,7 +117,6 @@ async function onDownloadButtonClick() {
       border-radius: 20px 50px 20px 20px;
     }
     .full-bg {
-      overflow: hidden;
       width: 33.75vw;
       height: 248px;
       display: flex;
