@@ -22,7 +22,10 @@ function toggleShowAll(departmentId: number) {
         <hr />
         <StructureWorker
           v-if="one?.department_head != null"
-          :name="one?.department_head?.firstname + ' ' + one?.department_head?.surname"
+          :name="
+            one?.department_head?.name ||
+            one?.department_head?.firstname + ' ' + one?.department_head?.surname
+          "
           :job="one?.department_head?.position"
           :image="one?.department_head?.avatar"
         />
@@ -31,7 +34,7 @@ function toggleShowAll(departmentId: number) {
 
       <div class="dep-footer">
         <StructureWorker
-          :name="user?.firstname + ' ' + user?.surname"
+          :name="user?.name || user?.firstname + ' ' + user?.surname"
           :job="user?.position"
           :image="user?.avatar"
           v-for="(user, index) in showAll[one.id] ? one.users : one.users.slice(0, 4)"
