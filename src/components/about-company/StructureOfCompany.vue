@@ -39,7 +39,7 @@ function toggleShowAll(departmentId: number) {
         />
       </div>
 
-      <div class="show-more-button" v-if="one?.users?.length > 4">
+      <div class="show-more-button" v-show="one?.users?.length > 4">
         <button @click="toggleShowAll(one?.id)">
           {{ showAll[one?.id] ? 'Показать меньше' : 'Показать все' }}
         </button>
