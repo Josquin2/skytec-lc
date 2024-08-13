@@ -15,7 +15,7 @@ import {
     <div class="links">
       <a class="one-link" @click="onMainPageClick()">Главная</a>
       <a class="one-link" @click="onCabinetPageClick()">Личный кабинет</a>
-      <a class="one-link" @click="onAboutCompanyPageClick()">О компании</a>
+      <a class="one-link" @click="onAboutCompanyPageClick()">Структура компании</a>
       <a class="one-link" @click="onPrivilegePageClick()">Привилегии для сотрудников</a>
       <a class="one-link" @click="onNewEmployeePageClick()">Новому сотруднику</a>
       <a class="one-link" @click="onVacanciesPageClick()">Вакансии Sky</a>

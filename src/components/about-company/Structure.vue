@@ -1,21 +1,42 @@
 <script setup lang="ts">
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
 import StructureOfCompany from '@/components/about-company/StructureOfCompany.vue'
-import { ref, onMounted, type Ref } from 'vue'
+import { ref, onMounted, type Ref, watch } from 'vue'
 import type { Structure } from '@/types/Structure'
 import { Api } from '@/api/api'
+
+const props = defineProps({
+  name: String,
+  boss: Object
+})
 
 const ApiClass = new Api()
 const cutted: Ref<Structure[][]> = ref([])
 
 const currentPage = ref(0)
 
-onMounted(async () => {
-  const response = await ApiClass.getObjects('departments')
-  const array = response
-  cutForPages(array)
-  console.log(array)
+onMounted(() => {
+  fetchData()
 })
+
+watch(
+  () => props.name,
+  () => {
+    fetchData()
+  }
+)
+
+async function fetchData() {
+  try {
+    console.log(props.name)
+    const response = await ApiClass.getObjects(`departments/${props.name}`)
+    const array = response
+    cutForPages(array)
+    console.log(array)
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
 
 function cutForPages(allBlogs: Array<any>) {
   let n = 3
@@ -63,20 +84,17 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
     <div class="control">
       <h2>Управление</h2>
       <hr />
-      <div class="control-workers">
+      <div class="control-workers" v-if="props.boss && props.boss.length > 0">
         <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
+          v-for="(boss, index) in props.boss"
+          :key="index"
+          :name="boss.name"
+          :job="boss.position"
+          :image="boss.image"
         />
-
-        <hr />
-
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
-        />
+      </div>
+      <div class="control-workers" v-else>
+        <h4 style="color: #474747">Управляющие не указаны</h4>
       </div>
     </div>
     <div class="divider-arrow">
@@ -87,8 +105,6 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
         <span></span>
       </div>
     </div>
-    <StructureOfCompany :data="usersFilter(cutted[currentPage])" />
-
     <div class="page-arrows">
       <div
         class="one-page-arrow"
@@ -110,6 +126,7 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
         @click="nextPage()"
       ></div>
     </div>
+    <StructureOfCompany :data="usersFilter(cutted[currentPage])" />
   </div>
 </template>
 <style lang="scss">
@@ -129,7 +146,7 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
   }
   .control {
     align-self: center;
-    width: 45.42vw;
+    width: min-content;
     height: 308px;
     padding: 48px 28px;
     background-color: #f6f6f6;
@@ -143,12 +160,8 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
     .control-workers {
       padding: 48px 56px;
       display: flex;
-
-      hr {
-        width: 16px;
-        height: 124px;
-        opacity: 0;
-      }
+      justify-content: space-between;
+      gap: 24px;
     }
   }
   .divider-arrow {

@@ -18,10 +18,11 @@ const props = defineProps({
 
 <style lang="scss">
 .one-worker {
-  margin-right: 24px;
+  cursor: pointer;
   width: 10.43vw;
   display: flex;
   flex-direction: column;
+  height: min-content;
 
   h2 {
     font-size: 20px;

@@ -1,5 +1,52 @@
 .about-company-block {
   padding: 139px 15.63vw 0px 15.63vw;
+  min-height: 88vh;
+  .advantages {
+    display: flex;
+
+    .one-adv {
+      cursor: pointer;
+      background-color: #f6f6f6;
+      width: 22.08vw;
+      min-height: 129px;
+      border-radius: 10px;
+      margin-right: 24px;
+      padding: 24px;
+
+      h3 {
+        margin-top: 16px;
+        font-size: 22px;
+        color: #474747;
+      }
+
+      img {
+        width: 78px;
+      }
+
+      .gradient-line {
+        width: 88px;
+        height: 4px;
+        margin-top: 16px;
+      }
+
+      .text-block {
+        margin-top: 16px;
+        display: flex;
+
+        h2 {
+          font-size: 16px;
+          font-weight: 400;
+        }
+        h3 {
+          font-size: 16px;
+          margin-left: 8px;
+          font-weight: 400;
+          text-transform: uppercase;
+          width: 12.6vw;
+        }
+      }
+    }
+  }
   .navigation {
     display: flex;
 
@@ -24,12 +71,6 @@
 }
 
 @media only screen and (max-width: 1800px) {
-  .advantages {
-    .one-adv {
-      height: 278px;
-    }
-  }
-
   .structure {
     .control {
       .control-workers {
