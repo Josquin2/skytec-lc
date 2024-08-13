@@ -6,7 +6,7 @@ import Structure from '@/components/about-company/Structure.vue'
 const data = [
   {
     id: 0,
-    image: '/src/assets/img/logo-black.png',
+    image: '/img/about-company/logo-black.png',
     name: 'Скай Альянс',
     boss: [
       {
