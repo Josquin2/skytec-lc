@@ -20,7 +20,7 @@ onMounted(() => {
 })
 
 watch(
-  () => props.name,
+  () => props?.name,
   () => {
     fetchData()
   }
@@ -28,11 +28,14 @@ watch(
 
 async function fetchData() {
   try {
-    console.log(props.name)
-    const response = await ApiClass.getObjects(`departments/${props.name}`)
-    const array = response
-    cutForPages(array)
-    console.log(array)
+    if (props?.name) {
+      cutted.value = []
+      console.log(props.name)
+      const response = await ApiClass.getObjects(`departments/${props.name}`)
+      const array = response
+      cutForPages(array)
+      console.log(array)
+    }
   } catch (error) {
     console.error('Error fetching data:', error)
   }
