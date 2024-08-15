@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import type { Structure } from '@/types/Structure'
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
-import router from '@/router'
+import { onUserClick } from '@/components/routing-functions'
 
 const props = defineProps({
   data: Array<Structure>
@@ -12,10 +12,6 @@ const showAll = ref<Record<number, boolean>>({})
 
 function toggleShowAll(departmentId: number) {
   showAll.value[departmentId] = !showAll.value[departmentId]
-}
-
-function onUserClick(id: number) {
-  router.push({ name: 'user-search-profile', params: { user: id } })
 }
 </script>
 

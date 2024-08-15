@@ -8,6 +8,7 @@ import { computed, watch, ref, onMounted } from 'vue'
 import { Api } from '@/api/api'
 
 import EmojiBlock from '@/components/home/EmojiBlock.vue'
+import { onUserClick } from '@/components/routing-functions'
 
 let ApiClass = new Api()
 
@@ -172,7 +173,13 @@ async function setNewsReaction(id: number, news: News) {
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />
-        <input name="" id="" placeholder="Введите комментарий" v-model="currentComment" />
+        <input
+          name=""
+          id=""
+          placeholder="Введите комментарий"
+          v-model="currentComment"
+          @keydown.enter="sendComment"
+        />
       </div>
       <div class="send-comment-button" @click="sendComment" v-if="sendButton">
         <button>Оставить комментарий</button>
@@ -182,7 +189,9 @@ async function setNewsReaction(id: number, news: News) {
         <div class="one-comment" v-for="(comment, index) in data?.comments" :key="index">
           <img :src="comment?.user?.avatar" alt="" />
           <div>
-            <p>{{ comment?.user?.surname + ' ' + comment?.user?.firstname }}</p>
+            <p @click="onUserClick(comment?.user?.id)">
+              {{ comment?.user?.surname + ' ' + comment?.user?.firstname }}
+            </p>
             <h4>{{ comment?.comment }}</h4>
           </div>
         </div>

@@ -53,3 +53,7 @@ export function onOneBlogClick(blog: number) {
 export function onGlobalSearchClick(request: string) {
   router.push({ name: 'global-search', params: { request: request } })
 }
+
+export function onUserClick(id: number) {
+  router.push({ name: 'user-search-profile', params: { user: id } })
+}

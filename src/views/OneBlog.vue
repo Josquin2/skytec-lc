@@ -7,6 +7,7 @@ import type { Blog } from '@/types/Blog'
 import { Api } from '@/api/api'
 
 import OneLittleBlog from '@/components/blogs/OneLittleBlog.vue'
+import { onUserClick } from '@/components/routing-functions'
 
 const route = useRoute()
 
@@ -82,7 +83,9 @@ function shuffleBlogs() {
       <img :src="blogData?.user?.avatar" alt="" />
       <div class="time-and-name">
         <p>{{ blogData?.created_at }}</p>
-        <h4>{{ blogData?.user?.lastname + ' ' + blogData?.user?.firstname }}</h4>
+        <h4 v-if="blogData?.user" @click="onUserClick(blogData?.user?.id)">
+          {{ blogData?.user?.surname + ' ' + blogData?.user?.firstname }}
+        </h4>
       </div>
     </div>
 
