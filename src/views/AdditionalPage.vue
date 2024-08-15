@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type Ref, onMounted, ref } from 'vue'
+import { type Ref, onMounted, ref, watch } from 'vue'
 import { Api } from '@/api/api'
 import { useRoute } from 'vue-router'
 import type { Page } from '@/types/AdditionalPage'
@@ -37,7 +37,9 @@ const rightComponents = ref<Array<{ component: any; content: string }>>([])
 const leftMenu = ref(false)
 
 const page: Ref<Page | null> = ref(null)
-onMounted(async () => {
+
+async function fetchData() {
+  resetObjects()
   const resp = await ApiClass.getObjects(`pages/${route?.params?.url}`)
   console.log(resp)
   page.value = resp.data
@@ -63,7 +65,26 @@ onMounted(async () => {
       component: allPages[block?.type],
       content: block.content
     })) ?? []
+}
+
+onMounted(async () => {
+  fetchData()
 })
+
+watch(
+  () => route.params.url,
+  () => {
+    fetchData()
+  }
+)
+
+function resetObjects() {
+  leftComponents.value = []
+  centerComponents.value = []
+  rightComponents.value = []
+  leftMenu.value = false
+  page.value = null
+}
 
 const allPages: { [key: string]: any } = {
   ourBlog: OurBlog,
