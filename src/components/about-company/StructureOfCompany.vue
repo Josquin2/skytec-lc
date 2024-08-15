@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import type { Structure } from '@/types/Structure'
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
+import router from '@/router'
 
 const props = defineProps({
   data: Array<Structure>
@@ -12,6 +13,10 @@ const showAll = ref<Record<number, boolean>>({})
 function toggleShowAll(departmentId: number) {
   showAll.value[departmentId] = !showAll.value[departmentId]
 }
+
+function onUserClick(id: number) {
+  router.push({ name: 'user-search-profile', params: { user: id } })
+}
 </script>
 
 <template>
@@ -21,6 +26,7 @@ function toggleShowAll(departmentId: number) {
         <h2>{{ one?.title }}</h2>
         <hr />
         <StructureWorker
+          @click="onUserClick(one?.id)"
           v-if="one?.department_head != null"
           :name="
             one?.department_head?.name ||
@@ -34,6 +40,7 @@ function toggleShowAll(departmentId: number) {
 
       <div class="dep-footer">
         <StructureWorker
+          @click="onUserClick(user?.id)"
           :name="user?.name || user?.firstname + ' ' + user?.surname"
           :job="user?.position"
           :image="user?.avatar"
