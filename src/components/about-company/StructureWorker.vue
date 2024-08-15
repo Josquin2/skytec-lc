@@ -23,6 +23,7 @@ const props = defineProps({
 
 <style lang="scss">
 .one-structure-worker {
+  cursor: pointer;
   height: 124px;
   width: 17.71vw;
   display: flex;
