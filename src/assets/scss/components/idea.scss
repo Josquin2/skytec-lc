@@ -3,7 +3,7 @@
   flex-direction: column;
   height: min-content;
   .main-idea-common {
-    width: 36.2vw;
+    min-width: 36.2vw;
     height: 272px;
     background: linear-gradient(to bottom right, #4768b0, #46bed6);
     display: flex;
@@ -91,14 +91,5 @@
       color: #4766af;
       font-weight: 400;
     }
-  }
-}
-
-@media only screen and (max-width: 1800px) {
-  .idea {
-    width: 47.15vw;
-  }
-  .idea-message {
-    width: 47.15vw;
   }
 }
