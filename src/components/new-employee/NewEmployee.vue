@@ -1,27 +1,21 @@
 <script setup lang="ts">
 import DownloadBlock from '@/components/blocks/DownloadBlock.vue'
-import { useRoute } from 'vue-router'
 import router from '@/router'
 
-const route = useRoute()
-
-const user = JSON.parse(localStorage.getItem('user') || '')
-
 function onCreateNewEmployeeClick() {
-  const login = route.params.login
-
-  // here should be: if user can create new user -> router.push
-  // else do nothing I guess
-  router.push({ name: 'create-new-employee', params: { login: login } })
+  router.push({ name: 'create-new-employee' })
 }
 </script>
 
 <template>
-  <div class="new-employee-block">
-    <DownloadBlock title="Welcome-book" type="PDF" icon="/icons/file-white.svg" />
-
-    <!-- here should be if or something to check if user allowed to create new user -->
-    <div class="create cannot-create">
+  <div class="new-employee-block additional">
+    <DownloadBlock
+      title="Welcome-book"
+      type="PDF"
+      icon="/icons/file-white.svg"
+      url="welcome-book"
+    />
+    <div class="create">
       <div class="background">
         <div class="h-white">
           <div class="title">

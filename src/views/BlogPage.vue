@@ -41,7 +41,7 @@ function onCategoryClick(id: number, index: number) {
             :id="'category-' + index"
             @click="onCategoryClick(category.id, index)"
           >
-            {{ category.title }}
+            {{ category?.title }}
           </p>
         </div>
       </div>

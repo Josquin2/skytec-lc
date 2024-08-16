@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { User } from '@/types/User'
 import { ref, defineProps } from 'vue'
 
 import { toast } from 'vue3-toastify'
@@ -50,7 +49,6 @@ function onGiftClick(value: number) {
 
 let user = JSON.parse(localStorage.getItem('user') || '')
 
-const toWho = ref('')
 const wish = ref('')
 const anon = ref(false)
 
@@ -89,7 +87,7 @@ async function sendPresent() {
           <div class="text">
             <div>
               <span>От кого:</span>
-              <input type="text" name="" id="" :value="user.name" readonly />
+              <input type="text" name="" id="" :value="user?.name" readonly />
             </div>
             <div>
               <span>Кому:</span>

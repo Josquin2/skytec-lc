@@ -14,19 +14,17 @@ import { useRoute } from 'vue-router'
 import router from '@/router'
 
 import { Api } from '@/api/api'
-import { User } from '@/api/user'
 
 let ApiClass = new Api()
-let UserClass = new User()
 
 import LeftArticles from '@/components/home/LeftArticles.vue'
 import VacationModal from '@/components/cabinet/VacationModal.vue'
 import EducationModal from '@/components/cabinet/EducationModal.vue'
 import JobModal from '@/components/cabinet/JobModal.vue'
+import DocumentsModal from '@/components/cabinet/DocumentsModal.vue'
 import { onMounted, type Ref, ref } from 'vue'
 
 import { onDocumentsClick } from '@/components/routing-functions'
-import ExitIcon from '@/components/cabinet/icons/LogoutIcon.vue'
 import LogoutIcon from '@/components/cabinet/icons/LogoutIcon.vue'
 
 const route = useRoute()
@@ -64,6 +62,10 @@ function onEducationModalClick() {
 }
 function onJobModalClick() {
   document.getElementById('job-modal')?.classList.toggle('modal-hidden')
+}
+
+function onDocumentsModalClick() {
+  document.getElementById('documents-modal')?.classList.toggle('modal-hidden')
 }
 
 const phoneNumber = ref('')
@@ -110,12 +112,12 @@ function logout() {
           </div>
           <div class="job-info">
             <h2>{{ user?.department?.title }}</h2>
-            <hr />
+            <hr v-if="user?.department?.title" />
             <h2>{{ user?.position }}</h2>
           </div>
           <div class="boss" v-if="user.manager">
             <h3>Непосредственный руководитель:</h3>
-            <h4>{{ user?.manager.surname + ' ' + user?.manager.firstname }}</h4>
+            <h4>{{ user?.manager?.surname + ' ' + user?.manager?.firstname }}</h4>
           </div>
           <div class="contact">
             <div class="phone-number noselect" v-if="user.hide_phone != true">
@@ -147,19 +149,20 @@ function logout() {
             :class="
               oneRequest.status == 'На рассмотрении'
                 ? 'one-request'
-                : oneRequest.status == 'Отказано'
-                  ? 'denied'
+                : oneRequest.status == 'Отказано' || oneRequest.status == 'Отклонен'
+                  ? 'one-request denied'
                   : 'one-request approved'
             "
-            v-for="oneRequest in allReqests"
+            v-for="(oneRequest, index) in allReqests"
+            :key="index"
           >
             <div class="request-title">
               <RequestStatusCircle />
 
-              <h3>{{ oneRequest.name }}</h3>
+              <h3>{{ oneRequest?.name }}</h3>
             </div>
             <div class="response">
-              <p>{{ oneRequest.status }}</p>
+              <p>{{ oneRequest?.status }}</p>
               <span></span>
             </div>
           </div>
@@ -188,13 +191,13 @@ function logout() {
 
           Заявка на отпуск
         </div>
-        <div @click="onDocumentsClick()">
+        <div @click="onDocumentsModalClick()">
           <DocumentsIcon />
 
           Заказать справку
         </div>
         <div @click="logout">
-          <LogoutIcon style="margin-left: 26px;" />
+          <LogoutIcon style="margin-left: 26px" />
 
           Выйти
         </div>
@@ -208,5 +211,6 @@ function logout() {
     <VacationModal @checkAllRequests="checkAllRequests" />
     <EducationModal @checkAllRequests="checkAllRequests" />
     <JobModal @checkAllRequests="checkAllRequests" />
+    <DocumentsModal />
   </div>
 </template>

@@ -45,12 +45,12 @@ import oneService from '@/components/about-company/OneStandardService.vue'
 .services-page-1 {
   display: flex;
   flex-wrap: wrap;
+  gap: 4.17vw;
 
   .divider {
     height: 94px;
     width: 1px;
     margin: 0;
-    margin-right: 69px;
     margin-top: 112px;
     opacity: 60%;
     background-color: #cccccc;

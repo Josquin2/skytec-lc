@@ -15,7 +15,7 @@ onMounted(async () => {
 })
 
 async function renderBlogs() {
-  const categoryId = route.params.id
+  const categoryId = route?.params?.id
   const response = await ApiClass.getObjects(`articles/categories/${categoryId}`)
   allBlogs.value = []
   cuttedBlogs.value = []
@@ -24,7 +24,7 @@ async function renderBlogs() {
 }
 
 watch(
-  () => route.params.id,
+  () => route?.params?.id,
   async (newId, oldId) => {
     if (newId !== oldId) {
       await renderBlogs()
@@ -66,16 +66,17 @@ function changePage(page: number) {
     <div class="center">
       <div class="blogs">
         <OneLittleBlog
-          v-for="blog in cuttedBlogs[currentPage]"
-          :avatar="blog.user.avatar"
-          :date="blog.created_at"
-          :author="blog.user.lastname + ' ' + blog.user.firstname"
-          :title="blog.title"
-          :text="blog.content"
+          v-for="(blog, index) in cuttedBlogs[currentPage]"
+          :key="index"
+          :avatar="blog?.user?.avatar"
+          :date="blog?.created_at"
+          :author="blog?.user?.surname + ' ' + blog?.user?.firstname"
+          :title="blog?.title"
+          :text="blog?.content"
           :blog-id="blog.id"
         />
       </div>
-      <div class="page-count">
+      <div class="page-count" v-if="allBlogs.length > 10">
         <div v-if="currentPage > 2" class="one-page" @click="changePage(0)">1</div>
         <div v-if="currentPage > 2" class="one-page">...</div>
         <div

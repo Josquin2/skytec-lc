@@ -14,12 +14,13 @@ function onBlogClick() {
 </script>
 
 <template>
-  <div class="meeting-room-block">
+  <div class="meeting-room-block additional">
     <div class="left-block">
       <DownloadBlock
         title="Инструкция по настройке бронирования переговорных комнат"
         type="PDF"
         icon="/img/instructions/settings-white.svg"
+        url="instructions-booking"
       />
     </div>
     <div class="right-block">
@@ -45,15 +46,19 @@ function onBlogClick() {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .meeting-room-block {
-  padding: 137px 15.63vw;
-  height: 90vh;
-
+  height: 524px;
   display: flex;
+  flex-direction: column;
   gap: 24px;
 
+  .left-block {
+    height: 250px;
+  }
+
   .right-block {
+    height: 250px;
     display: flex;
     border: none;
     gap: 24px;
@@ -162,7 +167,6 @@ function onBlogClick() {
 
 @media only screen and (max-width: 1800px) {
   .meeting-room-block {
-    padding: 137px 12vw;
     .left-block {
       .download-block {
         .background {
@@ -174,6 +178,12 @@ function onBlogClick() {
             }
           }
         }
+      }
+    }
+    .right-block {
+      .building-photo {
+        width: 15.42vw;
+        overflow: hidden;
       }
     }
   }

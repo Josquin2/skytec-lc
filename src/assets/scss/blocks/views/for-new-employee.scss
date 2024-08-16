@@ -1,11 +1,14 @@
 .new-employee-block {
-  padding: 137px 15.63vw 0 15.63vw;
-  height: 90vh;
   display: flex;
   gap: 24px;
-
+  flex-direction: column;
+  height: 524px;
+  .download-block {
+    height: 250px;
+  }
   .create {
     width: 33.75vw;
+    height: 250px;
     .background {
       position: absolute;
 
@@ -55,7 +58,6 @@
         border-radius: 20px 50px 20px 20px;
       }
       .full-bg {
-        overflow: hidden;
         width: 33.75vw;
         height: 248px;
         display: flex;
@@ -101,39 +103,6 @@
           height: 150px;
           background-color: #fff;
           position: absolute;
-        }
-      }
-    }
-  }
-
-  .cannot-create {
-    cursor: default;
-    .background {
-      .h-white {
-        background-color: #efefef;
-
-        .title {
-          h1 {
-            color: #9a9a9a;
-          }
-        }
-        .buttons {
-          button {
-            background-color: #dfdfdf;
-            color: #9a9a9a;
-            cursor: default;
-          }
-        }
-      }
-      .w-white {
-        background-color: #efefef;
-      }
-      .full-bg {
-        background-color: #efefef;
-        .close-button {
-          background: url(/icons/people-gray.svg) no-repeat;
-          background-position: 50%;
-          background-color: #efefef;
         }
       }
     }

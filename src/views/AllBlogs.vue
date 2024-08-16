@@ -14,7 +14,6 @@ onMounted(async () => {
   cutForPages(allBlogs.value)
 })
 
-const allPages = ref('')
 const cuttedBlogs: Ref<Blog[][]> = ref([])
 const currentPage = ref(0)
 
@@ -49,16 +48,17 @@ function changePage(page: number) {
     <div class="center">
       <div class="blogs">
         <OneLittleBlog
-          v-for="blog in cuttedBlogs[currentPage]"
-          :avatar="blog.user.avatar"
-          :date="blog.created_at"
-          :author="blog.user.lastname + ' ' + blog.user.firstname"
-          :title="blog.title"
-          :text="blog.content"
+          v-for="(blog, index) in cuttedBlogs[currentPage]"
+          :key="index"
+          :avatar="blog?.user?.avatar"
+          :date="blog?.created_at"
+          :author="blog?.user?.surname + ' ' + blog?.user?.firstname"
+          :title="blog?.title"
+          :text="blog?.content"
           :blog-id="blog.id"
         />
       </div>
-      <div class="page-count">
+      <div class="page-count" v-if="allBlogs.length > 9">
         <div v-if="currentPage > 2" class="one-page" @click="changePage(0)">1</div>
         <div v-if="currentPage > 2" class="one-page">...</div>
         <div

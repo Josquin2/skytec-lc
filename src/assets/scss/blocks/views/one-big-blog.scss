@@ -19,6 +19,7 @@
         margin: 0;
       }
       h4 {
+        cursor: pointer;
         font-size: 16px;
         font-weight: 400;
         color: #9a9a9a;
@@ -29,14 +30,38 @@
 
   .text {
     margin-top: 24px;
-    width: 34.69vw;
     .blog-title {
-      font-size: 20px;
-      font-weight: 500;
-      color: #4766af;
-      margin: 0;
+      display: flex;
+      gap: 24px;
+      justify-content: space-between;
+      h1 {
+        font-size: 20px;
+        font-weight: 500;
+        color: #4766af;
+        margin: 0;
+        max-width: 35.69vw;
+      }
+
+      .edit-delete {
+        height: min-content;
+        display: flex;
+        gap: 6px 24px;
+        flex-wrap: wrap;
+        p {
+          cursor: pointer;
+          height: min-content;
+          margin: 0;
+          color: #474747;
+          transition: 0.2s ease;
+          border-bottom: 1px solid #ffffff;
+        }
+        p:hover {
+          border-bottom: 1px solid #474747;
+        }
+      }
     }
     .blog-text-common {
+      width: 34.69vw;
       margin: 0;
       margin-top: 24px;
       font-size: 16px;

@@ -1,82 +1,54 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import type { Structure } from '@/types/Structure'
 import StructureWorker from '@/components/about-company/StructureWorker.vue'
+import { onUserClick } from '@/components/routing-functions'
+
+const props = defineProps({
+  data: Array<Structure>
+})
+
+const showAll = ref<Record<number, boolean>>({})
+
+function toggleShowAll(departmentId: number) {
+  showAll.value[departmentId] = !showAll.value[departmentId]
+}
 </script>
 
 <template>
-  <div class="department-main">
-    <div class="dep-worker">
+  <div class="department-main" id="departments">
+    <div class="dep-worker" v-for="(one, index) in props.data" :key="index">
       <div class="upper">
-        <h2>Отдел досуга</h2>
+        <h2>{{ one?.title }}</h2>
         <hr />
         <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
+          @click="onUserClick(one?.id)"
+          v-if="one?.department_head != null"
+          :name="
+            one?.department_head?.name ||
+            one?.department_head?.firstname + ' ' + one?.department_head?.surname
+          "
+          :job="one?.department_head?.position"
+          :image="one?.department_head?.avatar"
         />
+        <StructureWorker v-else name="не назначен" />
       </div>
 
       <div class="dep-footer">
         <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-        <hr class="empty" />
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
-        />
-      </div>
-    </div>
-    <div class="dep-worker">
-      <div class="upper">
-        <h2>Отдел маркетинга</h2>
-        <hr />
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
+          @click="onUserClick(user?.id)"
+          :name="user?.name || user?.firstname + ' ' + user?.surname"
+          :job="user?.position"
+          :image="user?.avatar"
+          v-for="(user, index) in showAll[one.id] ? one.users : one.users.slice(0, 4)"
+          :key="index"
         />
       </div>
 
-      <div class="dep-footer">
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-        <hr class="empty" />
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
-        />
-      </div>
-    </div>
-    <div class="dep-worker">
-      <div class="upper">
-        <h2>Отдел рекламы</h2>
-        <hr />
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-      </div>
-
-      <div class="dep-footer">
-        <StructureWorker
-          name="Мария Ельчинова"
-          job="Генеральный директор SkyAlliance"
-          image="/img/about-company/worker-1.png"
-        />
-        <hr class="empty" />
-        <StructureWorker
-          name="Василий Туровец"
-          job="Управляющий партнер SkyAlliance"
-          image="/img/about-company/worker-2.png"
-        />
+      <div class="show-more-button" v-show="one?.users?.length > 4">
+        <button @click="toggleShowAll(one?.id)">
+          {{ showAll[one?.id] ? 'Показать меньше' : 'Показать все' }}
+        </button>
       </div>
     </div>
   </div>
@@ -94,7 +66,6 @@ import StructureWorker from '@/components/about-company/StructureWorker.vue'
     border-radius: 27px;
     .upper {
       border: 1px solid #cccccc;
-
       border-radius: 27px 27px 0 0;
       padding: 40px 24px;
 
@@ -114,12 +85,23 @@ import StructureWorker from '@/components/about-company/StructureWorker.vue'
       border: 1px solid #cccccc;
       border-radius: 0 0 27px 27px;
       padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
 
-      .empty {
-        opacity: 0;
-        margin: 0;
-        width: 17.71vw;
-        height: 32px;
+    .show-more-button {
+      display: flex;
+      justify-content: center;
+      padding: 24px 0px;
+
+      button {
+        padding: 8px 16px;
+        border: 1px solid #474747;
+        border-radius: 12px;
+        background-color: transparent;
+        color: #474747;
+        font-weight: 500;
       }
     }
   }

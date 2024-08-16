@@ -47,8 +47,6 @@ async function onSendRequestClick() {
 
 <style lang="scss">
 .create-new-employee-block {
-  padding: 179px 33.18vw 433px 33.18vw;
-
   .create-header {
     h1 {
       font-size: 20px;

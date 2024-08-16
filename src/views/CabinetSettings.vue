@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LoadPhotoModal from '@/components/cabinet/LoadPhotoModal.vue'
 import ConfirmPasswordModal from '@/components/cabinet/ConfirmPasswordModal.vue'
-import { onMounted, watch, ref, type Ref } from 'vue'
+import { onMounted, ref, type Ref } from 'vue'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -23,10 +23,17 @@ function onFirstCheckClick() {
   }
 }
 
+const personalData: Ref<boolean> = ref(false)
+
 function onSecondCheckClick() {
   const secondCheck = document.getElementById('checkbox-2')?.classList
-  if (secondCheck) {
-    secondCheck.toggle('clicked')
+  if (secondCheck?.contains('clicked')) {
+    secondCheck.remove('clicked')
+    personalData.value = false
+  } else {
+    secondCheck?.add('clicked')
+    personalData.value = true
+    secondCheck?.remove('error')
   }
 }
 
@@ -39,6 +46,7 @@ function onPasswordModalClick() {
 }
 
 function checkAllCheckBoxes() {
+  console.log(hidePhone.value)
   const firstCheck = document.getElementById('checkbox-1')?.classList
 
   if (hidePhone.value == true) {
@@ -48,15 +56,15 @@ function checkAllCheckBoxes() {
 
 // All variables
 
-const manager = ref('Менеджер')
-const department = ref('Какой-то отдел')
-const position = ref('')
+const manager = ref('Не указан')
+const department = ref('Не указан')
+const position = ref('Не указана')
 const hidePhone = ref(false)
-const userPhone = ref('')
+const userPhone = ref('Не указан')
 const firstName = ref('')
 const surname = ref('')
 const lastName = ref('')
-const email = ref('')
+const email = ref('Не указан')
 
 // API | Get info
 
@@ -67,15 +75,19 @@ let user: Ref<UserInterface | null> = ref(null)
 onMounted(async () => {
   const response = await ApiClass.getObjects('user')
   user.value = response.data.user
-  userPhone.value = user.value?.phone || ''
-  firstName.value = user.value?.firstname || ''
-  surname.value = user.value?.surname || ''
-  lastName.value = user.value?.lastname || ''
-  email.value = user.value?.email || ''
-  position.value = user.value?.position || ''
-  manager.value = user.value?.manager.surname + ' ' + user.value?.manager.firstname
-  department.value = user.value?.department.title || ' '
+  if (user.value !== null) {
+    userPhone.value = user.value.phone
+    firstName.value = user.value.firstname
+    surname.value = user.value.surname
+    lastName.value = user.value.lastname
+    email.value = user.value.email
+    position.value = user.value?.position
+    department.value = user.value?.department.title
 
+    if (user.value.manager) {
+      manager.value = user.value?.manager?.surname + ' ' + user.value?.manager?.firstname
+    }
+  }
   console.log(user.value)
 
   if (user.value) {
@@ -87,11 +99,11 @@ onMounted(async () => {
 // API | Send changes
 
 const token = localStorage.getItem('token')
-const currentUserId = JSON.parse(localStorage.getItem('user') || '')
+const currentUserId = JSON.parse(localStorage.getItem('user') || '{}')
 
 async function onSaveChangesButtonClick() {
   try {
-    if (token) {
+    if (token && personalData.value == true) {
       let resp = await ApiClass.put(`user?id=${currentUserId.id}`, {
         firstname: firstName.value,
         lastname: lastName.value,
@@ -104,6 +116,14 @@ async function onSaveChangesButtonClick() {
       })
       console.log(resp)
       toast('Изменения сохранены!', { position: toast.POSITION.BOTTOM_RIGHT })
+
+      localStorage.removeItem('user')
+      localStorage.setItem('user', JSON.stringify(resp))
+    } else {
+      document.getElementById('checkbox-2')?.classList.add('error')
+      toast('Необходимо согласиться с обработкой персональных данных!', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
     }
   } catch (error) {
     toast('Ошибка при отправке запроса!', { position: toast.POSITION.BOTTOM_RIGHT })
@@ -118,6 +138,13 @@ const isUnlocked = ref(false)
 function onNameClick() {
   if (isUnlocked.value == false) {
     onPasswordModalClick()
+  }
+}
+
+async function PhotoChanged() {
+  const response = await ApiClass.getObjects('user')
+  if (user.value) {
+    user.value.avatar = response.data.user.avatar
   }
 }
 </script>
@@ -179,15 +206,15 @@ function onNameClick() {
     <div class="job-info">
       <div class="info">
         <h2>Отдел:</h2>
-        <input type="text" v-model="department" />
+        <input type="text" v-model="department" readonly />
       </div>
       <div class="info">
         <h2>Должность:</h2>
-        <input type="text" v-model="position" />
+        <input type="text" v-model="position" readonly />
       </div>
       <div class="info">
         <h2>Непосредственный руководитель:</h2>
-        <input type="text" v-model="manager" />
+        <input type="text" v-model="manager" readonly />
       </div>
       <div class="check">
         <div class="checkbox-button noselect" @click="onSecondCheckClick()">
@@ -197,7 +224,7 @@ function onNameClick() {
       </div>
     </div>
 
-    <LoadPhotoModal />
-    <ConfirmPasswordModal @Confirmed:boolean="(val: boolean) => (isUnlocked = val)" />
+    <LoadPhotoModal @photoChanged="PhotoChanged" />
+    <ConfirmPasswordModal v-model:isUnlocked="isUnlocked" />
   </div>
 </template>

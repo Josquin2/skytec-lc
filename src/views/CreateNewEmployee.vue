@@ -2,7 +2,7 @@
 import Calendar from '@/components/cabinet/Calendar.vue'
 import { ref } from 'vue'
 
-import { Api } from '@/api/api'
+import { FileApi } from '@/api/files'
 
 import { toast } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
@@ -15,21 +15,24 @@ const jobTitle = ref('')
 const supervisor = ref('')
 const workstationRequirements = ref('')
 
-let ApiClass = new Api()
+let ApiClass = new FileApi()
+
+const formData = new FormData()
 
 async function onSendButtonClick() {
-  const token = localStorage.getItem('user') || ''
+  const token = localStorage.getItem('user') || '{}'
+
   if (token) {
+    formData.append('data[ФИО]', name.value)
+    formData.append('data[Дата выхода сотрудника]', date.value)
+    formData.append('data[Подразделение]', subdivision.value)
+    formData.append('data[Юр. Лицо]', entity.value)
+    formData.append('data[Должность]', jobTitle.value)
+    formData.append('data[Руководитель]', supervisor.value)
+    formData.append('data[Требования к компьютеру и рабочему месту]', workstationRequirements.value)
+
     try {
-      await ApiClass.post('something', {
-        name: name.value,
-        date: date.value,
-        subdivision: subdivision.value,
-        entity: entity.value,
-        jobTitle: jobTitle.value,
-        supervisor: supervisor.value,
-        workstationRequirements: workstationRequirements.value
-      })
+      await ApiClass.post('user-create', formData)
       toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
     } catch (error) {
       toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
@@ -96,8 +99,7 @@ async function onSendButtonClick() {
           width: 33.59vw;
         }
         img {
-          margin-left: 31.5vw;
-          margin-top: -12px;
+          display: none;
         }
       }
 

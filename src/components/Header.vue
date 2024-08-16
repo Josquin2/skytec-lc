@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import blackLogo from '@/assets/img/logo-black.png'
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
 import router from '@/router'
+import { ref, watch, onMounted, type Ref } from 'vue'
+import type { Page } from '@/types/AdditionalPage'
+import { Api } from '@/api/api'
 
 import {
   onMainPageClick,
@@ -10,13 +12,16 @@ import {
   onVacanciesPageClick,
   onAboutCompanyPageClick,
   onPrivilegePageClick,
-  onNewEmployeePageClick,
-  onGlobalSearchClick
+  onNewEmployeePageClick
 } from './routing-functions'
+
+const ApiClass = new Api()
 
 const route = useRoute()
 const currentPath = ref(route.name)
 const pathName = ref(route.name)
+
+const linksApi: Ref<Page[]> = ref([])
 
 watch(
   () => route.name,
@@ -25,7 +30,7 @@ watch(
   }
 )
 
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   watch(
     () => route.name,
     (newName) => {
@@ -42,9 +47,21 @@ function isLogged() {
   }
 }
 
-// Global search
+function onPageClick(url: string) {
+  if (url.startsWith('http')) {
+    window.open(url, '_self')
+  } else {
+    router.push(url)
+  }
+}
 
-const searchRequest = ref('')
+onMounted(async () => {
+  const resp = await ApiClass.getObjects('links/top')
+  console.log(resp)
+  linksApi.value = resp.data
+})
+
+// Global search
 </script>
 
 <template>
@@ -54,62 +71,17 @@ const searchRequest = ref('')
       <!-- some other links and v-if -->
       <div class="links-with-bg">
         <p
-          :class="currentPath == 'main' ? 'theme clicked-theme' : 'theme'"
-          @click="onMainPageClick()"
-          id="main"
-        >
-          Главная
-        </p>
-        <p
           :class="
-            currentPath == 'cabinet' || currentPath == 'settings' ? 'theme clicked-theme' : 'theme'
+            currentPath == 'additional-page' && route?.params?.url == link?.url
+              ? 'theme clicked-theme'
+              : 'theme'
           "
-          @click="onCabinetPageClick()"
-          id="cabinet"
+          v-for="(link, index) in linksApi"
+          :key="index"
+          @click="onPageClick(link?.url)"
         >
-          Личный кабинет
+          {{ link.title }}
         </p>
-        <p
-          :class="currentPath == 'about' ? 'theme clicked-theme' : 'theme'"
-          @click="onAboutCompanyPageClick()"
-        >
-          О компании
-        </p>
-        <p
-          :class="currentPath == 'privilege' ? 'theme clicked-theme' : 'theme'"
-          @click="onPrivilegePageClick()"
-        >
-          Привилегии для сотрудников
-        </p>
-        <p
-          :class="
-            (currentPath as string)?.endsWith('new-employee') ? 'theme clicked-theme' : 'theme'
-          "
-          @click="onNewEmployeePageClick()"
-        >
-          Новому сотруднику
-        </p>
-        <p
-          :class="currentPath == 'vacancies' ? 'theme clicked-theme' : 'theme'"
-          @click="onVacanciesPageClick()"
-        >
-          Вакансии Sky
-        </p>
-      </div>
-      <div class="search">
-        <input
-          type="text"
-          class="search-input"
-          placeholder="Поиск по порталу"
-          v-model="searchRequest"
-          @keydown.enter="onGlobalSearchClick(searchRequest)"
-        />
-        <img
-          src="/icons/search.svg"
-          alt=""
-          class="search-icon"
-          @click="onGlobalSearchClick(searchRequest)"
-        />
       </div>
       <div class="profile" @click="onCabinetPageClick()">
         <img src="/icons/user.svg" alt="" />
@@ -135,6 +107,7 @@ const searchRequest = ref('')
     display: flex;
     align-items: center;
     margin-left: 16px;
+    width: 100%;
     .links-with-bg {
       display: flex;
       align-items: center;
@@ -142,6 +115,8 @@ const searchRequest = ref('')
       height: 48px;
       background: linear-gradient(to right, #4766af, #46bed6);
       border-radius: 10px;
+      width: 100%;
+
       .theme {
         font-size: 16px;
         margin: 0;

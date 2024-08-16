@@ -13,9 +13,9 @@ export interface News {
   user: User
   user_id: number
   comments: Comment[]
-  views_count: number,
-  users_reactions: Reaction[],
-  user_reaction: number,
+  views_count: number
+  users_reactions: Reaction[]
+  user_reaction: number
 }
 
 export interface Emoji {
@@ -25,7 +25,7 @@ export interface Emoji {
 }
 
 export interface Reaction {
-  count: number,
-  emoji_id: number,
-  image: string,
+  count: number
+  emoji_id: number
+  image: string
 }

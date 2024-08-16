@@ -1,12 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { User } from '@/api/user'
 
-let UserClass = new User()
+const UserClass = new User()
 
 import MainPage from '@/views/MainPage.vue'
 import CabinetSettings from '@/views/CabinetSettings.vue'
 import Cabinet from '@/views/Cabinet.vue'
-import Vacancies from '@/views/Vacancies.vue'
 import AboutCompany from '@/views/AboutCompany.vue'
 
 const router = createRouter({
@@ -18,116 +17,96 @@ const router = createRouter({
       component: () => import('@/views/HomeView.vue')
     },
     {
-      path: '/user/cabinet',
+      path: '/cabinet',
       name: 'cabinet',
       component: Cabinet
     },
     {
-      path: '/user/main',
+      path: '/main',
       name: 'main',
       component: MainPage
     },
     {
-      path: '/user/cabinet/settings',
+      path: '/cabinet/settings',
       name: 'settings',
       component: CabinetSettings
     },
     {
-      path: '/user/vacancies',
+      path: '/vacancies',
       name: 'vacancies',
-      component: Vacancies
+      component: () => import('@/views/VacanciesPage.vue')
     },
     {
-      path: '/user/about',
+      path: '/about',
       name: 'about',
       component: AboutCompany
     },
     {
-      path: '/user/privilege',
+      path: '/privilege',
       name: 'privilege',
       component: () => import('@/views/PrivilegePage.vue')
     },
     {
-      path: '/user/new-employee',
+      path: '/new-employee',
       name: 'new-employee',
-      component: () => import('@/views/NewEmployee.vue')
+      component: () => import('@/views/NewEmployeePage.vue')
     },
     {
-      path: '/user/create-new-employee',
+      path: '/create-new-employee',
       name: 'create-new-employee',
       component: () => import('@/views/CreateNewEmployee.vue')
     },
     {
-      path: '/user/news/:id',
+      path: '/news/:id',
       name: 'one-news',
       component: () => import('@/views/OneNews.vue')
     },
     {
-      path: '/user/blogs',
+      path: '/blogs',
       name: 'blogs',
       component: () => import('@/views/BlogPage.vue'),
       children: [
         {
-          path: '/user/blogs/all',
+          path: '/blogs/all',
           name: 'all-blogs',
           component: () => import('@/views/AllBlogs.vue')
         },
         {
-          path: '/user/blogs/:id',
+          path: '/blogs/:id',
           name: 'category-blogs',
           component: () => import('@/views/CategoryBlogs.vue')
         },
         {
-          path: '/user/blogs/one-blog/:blog',
+          path: '/blogs/one-blog/:blog',
           name: 'one-blog',
           component: () => import('@/views/OneBlog.vue')
         }
       ]
     },
     {
-      path: '/user/aho-request',
-      name: 'aho-request',
-      component: () => import('@/views/AhoRequest.vue')
-    },
-    {
-      path: '/user/help-desk-request',
-      name: 'help-desk-request',
-      component: () => import('@/views/HelpDeskRequest.vue')
-    },
-    {
-      path: '/user/remote-access-instructions',
-      name: 'remote-access-instructions',
-      component: () => import('@/views/RemoteAccess.vue')
-    },
-    {
-      path: '/user/meeting-room-instructions',
-      name: 'meeting-room-instructions',
-      component: () => import('@/views/MeetingRoom.vue')
-    },
-    {
-      path: '/user/documents',
-      name: 'documents',
-      component: () => import('@/views/DocumentsPage.vue')
-    },
-    {
-      path: '/user/user-search/:search',
-      name: 'user-search',
+      path: '/search/:search',
+      name: 'search',
       component: () => import('@/views/UserSearch.vue')
     },
     {
-      path: '/user/profile/:user',
+      path: '/profile/:user',
       name: 'user-search-profile',
       component: () => import('@/views/UserSearchProfile.vue')
     },
     {
-      path: '/user/new-article',
+      path: '/new-article',
       name: 'new-article',
       component: () => import('@/views/NewArticle.vue')
     },
     {
-      path: '/user/global-search/:request',
-      name: 'global-search',
-      component: () => import('@/views/GlobalSearch.vue')
+      path: '/edit-article/:article',
+      name: 'edit-article',
+      component: () => import('@/views/EditArticle.vue')
+    },
+    {
+      path: '/page/:url',
+      name: 'additional-page',
+      component: () => import('@/views/AdditionalPage.vue')
     }
   ]
 })

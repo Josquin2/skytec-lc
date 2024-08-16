@@ -8,6 +8,7 @@ import { computed, watch, ref, onMounted } from 'vue'
 import { Api } from '@/api/api'
 
 import EmojiBlock from '@/components/home/EmojiBlock.vue'
+import { onUserClick } from '@/components/routing-functions'
 
 let ApiClass = new Api()
 
@@ -16,6 +17,8 @@ const route = useRoute()
 const currentComment = ref('')
 
 const sendButton = ref(false)
+
+const emoji = ref([])
 
 let data: Ref<News | null> = ref(null)
 let userData: Ref<UserInterface | null> = ref(null)
@@ -29,13 +32,15 @@ async function loadComments() {
 }
 
 onMounted(async function () {
-  const response = await ApiClass.getObjects('news/' + route.params.id)
+  const response = await ApiClass.getObjects('news/' + route?.params?.id)
   data.value = response
   console.log(data.value)
 
   const userDataResponse = await ApiClass.getObjects('user')
   userData.value = userDataResponse.data.user
   console.log(userData)
+
+  emoji.value = await ApiClass.getObjects('emojis')
 
   ViewsTimeout()
 })
@@ -83,7 +88,7 @@ let commentCountText = computed(() => {
     }
 
     return text
-  }
+  } else return 'Н/Д'
 })
 
 // views count things
@@ -112,6 +117,18 @@ onBeforeRouteLeave(() => {
     clearTimeout(viewTimeout)
   }
 })
+
+async function setNewsReaction(id: number, news: News) {
+  const setReaction = await ApiClass.post('news/reactions', {
+    news_id: news.id,
+    emoji_id: id
+  })
+
+  news.user_reaction = setReaction.user_reaction
+  news.users_reactions = setReaction.users_reactions
+
+  document.getElementById(`extended-icons-${news.id}`)?.classList.add('closed')
+}
 </script>
 
 <template>
@@ -130,12 +147,24 @@ onBeforeRouteLeave(() => {
       </p>
     </div>
     <div class="likes">
-      <EmojiBlock />
+      <EmojiBlock
+        :emoji="emoji"
+        :id="data?.id"
+        @emoji-click="(id) => data && setNewsReaction(id, data)"
+      />
       <hr class="horisontal-line" />
 
       <button class="see-more">
         <img src="/icons/see-more-emoji.svg" alt="" />
       </button>
+      <div
+        v-for="(reaction, index) in data?.users_reactions"
+        :key="index"
+        :class="'reaction-block user-reacted-' + (data?.user_reaction === reaction.emoji_id)"
+      >
+        <img :src="reaction.image" width="20px" height="20px" alt="Эмоджи" />
+        <b>{{ reaction.count }}</b>
+      </div>
     </div>
     <hr />
     <div class="comments">
@@ -144,7 +173,13 @@ onBeforeRouteLeave(() => {
       </div>
       <div class="write">
         <img :src="userData?.avatar" alt="" />
-        <input name="" id="" placeholder="Введите комментарий" v-model="currentComment" />
+        <input
+          name=""
+          id=""
+          placeholder="Введите комментарий"
+          v-model="currentComment"
+          @keydown.enter="sendComment"
+        />
       </div>
       <div class="send-comment-button" @click="sendComment" v-if="sendButton">
         <button>Оставить комментарий</button>
@@ -152,10 +187,12 @@ onBeforeRouteLeave(() => {
       <div class="comments-common">
         <!-- v-for in one-comment -->
         <div class="one-comment" v-for="(comment, index) in data?.comments" :key="index">
-          <img :src="comment.user.avatar" alt="" />
+          <img :src="comment?.user?.avatar" alt="" />
           <div>
-            <p>{{ comment.user.surname + ' ' + comment.user.firstname }}</p>
-            <h4>{{ comment.comment }}</h4>
+            <p @click="onUserClick(comment?.user?.id)">
+              {{ comment?.user?.surname + ' ' + comment?.user?.firstname }}
+            </p>
+            <h4>{{ comment?.comment }}</h4>
           </div>
         </div>
       </div>

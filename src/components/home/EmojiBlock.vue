@@ -1,25 +1,15 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { defineProps } from 'vue'
 import type { Emoji } from '@/types/news/News'
 
 function onAllEmojisClick() {
   document.getElementById(`extended-icons-${props.id}`)?.classList.toggle('closed')
 }
 
-// API
-
-import { Api } from '@/api/api'
-let ApiClass = new Api()
-
 const props = defineProps({
   emoji: Array<Emoji>,
   id: Number
 })
-
-async function onOneEmojiClick(id: number) {
-  // here is put function should be
-  // console.log(id)
-}
 </script>
 
 <template>
@@ -30,8 +20,13 @@ async function onOneEmojiClick(id: number) {
       </button>
     </div>
     <div class="extended-icons closed" :id="'extended-icons-' + props.id">
-      <div class="one-icon" v-for="icon in props.emoji" @click="$emit('emojiClick', icon.id)">
-        <img :src="icon.image" alt="" />
+      <div
+        class="one-icon"
+        v-for="(icon, index) in props.emoji"
+        :key="index"
+        @click="$emit('emojiClick', icon.id)"
+      >
+        <img :src="icon?.image" alt="" />
       </div>
     </div>
   </div>
@@ -50,8 +45,8 @@ async function onOneEmojiClick(id: number) {
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 16px 8px;
     position: absolute;
-    margin-top: -200px;
-    margin-left: -110px;
+    margin-top: -192px;
+    margin-left: -96px;
     background-color: #ffffff;
     z-index: 20;
     border: 1px solid #e1e1e1;

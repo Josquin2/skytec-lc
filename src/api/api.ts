@@ -9,12 +9,7 @@ export class Api {
     this.token = localStorage.getItem('token') || ''
   }
 
-  private async request(
-    method: string,
-    endpoint: string,
-    body?: object,
-    headers?: object
-  ): Promise<any> {
+  private async request(method: string, endpoint: string, body?: object): Promise<any> {
     try {
       const response = await axios.request({
         method,
@@ -41,5 +36,8 @@ export class Api {
 
   async put(endpoint: string, body: object): Promise<any> {
     return this.request('put', endpoint, body)
+  }
+  async delete(endpoint: string): Promise<any> {
+    return this.request('delete', endpoint)
   }
 }

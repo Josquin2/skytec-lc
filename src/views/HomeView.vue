@@ -61,9 +61,10 @@ async function onSignInButton() {
       console.log('error', resp)
       state.value.formError = resp.data
     } else {
-      console.log(resp.data.user)
+      console.log(resp.data)
       localStorage.setItem('user', JSON.stringify(resp.data.user))
       localStorage.setItem('token', resp.data.token)
+      localStorage.setItem('permissions', JSON.stringify(resp.data.permissions))
 
       router.push({ name: 'main', params: { login: state.value.login } })
 
@@ -71,6 +72,7 @@ async function onSignInButton() {
     }
   }
 }
+defineExpose({ state, v$ })
 </script>
 
 <template>
@@ -98,7 +100,7 @@ async function onSignInButton() {
             <p class="mb-5 text-danger mt-2" v-if="state.formError.length">{{ state.formError }}</p>
           </div>
         </div>
-        <div class="bg-footer"><img src="/src/assets/icons/logo.png" alt="" /></div>
+        <div class="bg-footer"><img src="@/assets/img/logo-black.png" alt="" /></div>
         <div class="bg-bg">
           <span class="button-blue-bg-w"></span>
           <span class="button-blue-bg-h"></span>

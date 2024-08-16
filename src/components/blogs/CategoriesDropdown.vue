@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import { Api } from '@/api/api'
-import { type Ref, defineEmits, ref, onMounted, computed, nextTick } from 'vue'
+import { type Ref, defineEmits, ref, onMounted, computed, nextTick, watch } from 'vue'
 import type { Blog } from '@/types/Blog'
 
 let ApiClass = new Api()
+
+const props = defineProps({
+  category: {
+    type: Number,
+    required: false
+  }
+})
 
 const allCategories: Ref<Blog[]> = ref([])
 const chosedCategory = ref('Выберите категорию')
@@ -16,6 +23,16 @@ onMounted(async () => {
   allCategories.value = response
   //   console.log(allBlogs.value)
 })
+
+watch(
+  props,
+  (newProps) => {
+    if (newProps.category) {
+      chosedCategory.value = allCategories.value[newProps.category - 1]?.title
+    }
+  },
+  { immediate: true }
+)
 
 function onDropdownClick() {
   document.getElementById('dd-extended')?.classList.toggle('closed')
@@ -56,10 +73,11 @@ const filteredCategories = computed(() => {
         class="dd-search"
       />
       <p
-        v-for="category in filteredCategories"
-        @click="onCategoryClick(category.title, category.id)"
+        v-for="(category, index) in filteredCategories"
+        :key="index"
+        @click="onCategoryClick(category?.title, category.id)"
       >
-        {{ category.title }}
+        {{ category?.title }}
       </p>
     </div>
   </div>
@@ -96,6 +114,7 @@ const filteredCategories = computed(() => {
     border: 1px solid #9a9a9a;
     border-radius: 10px;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     .dd-search {
       width: 43.49vw;

@@ -14,7 +14,7 @@ const user: Ref<User | null> = ref(null)
 const blogs: Ref<Blog[]> = ref([])
 
 onMounted(async () => {
-  const response = await ApiClass.getObjects(`user/${route.params.user}`)
+  const response = await ApiClass.getObjects(`user/${route?.params?.user}`)
   user.value = response.data
   // console.log(user.value)
 
@@ -22,7 +22,7 @@ onMounted(async () => {
 })
 
 async function getArticles() {
-  const response = await ApiClass.getObjects(`articles?user_id=${route.params.user}`)
+  const response = await ApiClass.getObjects(`articles?user_id=${route?.params?.user}`)
   blogs.value = response
 }
 </script>
@@ -45,8 +45,8 @@ async function getArticles() {
             <h1>{{ user?.name }}</h1>
           </div>
           <div class="job-info">
-            <h2>{{ user?.department.title }}</h2>
-            <hr />
+            <h2>{{ user?.department?.title }}</h2>
+            <hr v-if="user?.department?.title" />
             <h2>
               {{ user?.position }}
             </h2>
@@ -54,7 +54,7 @@ async function getArticles() {
           <div class="boss">
             <h3 v-if="user?.manager">Непосредственный руководитель:</h3>
             <h4 v-if="user?.manager">
-              {{ user?.manager.surname + ' ' + user?.manager.firstname }}
+              {{ user?.manager?.surname + ' ' + user?.manager?.firstname }}
             </h4>
           </div>
           <div class="contact">
@@ -82,12 +82,12 @@ async function getArticles() {
             :key="index"
             @click="onOneBlogClick(blog.id)"
           >
-            <img :src="blog.user.avatar" alt="" class="article-author-image" />
+            <img :src="blog?.user?.avatar" alt="" class="article-author-image" />
             <div class="article-info">
               <h2 class="article-name">
-                {{ blog.title.length > 37 ? blog.title.slice(0, 37) + '...' : blog.title }}
+                {{ blog?.title.length > 37 ? blog?.title.slice(0, 37) + '...' : blog?.title }}
               </h2>
-              <p class="article-author">{{ blog.user.surname + ' ' + blog.user.firstname }}</p>
+              <p class="article-author">{{ blog.user?.surname + ' ' + blog.user?.firstname }}</p>
             </div>
           </div>
         </div>

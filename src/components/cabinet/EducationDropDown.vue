@@ -34,8 +34,12 @@ onMounted(async () => {
       <img src="/img/cabinet/icons/arrow-white.svg" alt="" />
     </div>
     <div class="dropdown-common closed" id="dropdown">
-      <p v-for="edu in educationalPrograms" @click="chosedLesson(edu.title, edu.dates, edu.id)">
-        {{ edu.title }}
+      <p
+        v-for="(edu, index) in educationalPrograms"
+        :key="index"
+        @click="chosedLesson(edu?.title, edu.dates, edu.id)"
+      >
+        {{ edu?.title }}
       </p>
     </div>
   </div>

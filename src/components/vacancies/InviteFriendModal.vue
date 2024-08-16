@@ -1,36 +1,53 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
+import { FileApi } from '@/api/files'
+
+import { toast } from 'vue3-toastify'
+import 'vue3-toastify/dist/index.css'
+
+const ApiClass = new FileApi()
 
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList.toggle('modal-hidden')
 }
-const token = localStorage.getItem('user') || ''
+const user = localStorage.getItem('user') || '{}'
 
-const myData = JSON.parse(token) // for value in myName and mySurname
+const myData = JSON.parse(user) // for value in myName and mySurname
 
 const resumeStatus = ref('Прикрепить резюме')
 
 const friendsName = ref('')
 const friendsContacts = ref('')
 const friendsVacancy = ref('')
-const myName = ref(myData.firstname)
-const mySurname = ref(myData.surname)
+const myName = ref(myData?.firstname)
+const mySurname = ref(myData?.surname)
+const formData = new FormData()
 
 function handleFile(event: Event) {
   resumeStatus.value = 'Резюме прикреплено!'
   const inputElement = event.target as HTMLInputElement
   if (inputElement && inputElement.files && inputElement.files.length > 0) {
     const file = inputElement.files[0]
-    const url = URL.createObjectURL(file)
 
-    // here goes api methods
+    formData.append('file', file)
+  }
+}
 
-    // delete this
-    const link = document.createElement('a')
-    link.href = url
-    link.download = file.name
-    link.click()
-    //
+async function onSendClick() {
+  formData.append('data[Имя Друга]', friendsName.value)
+  formData.append('data[Контакты Друга]', friendsContacts.value)
+  formData.append('data[Вакансия]', friendsVacancy.value)
+  formData.append('data[Имя Отправителя]', myName.value)
+  formData.append('data[Фамилия Отправителя]', mySurname.value)
+
+  try {
+    const returnedFile = await ApiClass.post('invite-friend', formData)
+    console.log(returnedFile)
+
+    toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
+    onInviteFriendModalClick()
+  } catch (error) {
+    console.error(error)
   }
 }
 </script>
@@ -63,7 +80,7 @@ function handleFile(event: Event) {
             <input type="text" v-model="mySurname" placeholder="Фамилия:" />
           </div>
 
-          <button>Отправить</button>
+          <button @click="onSendClick">Отправить</button>
         </div>
         <div class="w-white"></div>
         <div class="full-bg">
