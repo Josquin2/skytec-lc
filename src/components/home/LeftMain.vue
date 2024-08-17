@@ -63,7 +63,6 @@ function onPageClick(url: string) {
         <b class="invite-friend-text" @click="onInviteFriendModalClick()"
           >Приведи друга <img src="/icons/arrow-blue.svg" alt=""
         /></b>
-        <img src="/img/main-page/vacancies.png" alt="" class="vacancies-image" />
       </div>
     </div>
   </div>
