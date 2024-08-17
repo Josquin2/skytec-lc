@@ -3,7 +3,7 @@ import LeftMain from '@/components/home/LeftMain.vue'
 import LeftBlog from '@/components/home/LeftBlog.vue'
 import LeftArticles from '@/components/home/LeftArticles.vue'
 import RightBlock from '@/components/home/RightBlock.vue'
-import MainIdea from '@/components/home/MainIdea.vue'
+// import MainIdea from '@/components/home/MainIdea.vue'
 import MainCarousel from '@/components/home/MainCarousel.vue'
 import EmojiBlock from '@/components/home/EmojiBlock.vue'
 
@@ -99,7 +99,7 @@ async function setNewsReaction(id: number, news: News) {
             </div>
           </div>
         </div>
-        <MainIdea />
+        <!-- <MainIdea /> -->
       </div>
     </div>
 
