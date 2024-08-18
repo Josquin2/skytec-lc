@@ -107,6 +107,11 @@ const router = createRouter({
       path: '/page/:url',
       name: 'additional-page',
       component: () => import('@/views/AdditionalPage.vue')
+    },
+    {
+      path: '/referal',
+      name: 'referal',
+      component: () => import('@/views/Referal.vue')
     }
   ]
 })
