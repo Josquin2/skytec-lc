@@ -26,6 +26,9 @@ import Services from '@/components/about-company/Services.vue'
 import KeyPersons from '@/components/about-company/KeyPersons.vue'
 import Structure from '@/components/about-company/Structure.vue'
 import CreateNewEmployee from './CreateNewEmployee.vue'
+import RegulatoryDocuments from './RegulatoryDocuments.vue'
+import Instructions from './Instructions.vue'
+import VacationPage from './VacationPage.vue'
 
 const route = useRoute()
 
@@ -108,7 +111,10 @@ const allPages: { [key: string]: any } = {
   services: Services,
   keyPersons: KeyPersons,
   structure: Structure,
-  privilege: Privilege
+  privilege: Privilege,
+  regulatoryDocuments: RegulatoryDocuments,
+  instructions: Instructions,
+  vacation: VacationPage
 }
 </script>
 
