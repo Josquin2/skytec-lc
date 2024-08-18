@@ -117,6 +117,11 @@ const router = createRouter({
       path: '/instructions',
       name: 'instructions',
       component: () => import('@/views/Instructions.vue')
+    },
+    {
+      path: '/regulatory-documents',
+      name: 'regulatory',
+      component: () => import('@/views/RegulatoryDocuments.vue')
     }
   ]
 })

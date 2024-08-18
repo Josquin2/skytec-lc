@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Documents } from '@/types/Documents'
 import { Api } from '@/api/api'
-import { type Ref, ref, onMounted } from 'vue'
+import { type Ref, ref, onMounted, watch } from 'vue'
 
 const ApiClass = new Api()
 
@@ -25,7 +25,14 @@ onMounted(() => {
   getData()
 })
 
+watch(
+  () => props.params,
+  () => {
+    getData()
+  }
+)
 async function getData() {
+  resetObjects()
   let resp: any
   if (props?.params && props?.params?.length > 0) {
     resp = await ApiClass.getObjects(`${props?.endpoint}/${props?.params}`)
@@ -46,6 +53,12 @@ function selectDocument(url: string) {
 function sliceArray(arr: Array<any>) {
   rightArr.value = arr.slice(0, Math.floor(arr.length / 2))
   leftArr.value = arr.slice(Math.floor(arr.length / 2), arr.length)
+}
+
+function resetObjects() {
+  leftArr.value = []
+  rightArr.value = []
+  data.value = []
 }
 </script>
 
