@@ -11,6 +11,12 @@ const rightArr: Ref<Documents[]> = ref([])
 const data: Ref<Documents[]> = ref([])
 const image: Ref<string> = ref('')
 
+const props = defineProps({
+  title: String,
+  endpoint: String,
+  params: String
+})
+
 function onDocumentClick(document: string) {
   window.open(document)
 }
@@ -20,10 +26,16 @@ onMounted(() => {
 })
 
 async function getData() {
-  const resp = await ApiClass.getObjects('documents')
+  let resp: any
+  if (props?.params && props?.params?.length > 0) {
+    resp = await ApiClass.getObjects(`${props?.endpoint}/${props?.params}`)
+  } else {
+    resp = await ApiClass.getObjects(`${props?.endpoint}`)
+  }
+
   console.log(resp)
   data.value = resp
-  image.value = resp[0].document
+
   sliceArray(resp)
 }
 
@@ -41,25 +53,24 @@ function sliceArray(arr: Array<any>) {
   <div class="documents-block">
     <div class="documents-header">
       <div class="gradient-line"></div>
-      <h1>Нормативные документы</h1>
+      <h1>{{ props?.title }}</h1>
     </div>
     <div class="documents-common">
-      <div class="huge-document" @click="onDocumentClick(image)">
-        <iframe
-          v-if="data.length > 0"
-          :src="image + '#toolbar=0&scrollbar=0&view=FitV'"
-          allowtransparency="true"
-          height="100%"
-          width="100%"
-          style="border: 1px solid #474747; border-radius: 10px; background: #ffffff"
-          type="application/pdf"
-        ></iframe>
-        <span class="open-full"></span>
-      </div>
-      <div class="documents-mini-block" v-if="data.length > 0">
+      <div class="documents-mini-block" v-if="leftArr.length > 0">
         <div
           class="one-document-common"
-          v-for="(doc, index) in data"
+          v-for="(doc, index) in leftArr"
+          :key="index"
+          @click="selectDocument(doc?.document)"
+        >
+          <span></span>
+          <p>{{ doc?.title }}</p>
+        </div>
+      </div>
+      <div class="documents-mini-block" v-if="rightArr.length > 0">
+        <div
+          class="one-document-common"
+          v-for="(doc, index) in rightArr"
           :key="index"
           @click="selectDocument(doc?.document)"
         >
@@ -68,7 +79,7 @@ function sliceArray(arr: Array<any>) {
         </div>
       </div>
 
-      <div class="documents-mini-block" v-if="data.length < 1">Документы не найдены!</div>
+      <div class="documents-mini-block" v-if="data.length < 1">Не найдено!</div>
     </div>
   </div>
 </template>
