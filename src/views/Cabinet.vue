@@ -2,7 +2,7 @@
 import SettingsPencil from '@/components/cabinet/icons/SettingsPencil.vue'
 import JobBag from '@/components/cabinet/icons/JobBag.vue'
 import EducationCap from '@/components/cabinet/icons/EducationCap.vue'
-import VacationPalm from '@/components/cabinet/icons/VacationPalm.vue'
+// import VacationPalm from '@/components/cabinet/icons/VacationPalm.vue'
 import DocumentsIcon from '@/components/cabinet/icons/DocumentsIcon.vue'
 
 import RequestStatusCircle from '@/components/cabinet/icons/RequestStatusCircle.vue'
@@ -18,7 +18,7 @@ import { Api } from '@/api/api'
 let ApiClass = new Api()
 
 import LeftArticles from '@/components/home/LeftArticles.vue'
-import VacationModal from '@/components/cabinet/VacationModal.vue'
+// import VacationModal from '@/components/cabinet/VacationModal.vue'
 import EducationModal from '@/components/cabinet/EducationModal.vue'
 import JobModal from '@/components/cabinet/JobModal.vue'
 import DocumentsModal from '@/components/cabinet/DocumentsModal.vue'
@@ -54,9 +54,9 @@ function onSettingsClick() {
   router.push({ name: 'settings', params: { login: login } })
 }
 
-function onVacationModalClick() {
-  document.getElementById('vacation-modal')?.classList.toggle('modal-hidden')
-}
+// function onVacationModalClick() {
+//   document.getElementById('vacation-modal')?.classList.toggle('modal-hidden')
+// }
 function onEducationModalClick() {
   document.getElementById('education-modal')?.classList.toggle('modal-hidden')
 }
@@ -186,11 +186,11 @@ function logout() {
 
           Заявка на обучение
         </div>
-        <div @click="onVacationModalClick()">
+        <!-- <div @click="onVacationModalClick()">
           <VacationPalm />
 
           Заявка на отпуск
-        </div>
+        </div> -->
         <div @click="onDocumentsModalClick()">
           <DocumentsIcon />
 
@@ -208,7 +208,7 @@ function logout() {
     </div>
 
     <!-- Modals goes here -->
-    <VacationModal @checkAllRequests="checkAllRequests" />
+    <!-- <VacationModal @checkAllRequests="checkAllRequests" /> -->
     <EducationModal @checkAllRequests="checkAllRequests" />
     <JobModal @checkAllRequests="checkAllRequests" />
     <DocumentsModal />
