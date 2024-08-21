@@ -27,6 +27,7 @@ watch(
   () => route.name,
   (newPath) => {
     currentPath.value = newPath
+    console.log(route.fullPath)
   }
 )
 
@@ -72,7 +73,7 @@ onMounted(async () => {
       <div class="links-with-bg">
         <p
           :class="
-            currentPath == 'additional-page' && route?.params?.url == link?.url
+            route?.fullPath == link?.url || route?.fullPath == '/' + link?.url?.split('/')?.pop()
               ? 'theme clicked-theme'
               : 'theme'
           "
