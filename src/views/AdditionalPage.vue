@@ -29,6 +29,7 @@ import CreateNewEmployee from './CreateNewEmployee.vue'
 import RegulatoryDocuments from './RegulatoryDocuments.vue'
 import Instructions from './Instructions.vue'
 import VacationPage from './VacationPage.vue'
+import AhoRequest from './AhoRequest.vue'
 
 const route = useRoute()
 
@@ -95,6 +96,7 @@ const allPages: { [key: string]: any } = {
   download: TwoDownloads,
   birthdays: RightBlock,
   request: HelpDeskRequest,
+  requestAxo: AhoRequest,
   fastNavigation: MeetingRoom,
   documents: DocumentsPage,
   mainPage: MainPage,
