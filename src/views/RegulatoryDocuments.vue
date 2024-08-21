@@ -16,3 +16,9 @@ const handleCompanyNameUpdate = (newName: string) => {
     <DocumentsPage endpoint="documents" title="Нормативные документы" :params="company" />
   </div>
 </template>
+
+<style lang="scss">
+.regulatory-documents {
+  width: 100%;
+}
+</style>

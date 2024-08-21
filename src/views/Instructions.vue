@@ -7,3 +7,9 @@ import DocumentsPage from './DocumentsPage.vue'
     <DocumentsPage title="Инструкции" endpoint="instructions" params="" />
   </div>
 </template>
+
+<style lang="scss">
+.instructions-page {
+  width: 100%;
+}
+</style>

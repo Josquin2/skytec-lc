@@ -101,7 +101,7 @@ function resetObjects() {
 .documents-block {
   display: flex;
   flex-direction: column;
-  min-height: 85vh;
+  width: 100%;
 
   .documents-header {
     display: flex;
