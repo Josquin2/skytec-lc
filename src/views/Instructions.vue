@@ -3,7 +3,7 @@ import DocumentsPage from './DocumentsPage.vue'
 </script>
 
 <template>
-  <div class="instructions-page">
+  <div class="instructions-page documents-full">
     <DocumentsPage title="Инструкции" endpoint="instructions" params="" />
   </div>
 </template>

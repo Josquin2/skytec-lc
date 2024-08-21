@@ -11,7 +11,7 @@ const handleCompanyNameUpdate = (newName: string) => {
 </script>
 
 <template>
-  <div class="regulatory-documents">
+  <div class="regulatory-documents documents-full">
     <Companies @update-company-name="handleCompanyNameUpdate" />
     <DocumentsPage endpoint="vacations" title="Заявления на отпуск" :params="company" />
   </div>

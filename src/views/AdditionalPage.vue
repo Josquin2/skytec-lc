@@ -201,6 +201,10 @@ const allPages: { [key: string]: any } = {
         max-width: 68.75vw;
       }
     }
+
+    .documents-full {
+      width: fit-content;
+    }
   }
 }
 
