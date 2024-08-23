@@ -1,91 +1,57 @@
 .privilege-block {
-  .accordion-item {
-    border: none;
-    border-bottom: 1px solid #e1e1e1;
-  }
-  .accordion-button {
-    background-color: #ffffff !important;
-    box-shadow: none !important;
-    min-height: 124px;
-  }
-  .accordion-button::after {
-    display: none;
-  }
   .privilege-header {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
-    .privilege-name {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-
-      h1 {
-        font-size: 16px;
-        font-weight: 400;
-        padding: 8px;
-        border: 1px solid #9a9a9a;
-        border-radius: 10px;
-        margin: 0;
-        color: #474747;
-      }
-
-      h2 {
-        font-size: 24px;
-        margin: 0;
-        color: #474747;
-      }
-      h3 {
-        background: linear-gradient(to right bottom, #4766af, #46bed6);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin: 0;
-      }
-    }
-    .privilege-header-button {
-      padding: 8px 16px;
-      background-color: #ffffff;
-      border: 1px solid #4766af;
-      border-radius: 10px;
-      color: #474747;
-      margin: 0;
-      transition: 0.4s;
-    }
-    .privilege-header-button:hover {
-      background-color: #4766af;
-      color: #ffffff;
-    }
-  }
-
-  .accordion-body {
-    display: flex;
-    flex-direction: column;
+    gap: 24px;
 
     button {
-      padding: 6px 32px;
-      width: fit-content;
-      align-self: center;
-      background-color: #ffffff;
-      border: 1px solid #4766af;
-      border-radius: 8px;
-      color: #4766af;
-      transition: 0.4s;
-    }
-    button:hover {
-      background-color: #4766af;
-      color: #ffffff;
+      background-color: transparent;
+      border: none;
     }
 
-    img {
-      width: 50%;
-      align-self: center;
+    h3 {
+      background: linear-gradient(to right bottom, #4766af, #46bed6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin: 0;
+    }
+  }
+  .privilege-footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 48px;
+
+    .hidden {
+      display: none !important;
     }
 
-    a {
-      color: #474747;
+    .info {
+      display: flex;
+      flex-direction: column;
+      button {
+        padding: 6px 32px;
+        width: fit-content;
+        align-self: center;
+        background-color: #ffffff;
+        border: 1px solid #4766af;
+        border-radius: 8px;
+        color: #4766af;
+        transition: 0.4s;
+      }
+      button:hover {
+        background-color: #4766af;
+        color: #ffffff;
+      }
+
+      img {
+        width: 50%;
+      }
+
+      a {
+        color: #474747;
+      }
     }
   }
 }
