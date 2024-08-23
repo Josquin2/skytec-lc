@@ -6,6 +6,7 @@
   .accordion-button {
     background-color: #ffffff !important;
     box-shadow: none !important;
+    min-height: 124px;
   }
   .accordion-button::after {
     display: none;
