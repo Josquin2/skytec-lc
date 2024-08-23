@@ -1,12 +1,16 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 function onPrimeZoneClick() {
   document.getElementById('prime-zone')?.classList?.remove('hidden')
   document.getElementById('dms')?.classList?.add('hidden')
+  clicked.value = 'prime-zone'
 }
 
 function onDmsClick() {
   document.getElementById('prime-zone')?.classList?.add('hidden')
   document.getElementById('dms')?.classList?.remove('hidden')
+  clicked.value = 'dms'
 }
 
 function onDownloadButtonClick(end: string) {
@@ -18,15 +22,21 @@ function onDownloadButtonClick(end: string) {
   link.click()
   document.body.removeChild(link)
 }
+
+const clicked = ref('prime-zone')
 </script>
 
 <template>
   <div class="privilege-block">
     <div class="privilege-header">
       <button @click="onPrimeZoneClick">
-        <img src="/public/img/prime-zone-logo.png" alt="" />
+        <img src="/img/prime-zone-logo.png" alt="" />
+        <div class="gradient-line" v-show="clicked == 'prime-zone'"></div>
       </button>
-      <button @click="onDmsClick"><h3>ДМС</h3></button>
+      <button @click="onDmsClick">
+        <h3>ДМС</h3>
+        <div class="gradient-line" v-show="clicked == 'dms'"></div>
+      </button>
     </div>
     <div class="privilege-footer">
       <div class="info hidden" id="dms">
