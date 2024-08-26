@@ -1,8 +1,21 @@
 <script setup lang="ts">
 import InviteFriendModal from '@/components/vacancies/InviteFriendModal.vue'
+import { Api } from '@/api/api'
+
+const ApiClass = new Api()
 
 function onInviteFriendModalClick() {
   document.getElementById('invite-modal')?.classList?.toggle('modal-hidden')
+}
+
+async function onDownloadVacanciesClick() {
+  const resp = await ApiClass.getObjects('download/vacancies')
+  const link = document.createElement('a')
+  link.href = resp?.download
+  link.target = '_blank'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
 }
 </script>
 
@@ -59,7 +72,7 @@ function onInviteFriendModalClick() {
       </div>
     </div>
     <div class="button">
-      <button>Загрузите перечень актуальных вакансий</button>
+      <button @click="onDownloadVacanciesClick">Загрузите перечень актуальных вакансий</button>
       <button @click="onInviteFriendModalClick" class="invite">Привести друга</button>
     </div>
     <InviteFriendModal />
