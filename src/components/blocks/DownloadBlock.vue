@@ -55,6 +55,9 @@ async function onDownloadButtonClick() {
   width: 33.75vw;
   .background {
     position: absolute;
+    height: 248px;
+    width: 33.75vw;
+    overflow: hidden;
 
     .h-white {
       position: absolute;
