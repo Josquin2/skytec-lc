@@ -11,14 +11,14 @@
   justify-content: center;
   .job-common {
     width: 656px;
-    height: 283px;
+    height: 399px;
     .background {
       position: absolute;
       .h-white {
         position: absolute;
         display: flex;
         width: 601px;
-        height: 283px;
+        height: 399px;
         background-color: #ffffff;
         z-index: 13;
         border-radius: 27px;
@@ -37,6 +37,18 @@
 
           img {
             margin-right: 4px;
+          }
+        }
+
+        .place {
+          margin-top: 24px;
+          textarea {
+            height: 84px;
+            width: 572px;
+            border: 1px solid #d6d6d6;
+            border-radius: 10px;
+            resize: none;
+            padding: 10px 16px;
           }
         }
         .dates {
@@ -88,7 +100,7 @@
         position: absolute;
         display: flex;
         width: 656px;
-        height: 229px;
+        height: 344px;
         background-color: #ffffff;
         z-index: 12;
         border-radius: 27px;
