@@ -35,7 +35,7 @@ onMounted(async () => {
         <img :src="article?.user?.avatar" alt="" class="article-author-image" />
         <div class="article-info" @click="onOneBlogClick(article.id)">
           <h2 class="article-name">
-            {{ article?.title?.length > 37 ? article?.title.slice(0, 37) + '...' : article?.title }}
+            {{ article?.title?.length > 36 ? article?.title.slice(0, 36) + '...' : article?.title }}
           </h2>
           <p class="article-author">
             {{ article?.user?.firstname + ' ' + article?.user?.surname }}

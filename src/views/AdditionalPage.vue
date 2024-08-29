@@ -218,4 +218,16 @@ const allPages: { [key: string]: any } = {
     }
   }
 }
+
+@media only screen and (max-width: 1380px) {
+  .additional-page {
+    .center {
+      width: 65vw;
+      zoom: 0.7;
+    }
+    .full {
+      zoom: 0.9;
+    }
+  }
+}
 </style>

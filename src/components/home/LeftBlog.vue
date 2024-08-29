@@ -42,7 +42,7 @@ onMounted(async () => {
         <img :src="blog?.user?.avatar" alt="" class="blog-author-image" />
         <div class="blog-info">
           <h2 class="blog-name">
-            {{ blog?.title.length > 37 ? blog?.title.slice(0, 37) + '...' : blog?.title }}
+            {{ blog?.title.length > 36 ? blog?.title.slice(0, 36) + '...' : blog?.title }}
           </h2>
           <p class="blog-author">{{ blog?.user?.firstname + ' ' + blog?.user?.surname }}</p>
         </div>

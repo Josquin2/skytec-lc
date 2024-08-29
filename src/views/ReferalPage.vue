@@ -164,4 +164,10 @@ async function onDownloadVacanciesClick() {
     }
   }
 }
+
+@media only screen and (max-width: 1380px) {
+  .referal-program-block {
+    zoom: 0.85;
+  }
+}
 </style>
