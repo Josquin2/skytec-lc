@@ -210,8 +210,11 @@ const allPages: { [key: string]: any } = {
 
 @media only screen and (max-width: 1800px) {
   .additional-page {
+    .center {
+      width: 49vw;
+    }
     .side {
-      width: 22vw;
+      width: 19.5vw;
       .additional-text-block {
         width: 19vw;
       }
@@ -224,6 +227,9 @@ const allPages: { [key: string]: any } = {
     .center {
       width: 65vw;
       zoom: 0.7;
+    }
+    .side {
+      width: 21vw;
     }
     .full {
       zoom: 0.9;
