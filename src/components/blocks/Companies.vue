@@ -18,11 +18,11 @@ const data = [
       }
     ]
   },
-  { id: 1, image: '/img/about-company/logo-1.png', name: 'ТЕКНОУЛОДЖИ', boss: [] },
+  { id: 1, image: '/img/about-company/logo-1.png', name: 'СкайТек Медиа', boss: [] },
   {
     id: 2,
     image: '/img/about-company/logo-2.png',
-    name: 'СкайТек Медиа',
+    name: 'ТЕКНОУЛОДЖИ',
     boss: [
       {
         name: 'Вишняков Алексей',
