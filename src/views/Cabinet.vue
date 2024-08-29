@@ -181,11 +181,11 @@ function logout() {
           <JobBag />
           Заявка на командировку
         </div>
-        <div @click="onEducationModalClick()">
+        <!-- <div @click="onEducationModalClick()">
           <EducationCap />
 
           Заявка на обучение
-        </div>
+        </div> -->
         <!-- <div @click="onVacationModalClick()">
           <VacationPalm />
 
@@ -209,7 +209,7 @@ function logout() {
 
     <!-- Modals goes here -->
     <!-- <VacationModal @checkAllRequests="checkAllRequests" /> -->
-    <EducationModal @checkAllRequests="checkAllRequests" />
+    <!-- <EducationModal @checkAllRequests="checkAllRequests" /> -->
     <JobModal @checkAllRequests="checkAllRequests" />
     <DocumentsModal />
   </div>
