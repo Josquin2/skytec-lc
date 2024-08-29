@@ -83,7 +83,7 @@ async function getTodaysBirthdays() {
   </div>
   <div class="right-block-birthday" v-if="allBirthDays.length < 1 && todaysBirthDays.length < 1">
     <div class="next-week">
-      <h2 class="other-hbd" style="color: #474747">Нет ближайщих дней рождений.</h2>
+      <h2 class="other-hbd" style="color: #474747">Нет ближайших дней рождений.</h2>
     </div>
   </div>
   <CongratulationsModal :toWho="selectedName" :id="selectedPersonsId" />
