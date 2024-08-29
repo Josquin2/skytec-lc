@@ -62,7 +62,6 @@ function prevPage() {
 
 function onPageClick(index: number) {
   currentPage.value = index
-  document.getElementById('departments')?.scrollIntoView({ behavior: 'smooth' })
 }
 
 // checks if department head is in users array
