@@ -190,7 +190,7 @@ async function setNewsReaction(id: number, news: News) {
           <img :src="comment?.user?.avatar" alt="" />
           <div>
             <p @click="onUserClick(comment?.user?.id)">
-              {{ comment?.user?.surname + ' ' + comment?.user?.firstname }}
+              {{ comment?.user?.lastname + ' ' + comment?.user?.firstname }}
             </p>
             <h4>{{ comment?.comment }}</h4>
           </div>

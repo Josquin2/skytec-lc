@@ -56,7 +56,7 @@ async function getTodaysBirthdays() {
         <div class="who" v-for="(one, index) in todaysBirthDays" :key="index">
           <div class="happy-bd-to">
             <img :src="one?.avatar" alt="" class="image-of-hbd" />
-            <h2 class="name-of-hbd">{{ one?.surname }} {{ one?.firstname }}</h2>
+            <h2 class="name-of-hbd">{{ one?.lastname }} {{ one?.firstname }}</h2>
             <p class="job-title-of-hbd">{{ one?.position }}</p>
           </div>
           <button
@@ -76,7 +76,7 @@ async function getTodaysBirthdays() {
         <p class="date">
           {{ day?.birthdate.split('.')[0] + '.' + day?.birthdate.split('.')[1] }}
         </p>
-        <h3 class="name-of-other-hbd">{{ day?.surname }} {{ day?.firstname }}</h3>
+        <h3 class="name-of-other-hbd">{{ day?.lastname }} {{ day?.firstname }}</h3>
         <h4 class="job-title-of-other-hbd">{{ day?.position }}</h4>
       </div>
     </div>

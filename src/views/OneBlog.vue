@@ -84,7 +84,7 @@ function shuffleBlogs() {
       <div class="time-and-name">
         <p>{{ blogData?.created_at }}</p>
         <h4 v-if="blogData?.user" @click="onUserClick(blogData?.user?.id)">
-          {{ blogData?.user?.surname + ' ' + blogData?.user?.firstname }}
+          {{ blogData?.user?.lastname + ' ' + blogData?.user?.firstname }}
         </h4>
       </div>
     </div>
@@ -110,7 +110,7 @@ function shuffleBlogs() {
           :blog-id="oneLittle.id"
           :avatar="oneLittle?.user?.avatar"
           :date="oneLittle?.created_at"
-          :author="oneLittle.user?.surname + ' ' + oneLittle.user?.firstname"
+          :author="oneLittle.user?.lastname + ' ' + oneLittle.user?.firstname"
           :title="oneLittle?.title"
           :text="oneLittle?.content"
         />

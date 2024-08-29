@@ -26,7 +26,7 @@ function toggleShowAll(departmentId: number) {
           v-if="one?.department_head != null"
           :name="
             one?.department_head?.name ||
-            one?.department_head?.firstname + ' ' + one?.department_head?.surname
+            one?.department_head?.firstname + ' ' + one?.department_head?.lastname
           "
           :job="one?.department_head?.position"
           :image="one?.department_head?.avatar"
@@ -37,7 +37,7 @@ function toggleShowAll(departmentId: number) {
       <div class="dep-footer">
         <StructureWorker
           @click="onUserClick(user?.id)"
-          :name="user?.name || user?.firstname + ' ' + user?.surname"
+          :name="user?.name || user?.firstname + ' ' + user?.lastname"
           :job="user?.position"
           :image="user?.avatar"
           v-for="(user, index) in showAll[one.id] ? one.users : one.users.slice(0, 4)"

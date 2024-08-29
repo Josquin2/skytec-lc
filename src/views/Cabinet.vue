@@ -117,7 +117,7 @@ function logout() {
           </div>
           <div class="boss" v-if="user.manager">
             <h3>Непосредственный руководитель:</h3>
-            <h4>{{ user?.manager?.surname + ' ' + user?.manager?.firstname }}</h4>
+            <h4>{{ user?.manager?.lastname + ' ' + user?.manager?.firstname }}</h4>
           </div>
           <div class="contact">
             <div class="phone-number noselect" v-if="user.hide_phone != true">

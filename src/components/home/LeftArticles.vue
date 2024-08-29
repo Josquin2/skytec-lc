@@ -38,7 +38,7 @@ onMounted(async () => {
             {{ article?.title?.length > 36 ? article?.title.slice(0, 36) + '...' : article?.title }}
           </h2>
           <p class="article-author">
-            {{ article?.user?.firstname + ' ' + article?.user?.surname }}
+            {{ article?.user?.firstname + ' ' + article?.user?.lastname }}
           </p>
         </div>
       </div>

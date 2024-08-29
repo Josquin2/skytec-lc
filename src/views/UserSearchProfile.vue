@@ -54,7 +54,7 @@ async function getArticles() {
           <div class="boss">
             <h3 v-if="user?.manager">Непосредственный руководитель:</h3>
             <h4 v-if="user?.manager">
-              {{ user?.manager?.surname + ' ' + user?.manager?.firstname }}
+              {{ user?.manager?.lastname + ' ' + user?.manager?.firstname }}
             </h4>
           </div>
           <div class="contact">
@@ -87,7 +87,7 @@ async function getArticles() {
               <h2 class="article-name">
                 {{ blog?.title.length > 37 ? blog?.title.slice(0, 37) + '...' : blog?.title }}
               </h2>
-              <p class="article-author">{{ blog.user?.surname + ' ' + blog.user?.firstname }}</p>
+              <p class="article-author">{{ blog.user?.lastname + ' ' + blog.user?.firstname }}</p>
             </div>
           </div>
         </div>

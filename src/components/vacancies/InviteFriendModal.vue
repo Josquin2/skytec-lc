@@ -20,7 +20,7 @@ const friendsName = ref('')
 const friendsContacts = ref('')
 const friendsVacancy = ref('')
 const myName = ref(myData?.firstname)
-const mySurname = ref(myData?.surname)
+const mySurname = ref(myData?.lastname)
 const formData = new FormData()
 
 function handleFile(event: Event) {

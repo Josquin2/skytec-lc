@@ -85,7 +85,7 @@ onMounted(async () => {
     department.value = user.value?.department.title
 
     if (user.value.manager) {
-      manager.value = user.value?.manager?.surname + ' ' + user.value?.manager?.firstname
+      manager.value = user.value?.manager?.lastname + ' ' + user.value?.manager?.firstname
     }
   }
   console.log(user.value)
