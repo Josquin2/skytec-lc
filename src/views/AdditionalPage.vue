@@ -30,6 +30,7 @@ import RegulatoryDocuments from './RegulatoryDocuments.vue'
 import Instructions from './Instructions.vue'
 import VacationPage from './VacationPage.vue'
 import AhoRequest from './AhoRequest.vue'
+import ReferalBlock from '@/components/blocks/ReferalBlock.vue'
 
 const route = useRoute()
 
@@ -116,7 +117,8 @@ const allPages: { [key: string]: any } = {
   privilege: Privilege,
   regulatoryDocuments: RegulatoryDocuments,
   instructions: Instructions,
-  vacation: VacationPage
+  vacation: VacationPage,
+  referal: ReferalBlock
 }
 </script>
 
