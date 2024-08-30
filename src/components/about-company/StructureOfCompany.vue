@@ -22,7 +22,7 @@ function toggleShowAll(departmentId: number) {
         <h2>{{ one?.title }}</h2>
         <hr />
         <StructureWorker
-          @click="onUserClick(one?.id)"
+          @click="onUserClick(one?.department_head?.id)"
           v-if="one?.department_head != null"
           :name="
             one?.department_head?.name ||
