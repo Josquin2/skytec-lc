@@ -9,7 +9,6 @@ const leftArr: Ref<Documents[]> = ref([])
 const rightArr: Ref<Documents[]> = ref([])
 
 const data: Ref<Documents[]> = ref([])
-const image: Ref<string> = ref('')
 
 const props = defineProps({
   title: String,
@@ -39,15 +38,9 @@ async function getData() {
   } else {
     resp = await ApiClass.getObjects(`${props?.endpoint}`)
   }
-
-  console.log(resp)
   data.value = resp
 
   sliceArray(resp)
-}
-
-function selectDocument(url: string) {
-  image.value = url
 }
 
 function sliceArray(arr: Array<any>) {
@@ -74,7 +67,7 @@ function resetObjects() {
           class="one-document-common"
           v-for="(doc, index) in leftArr"
           :key="index"
-          @click="selectDocument(doc?.document)"
+          @click="onDocumentClick(doc?.document)"
         >
           <span></span>
           <p>{{ doc?.title }}</p>
@@ -85,7 +78,7 @@ function resetObjects() {
           class="one-document-common"
           v-for="(doc, index) in rightArr"
           :key="index"
-          @click="selectDocument(doc?.document)"
+          @click="onDocumentClick(doc?.document)"
         >
           <span></span>
           <p>{{ doc?.title }}</p>
