@@ -97,7 +97,13 @@ defineExpose({ state, v$ })
               id="second-input-field"
               @keydown.enter="onSignInButton()"
             />
-            <p class="mb-5 text-danger mt-2" v-if="state.formError.length">{{ state.formError }}</p>
+            <p
+              class="mb-5 text-danger mt-2"
+              style="margin-bottom: 0 !important; width: fit-content"
+              v-if="state.formError.length"
+            >
+              {{ state.formError }}
+            </p>
           </div>
         </div>
         <div class="bg-footer"><img src="@/assets/img/logo-black.png" alt="" /></div>
