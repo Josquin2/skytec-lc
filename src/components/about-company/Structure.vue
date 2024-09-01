@@ -4,6 +4,8 @@ import StructureOfCompany from '@/components/about-company/StructureOfCompany.vu
 import { ref, onMounted, type Ref, watch } from 'vue'
 import type { Structure } from '@/types/Structure'
 import { Api } from '@/api/api'
+import type { User } from '@/types/User'
+import { onUserClick } from '../routing-functions'
 
 const props = defineProps({
   name: String,
@@ -12,17 +14,20 @@ const props = defineProps({
 
 const ApiClass = new Api()
 const cutted: Ref<Structure[][]> = ref([])
+const bosses: Ref<User[]> = ref([])
 
 const currentPage = ref(0)
 
 onMounted(() => {
   fetchData()
+  getBosses()
 })
 
 watch(
   () => props?.name,
   () => {
     fetchData()
+    getBosses()
   }
 )
 
@@ -35,6 +40,19 @@ async function fetchData() {
       const array = response
       cutForPages(array)
       console.log(array)
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
+
+async function getBosses() {
+  try {
+    if (props?.name) {
+      bosses.value = []
+      const response = await ApiClass.getObjects(`key-persons/${props?.name}`)
+      console.log(response)
+      bosses.value = response
     }
   } catch (error) {
     console.error('Error fetching data:', error)
@@ -86,13 +104,14 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
     <div class="control">
       <h2>Управление</h2>
       <hr />
-      <div class="control-workers" v-if="props.boss && props.boss.length > 0">
+      <div class="control-workers" v-if="bosses && bosses?.length > 0">
         <StructureWorker
-          v-for="(boss, index) in props.boss"
+          v-for="(boss, index) in bosses"
           :key="index"
-          :name="boss.name"
-          :job="boss.position"
-          :image="boss.image"
+          :name="boss?.name"
+          :job="boss?.position"
+          :image="boss?.avatar"
+          @click="onUserClick(boss?.id)"
         />
       </div>
       <div class="control-workers" v-else>
@@ -134,6 +153,7 @@ function usersFilter(arr: Array<Structure>): Array<Structure> {
 <style lang="scss">
 .structure {
   margin-top: 64px;
+  margin-bottom: 72px;
   display: flex;
   flex-direction: column;
   .structure-header {
