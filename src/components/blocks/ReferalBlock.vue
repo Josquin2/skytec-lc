@@ -108,6 +108,10 @@ async function onDownloadVacanciesClick() {
     display: flex;
     gap: 24px;
 
+    .one-condition {
+      height: 100%;
+    }
+
     .photo-title {
       display: flex;
       align-items: center;
@@ -121,9 +125,10 @@ async function onDownloadVacanciesClick() {
     }
 
     .text {
+      height: 90%;
       margin-top: 20px;
       max-width: 424px;
-      height: 220px;
+      min-height: 220px;
       border: 1px solid #cccccc;
       border-radius: 17px;
       padding: 26px 32px;

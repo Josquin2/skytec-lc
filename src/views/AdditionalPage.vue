@@ -190,6 +190,19 @@ const allPages: { [key: string]: any } = {
     .create-new-employee-block {
       padding: 0;
     }
+    .referal-program-block {
+      zoom: 1 !important;
+      .conditions {
+        flex-direction: column;
+        align-items: center;
+
+        .one-condition {
+          .text {
+            height: fit-content !important;
+          }
+        }
+      }
+    }
   }
 
   .full {
@@ -206,6 +219,18 @@ const allPages: { [key: string]: any } = {
 
     .documents-full {
       width: fit-content;
+    }
+
+    .referal-program-block {
+      .conditions {
+        flex-direction: row !important;
+
+        .one-condition {
+          .text {
+            height: 90% !important;
+          }
+        }
+      }
     }
   }
 }
