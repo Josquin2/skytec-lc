@@ -155,16 +155,14 @@ async function onDownloadButtonClick() {
         margin-right: -2.34vw;
       }
       .bg-w {
-        width: 150px;
-        height: 55px;
+        width: 20vw;
+        height: 50px;
         background-color: #fff;
         position: absolute;
-        margin-right: 100px;
       }
       .bg-h {
-        margin-top: 100px;
-        width: 55px;
-        height: 150px;
+        width: 50px;
+        height: 200px;
         background-color: #fff;
         position: absolute;
       }
