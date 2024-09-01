@@ -3,6 +3,9 @@ import { ref, watch, onMounted, type Ref } from 'vue'
 import { Api } from '@/api/api'
 import router from '@/router'
 import type { Page } from '@/types/AdditionalPage'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const linksApi: Ref<Page[]> = ref([])
 
@@ -15,6 +18,23 @@ function onPageClick(url: string) {
     router.push(url)
   }
 }
+const currentPath = ref(route.name)
+
+function isLogged() {
+  if (currentPath.value != 'home') {
+    return true
+  } else {
+    return false
+  }
+}
+
+watch(
+  () => route.name,
+  (newPath) => {
+    currentPath.value = newPath
+    console.log(route.fullPath)
+  }
+)
 
 onMounted(async () => {
   const resp = await ApiClass.getObjects('links/top')
@@ -26,7 +46,7 @@ onMounted(async () => {
 <template>
   <footer class="footer">
     <img src="/icons/logo-white.svg" alt="" />
-    <div class="links">
+    <div class="links" v-if="isLogged()">
       <a
         class="one-link"
         v-for="(link, index) in linksApi"
