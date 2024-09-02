@@ -3,6 +3,7 @@ import { ref, onMounted, type Ref } from 'vue'
 import OneWorker from '@/components/about-company/Worker.vue'
 import { Api } from '@/api/api'
 import type { User } from '@/types/User'
+import { onUserClick } from '../routing-functions'
 
 const ApiClass = new Api()
 const data: Ref<User[]> = ref([])
@@ -21,7 +22,7 @@ const chosedPerson = ref(0)
       <h1>Ключевые лица компании</h1>
     </div>
     <div class="team-common">
-      <div class="boss">
+      <div class="boss" @click="onUserClick(data[chosedPerson]?.id)">
         <img :src="data[chosedPerson]?.avatar" alt="" />
         <h2>{{ data[chosedPerson]?.name }}</h2>
         <h3>{{ data[chosedPerson]?.position }}</h3>
