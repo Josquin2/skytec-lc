@@ -26,6 +26,11 @@ import Services from '@/components/about-company/Services.vue'
 import KeyPersons from '@/components/about-company/KeyPersons.vue'
 import Structure from '@/components/about-company/Structure.vue'
 import CreateNewEmployee from './CreateNewEmployee.vue'
+import RegulatoryDocuments from './RegulatoryDocuments.vue'
+import Instructions from './Instructions.vue'
+import VacationPage from './VacationPage.vue'
+import AhoRequest from './AhoRequest.vue'
+import ReferalBlock from '@/components/blocks/ReferalBlock.vue'
 
 const route = useRoute()
 
@@ -92,6 +97,7 @@ const allPages: { [key: string]: any } = {
   download: TwoDownloads,
   birthdays: RightBlock,
   request: HelpDeskRequest,
+  requestAxo: AhoRequest,
   fastNavigation: MeetingRoom,
   documents: DocumentsPage,
   mainPage: MainPage,
@@ -108,7 +114,11 @@ const allPages: { [key: string]: any } = {
   services: Services,
   keyPersons: KeyPersons,
   structure: Structure,
-  privilege: Privilege
+  privilege: Privilege,
+  regulatoryDocuments: RegulatoryDocuments,
+  instructions: Instructions,
+  vacation: VacationPage,
+  referal: ReferalBlock
 }
 </script>
 
@@ -180,6 +190,19 @@ const allPages: { [key: string]: any } = {
     .create-new-employee-block {
       padding: 0;
     }
+    .referal-program-block {
+      zoom: 1 !important;
+      .conditions {
+        flex-direction: column;
+        align-items: center;
+
+        .one-condition {
+          .text {
+            height: fit-content !important;
+          }
+        }
+      }
+    }
   }
 
   .full {
@@ -193,16 +216,50 @@ const allPages: { [key: string]: any } = {
         max-width: 68.75vw;
       }
     }
+
+    .documents-full {
+      width: fit-content;
+    }
+
+    .referal-program-block {
+      .conditions {
+        flex-direction: row !important;
+
+        .one-condition {
+          .text {
+            height: 90% !important;
+          }
+        }
+      }
+    }
   }
 }
 
 @media only screen and (max-width: 1800px) {
   .additional-page {
+    .center {
+      width: 49vw;
+    }
     .side {
-      width: 22vw;
+      width: 19.5vw;
       .additional-text-block {
         width: 19vw;
       }
+    }
+  }
+}
+
+@media only screen and (max-width: 1380px) {
+  .additional-page {
+    .center {
+      width: 65vw;
+      zoom: 0.7;
+    }
+    .side {
+      width: 21vw;
+    }
+    .full {
+      zoom: 0.9;
     }
   }
 }

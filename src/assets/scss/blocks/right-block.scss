@@ -1,4 +1,5 @@
 .right-block-birthday {
+  overflow: hidden;
   width: 13.33vw;
   border: 1px solid #9a9a9a;
   border-radius: 19px;
@@ -127,7 +128,7 @@
 
 @media only screen and (max-width: 1800px) {
   .right-block-birthday {
-    width: 19.17vw;
+    width: 100%;
 
     .today {
       .congrats {
@@ -143,7 +144,7 @@
       }
     }
     .border {
-      width: 19.17vw;
+      width: 200%;
     }
     .next-week {
       .other-hbd-common {

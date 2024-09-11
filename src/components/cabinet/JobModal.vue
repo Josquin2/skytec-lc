@@ -15,6 +15,7 @@ function onJobModalClick() {
 
 const inputStartValue = ref('')
 const inputEndValue = ref('')
+const destination = ref('')
 const token = localStorage.getItem('token')
 
 async function onSendButtonClick() {
@@ -22,7 +23,8 @@ async function onSendButtonClick() {
     if (token) {
       await ApiClass.post('application/business-trip', {
         start_date: inputStartValue.value,
-        end_date: inputEndValue.value
+        end_date: inputEndValue.value,
+        destination: destination.value
       })
       toast('Заявка отправлена!', { position: toast.POSITION.BOTTOM_RIGHT })
       onJobModalClick()
@@ -43,6 +45,10 @@ async function onSendButtonClick() {
           <div class="title">
             <img src="/img/cabinet/icons/bag-blue.svg" alt="" />
             Заявка на командировку
+          </div>
+
+          <div class="place">
+            <textarea placeholder="Место командировки:" v-model="destination"></textarea>
           </div>
 
           <div class="dates">

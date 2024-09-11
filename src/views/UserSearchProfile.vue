@@ -28,7 +28,7 @@ async function getArticles() {
 </script>
 
 <template>
-  <div class="main-page-block">
+  <div class="main-page-block search-block">
     <div class="left-block">
       <LeftMain />
     </div>
@@ -54,13 +54,13 @@ async function getArticles() {
           <div class="boss">
             <h3 v-if="user?.manager">Непосредственный руководитель:</h3>
             <h4 v-if="user?.manager">
-              {{ user?.manager?.surname + ' ' + user?.manager?.firstname }}
+              {{ user?.manager?.lastname + ' ' + user?.manager?.firstname }}
             </h4>
           </div>
           <div class="contact">
             <div class="phone-number">
               <img src="/icons/phone-blue.svg" alt="" />
-              <p v-if="user?.hide_phone == false">{{ user?.phone }}</p>
+              <p v-if="user?.phone != '' && user?.hide_phone == false">{{ user?.phone }}</p>
               <p v-else>Номер скрыт</p>
             </div>
             <div class="email">
@@ -87,7 +87,7 @@ async function getArticles() {
               <h2 class="article-name">
                 {{ blog?.title.length > 37 ? blog?.title.slice(0, 37) + '...' : blog?.title }}
               </h2>
-              <p class="article-author">{{ blog.user?.surname + ' ' + blog.user?.firstname }}</p>
+              <p class="article-author">{{ blog.user?.lastname + ' ' + blog.user?.firstname }}</p>
             </div>
           </div>
         </div>
@@ -97,13 +97,15 @@ async function getArticles() {
 </template>
 
 <style lang="scss">
+.search-block {
+  justify-content: flex-start !important;
+  gap: 20px !important;
+}
 .user-search-profile-block {
-  margin-left: 64px;
+  margin-left: 49px;
 }
 
 .user-search-articles {
-  margin-left: 24px;
-
   padding: 24px 20px;
   border: 1px solid #cccccc;
   border-radius: 20px;

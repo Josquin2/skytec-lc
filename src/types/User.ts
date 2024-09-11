@@ -12,6 +12,7 @@ export interface User {
   birthdate: string
   department: Department
   manager: Manager
+  description: string
 }
 
 interface Department {

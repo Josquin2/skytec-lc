@@ -125,7 +125,7 @@ function onOneBlogClick(blog: number | undefined) {
 
 @media only screen and (max-width: 1800px) {
   .one-little-blog {
-    width: 31.03vw;
+    width: 30.03vw;
     padding: 16px;
 
     .blog-common {

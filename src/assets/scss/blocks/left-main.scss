@@ -48,19 +48,13 @@
       cursor: pointer;
     }
     .invite-friend {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       .invite-friend-text {
         cursor: pointer;
         color: #4766af;
-        max-width: 4.5vw;
-        position: absolute;
-        margin-top: 12px;
-        margin-left: 0.8vw;
-      }
-
-      .vacancies-image {
-        width: 12.5vw;
-        margin-top: 8px;
-        margin-bottom: 16px;
+        padding: 16px 0px;
       }
     }
   }
@@ -80,15 +74,6 @@
     .vacancies {
       .vacancy-common {
         width: 16vw;
-      }
-      .invite-friend {
-        .invite-friend-text {
-          margin-top: 18px;
-          margin-left: 1.5vw;
-        }
-        .vacancies-image {
-          width: 16vw;
-        }
       }
     }
   }

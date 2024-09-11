@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Documents } from '@/types/Documents'
 import { Api } from '@/api/api'
-import { type Ref, ref, onMounted } from 'vue'
+import { type Ref, ref, onMounted, watch } from 'vue'
 
 const ApiClass = new Api()
 
@@ -9,7 +9,12 @@ const leftArr: Ref<Documents[]> = ref([])
 const rightArr: Ref<Documents[]> = ref([])
 
 const data: Ref<Documents[]> = ref([])
-const image: Ref<string> = ref('')
+
+const props = defineProps({
+  title: String,
+  endpoint: String,
+  params: String
+})
 
 function onDocumentClick(document: string) {
   window.open(document)
@@ -19,21 +24,34 @@ onMounted(() => {
   getData()
 })
 
+watch(
+  () => props.params,
+  () => {
+    getData()
+  }
+)
 async function getData() {
-  const resp = await ApiClass.getObjects('documents')
-  console.log(resp)
+  resetObjects()
+  let resp: any
+  if (props?.params && props?.params?.length > 0) {
+    resp = await ApiClass.getObjects(`${props?.endpoint}/${props?.params}`)
+  } else {
+    resp = await ApiClass.getObjects(`${props?.endpoint}`)
+  }
   data.value = resp
-  image.value = resp[0].document
-  sliceArray(resp)
-}
 
-function selectDocument(url: string) {
-  image.value = url
+  sliceArray(resp)
 }
 
 function sliceArray(arr: Array<any>) {
   rightArr.value = arr.slice(0, Math.floor(arr.length / 2))
   leftArr.value = arr.slice(Math.floor(arr.length / 2), arr.length)
+}
+
+function resetObjects() {
+  leftArr.value = []
+  rightArr.value = []
+  data.value = []
 }
 </script>
 
@@ -41,34 +59,33 @@ function sliceArray(arr: Array<any>) {
   <div class="documents-block">
     <div class="documents-header">
       <div class="gradient-line"></div>
-      <h1>Нормативные документы</h1>
+      <h1>{{ props?.title }}</h1>
     </div>
     <div class="documents-common">
-      <div class="huge-document" @click="onDocumentClick(image)">
-        <iframe
-          v-if="data.length > 0"
-          :src="image + '#toolbar=0&scrollbar=0&view=FitV'"
-          allowtransparency="true"
-          height="100%"
-          width="100%"
-          style="border: 1px solid #474747; border-radius: 10px; background: #ffffff"
-          type="application/pdf"
-        ></iframe>
-        <span class="open-full"></span>
-      </div>
-      <div class="documents-mini-block" v-if="data.length > 0">
+      <div class="documents-mini-block" v-if="leftArr.length > 0">
         <div
           class="one-document-common"
-          v-for="(doc, index) in data"
+          v-for="(doc, index) in leftArr"
           :key="index"
-          @click="selectDocument(doc?.document)"
+          @click="onDocumentClick(doc?.document)"
+        >
+          <span></span>
+          <p>{{ doc?.title }}</p>
+        </div>
+      </div>
+      <div class="documents-mini-block" v-if="rightArr.length > 0">
+        <div
+          class="one-document-common"
+          v-for="(doc, index) in rightArr"
+          :key="index"
+          @click="onDocumentClick(doc?.document)"
         >
           <span></span>
           <p>{{ doc?.title }}</p>
         </div>
       </div>
 
-      <div class="documents-mini-block" v-if="data.length < 1">Документы не найдены!</div>
+      <div class="documents-mini-block" v-if="data.length < 1">Не найдено!</div>
     </div>
   </div>
 </template>
@@ -77,7 +94,7 @@ function sliceArray(arr: Array<any>) {
 .documents-block {
   display: flex;
   flex-direction: column;
-  min-height: 85vh;
+  width: 100%;
 
   .documents-header {
     display: flex;

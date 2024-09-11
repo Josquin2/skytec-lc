@@ -60,4 +60,23 @@ const props = defineProps({
     }
   }
 }
+
+@media only screen and (max-width: 1380px) {
+  .one-structure-worker {
+    width: fit-content;
+
+    h4 {
+      font-size: 16px;
+    }
+
+    div {
+      h1 {
+        font-size: 15px;
+      }
+      p {
+        font-size: 12px;
+      }
+    }
+  }
+}
 </style>

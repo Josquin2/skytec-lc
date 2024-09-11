@@ -52,7 +52,7 @@ function changePage(page: number) {
           :key="index"
           :avatar="blog?.user?.avatar"
           :date="blog?.created_at"
-          :author="blog?.user?.surname + ' ' + blog?.user?.firstname"
+          :author="blog?.user?.lastname + ' ' + blog?.user?.firstname"
           :title="blog?.title"
           :text="blog?.content"
           :blog-id="blog.id"

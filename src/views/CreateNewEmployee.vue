@@ -20,9 +20,10 @@ let ApiClass = new FileApi()
 const formData = new FormData()
 
 async function onSendButtonClick() {
-  const token = localStorage.getItem('user') || '{}'
+  const token = localStorage.getItem('user') || ''
+  const permissions = JSON.parse(localStorage.getItem('permissions') || '')
 
-  if (token) {
+  if (token && permissions != null && permissions['users.create']) {
     formData.append('data[ФИО]', name.value)
     formData.append('data[Дата выхода сотрудника]', date.value)
     formData.append('data[Подразделение]', subdivision.value)
@@ -38,6 +39,8 @@ async function onSendButtonClick() {
       toast('Ошибка при отправке заявки!', { position: toast.POSITION.BOTTOM_RIGHT })
       console.error(error)
     }
+  } else {
+    toast('Вы не можете создать пользователя!', { position: toast.POSITION.BOTTOM_RIGHT })
   }
 }
 </script>

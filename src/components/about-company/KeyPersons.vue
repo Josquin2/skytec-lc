@@ -1,45 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted, type Ref } from 'vue'
 import OneWorker from '@/components/about-company/Worker.vue'
+import { Api } from '@/api/api'
+import type { User } from '@/types/User'
+import { onUserClick } from '../routing-functions'
 
-const data = [
-  {
-    id: 1,
-    name: 'Мария Ельчинова',
-    position: 'Генеральный директор SkyAlliance',
-    image: '/img/about-company/worker-1.png',
-    other_words:
-      '<p>В рекламном бизнесе с 1994 года.</p><p>Начинала свою карьеру в агентстве Ogilvy&Mather. Затем работала на разных должностях в агентствах РАВИ, Мега Медиа (ГКВИ, Vi).</p><p>С 2005 по 2017 год занимала руководящие позиции в агентстве Maxus (GroupM).</p>'
-  },
-  {
-    id: 2,
-    name: 'Василий Туровец',
-    position: 'Управляющий партнер SkyAlliance',
-    image: '/img/about-company/worker-2.png',
-    other_words: '<p>Информация о человеке</p>'
-  },
-  {
-    id: 3,
-    name: 'Лилия Гаджиева',
-    position: 'Генеральный директор Pinpai',
-    image: '/img/about-company/worker-3.png',
-    other_words: '<p>Информация о человеке</p>'
-  },
-  {
-    id: 4,
-    name: 'Вишняков Алексей',
-    position: 'Генеральный директор BuyTecKnowlogy',
-    image: '/img/about-company/worker-4.png',
-    other_words: '<p>Информация о человеке</p>'
-  },
-  {
-    id: 5,
-    name: 'Александр Луданный',
-    position: 'New Business директор SkyAlliance',
-    image: '/img/about-company/worker-5.png',
-    other_words: '<p>Информация о человеке</p>'
-  }
-]
+const ApiClass = new Api()
+const data: Ref<User[]> = ref([])
+onMounted(async () => {
+  const response = await ApiClass.getObjects('key-persons')
+  console.log(response)
+  data.value = response
+})
 
 const chosedPerson = ref(0)
 </script>
@@ -50,11 +22,11 @@ const chosedPerson = ref(0)
       <h1>Ключевые лица компании</h1>
     </div>
     <div class="team-common">
-      <div class="boss">
-        <img :src="data[chosedPerson]?.image" alt="" />
+      <div class="boss" @click="onUserClick(data[chosedPerson]?.id)">
+        <img :src="data[chosedPerson]?.avatar" alt="" />
         <h2>{{ data[chosedPerson]?.name }}</h2>
         <h3>{{ data[chosedPerson]?.position }}</h3>
-        <div class="boss-info" v-html="data[chosedPerson]?.other_words"></div>
+        <div class="boss-info" v-html="data[chosedPerson]?.description"></div>
       </div>
       <div class="workers">
         <!-- components here -->
@@ -64,7 +36,7 @@ const chosedPerson = ref(0)
           :key="index"
           :name="user?.name"
           :job="user?.position"
-          :image="user?.image"
+          :image="user?.avatar"
         />
       </div>
     </div>

@@ -57,15 +57,14 @@ function onPageClick(url: string) {
         {{ link?.title }}
       </p>
     </div>
-    <div class="vacancies">
+    <!-- <div class="vacancies">
       <div class="vacancy-common" @click="onVacanciesPageClick">Актуальные вакансии</div>
       <div class="invite-friend">
         <b class="invite-friend-text" @click="onInviteFriendModalClick()"
           >Приведи друга <img src="/icons/arrow-blue.svg" alt=""
         /></b>
-        <img src="/img/main-page/vacancies.png" alt="" class="vacancies-image" />
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- modal -->

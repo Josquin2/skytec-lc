@@ -97,7 +97,7 @@ function onArticleClick(article: Blog) {
 </script>
 
 <template>
-  <div class="main-page-block">
+  <div class="main-page-block search-block">
     <div class="left-block">
       <LeftMain />
     </div>
@@ -127,7 +127,7 @@ function onArticleClick(article: Blog) {
         >
           <img :src="user?.avatar" alt="" />
           <div class="user-info">
-            <h2>{{ user?.firstname + ' ' + user?.surname }}</h2>
+            <h2>{{ user?.firstname + ' ' + user?.lastname }}</h2>
             <div class="job-info">
               <p>{{ user?.department?.title || 'Н/Д' }}</p>
               <hr class="job-divider" />
@@ -183,8 +183,11 @@ function onArticleClick(article: Blog) {
 </template>
 
 <style lang="scss">
+.search-block {
+  justify-content: flex-start !important;
+}
 .user-search-center {
-  margin-left: 64px;
+  margin-left: 49px;
 
   .found-page {
     margin-top: 16px;

@@ -1,24 +1,59 @@
 <script setup lang="ts">
-import {
-  onMainPageClick,
-  onCabinetPageClick,
-  onVacanciesPageClick,
-  onAboutCompanyPageClick,
-  onPrivilegePageClick,
-  onNewEmployeePageClick
-} from './routing-functions'
+import { ref, watch, onMounted, type Ref } from 'vue'
+import { Api } from '@/api/api'
+import router from '@/router'
+import type { Page } from '@/types/AdditionalPage'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+const linksApi: Ref<Page[]> = ref([])
+
+const ApiClass = new Api()
+
+function onPageClick(url: string) {
+  if (url.startsWith('http')) {
+    window.open(url, '_self')
+  } else {
+    router.push(url)
+  }
+}
+const currentPath = ref(route.name)
+
+function isLogged() {
+  if (currentPath.value != 'home') {
+    return true
+  } else {
+    return false
+  }
+}
+
+watch(
+  () => route.name,
+  (newPath) => {
+    currentPath.value = newPath
+    console.log(route.fullPath)
+  }
+)
+
+onMounted(async () => {
+  const resp = await ApiClass.getObjects('links/top')
+  console.log(resp)
+  linksApi.value = resp.data
+})
 </script>
 
 <template>
   <footer class="footer">
     <img src="/icons/logo-white.svg" alt="" />
-    <div class="links">
-      <a class="one-link" @click="onMainPageClick()">Главная</a>
-      <a class="one-link" @click="onCabinetPageClick()">Личный кабинет</a>
-      <a class="one-link" @click="onAboutCompanyPageClick()">Структура компании</a>
-      <a class="one-link" @click="onPrivilegePageClick()">Привилегии для сотрудников</a>
-      <a class="one-link" @click="onNewEmployeePageClick()">Новому сотруднику</a>
-      <a class="one-link" @click="onVacanciesPageClick()">Вакансии Sky</a>
+    <div class="links" v-if="isLogged()">
+      <a
+        class="one-link"
+        v-for="(link, index) in linksApi"
+        :key="index"
+        @click="onPageClick(link?.url)"
+        >{{ link?.title }}</a
+      >
     </div>
   </footer>
 </template>
