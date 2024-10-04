@@ -37,7 +37,7 @@ const router = createRouter({
       component: () => import('@/views/VacanciesPage.vue')
     },
     {
-      path: '/about',
+      path: '/structure',
       name: 'about',
       component: AboutCompany
     },
