@@ -14,7 +14,7 @@ function onDmsClick() {
 }
 
 function onDownloadButtonClick(end: string) {
-  const fileUrl = `/public/img/privilege/${end}`
+  const fileUrl = `img/privilege/${end}`
   const link = document.createElement('a')
   link.href = fileUrl
   link.download = end
