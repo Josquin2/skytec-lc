@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { Api } from '@/api/api'
+
+const ApiClass = new Api()
 
 function onPrimeZoneClick() {
   document.getElementById('prime-zone')?.classList?.remove('hidden')
@@ -13,11 +16,11 @@ function onDmsClick() {
   clicked.value = 'dms'
 }
 
-function onDownloadButtonClick(end: string) {
-  const fileUrl = `/img/privilege/${end}`
+async function onDownloadButtonClick(end: string) {
+  const resp = await ApiClass.getObjects(`download/${end}`)
   const link = document.createElement('a')
-  link.href = fileUrl
-  link.download = end
+  link.href = resp?.download
+  link.target = '_blank'
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
@@ -56,7 +59,7 @@ const clicked = ref('prime-zone')
         <p>Полис ДМС отображается в мобильном приложении с момента начала действия полиса</p>
 
         <br />
-        <button @click="onDownloadButtonClick('clinics.xlsx')">Клиники по программе</button>
+        <button @click="onDownloadButtonClick('clinics')">Клиники по программе</button>
         <br />
       </div>
       <div class="info" id="prime-zone">
@@ -77,7 +80,7 @@ const clicked = ref('prime-zone')
           онлайн, по телефонам и в чате мобильного приложения в режиме 24/7 .
         </p>
         <br />
-        <button @click="onDownloadButtonClick('prime-zone.pdf')">PrimeZone</button>
+        <button @click="onDownloadButtonClick('prime-zone')">PrimeZone</button>
 
         <div class="faq">
           <h3>FAQ</h3>
