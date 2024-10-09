@@ -65,6 +65,7 @@ const firstName = ref('')
 const surname = ref('')
 const lastName = ref('')
 const email = ref('Не указан')
+const birthdate = ref('')
 
 // API | Get info
 
@@ -80,6 +81,7 @@ onMounted(async () => {
     firstName.value = user.value.firstname
     surname.value = user.value.surname
     lastName.value = user.value.lastname
+    birthdate.value = user.value.birthdate
     email.value = user.value.email
     position.value = user.value?.position
     department.value = user.value?.department.title
@@ -112,7 +114,8 @@ async function onSaveChangesButtonClick() {
         phone: userPhone.value,
         email: email.value,
         hide_phone: hidePhone.value,
-        position: position.value
+        position: position.value,
+        birthdate: birthdate.value
       })
       console.log(resp)
       toast('Изменения сохранены!', { position: toast.POSITION.BOTTOM_RIGHT })
@@ -180,6 +183,11 @@ async function PhotoChanged() {
       <input type="text" v-model="firstName" :readonly="!isUnlocked" @click="onNameClick" />
 
       <input type="text" v-model="lastName" :readonly="!isUnlocked" @click="onNameClick" />
+
+      <div class="mt-4">
+        <h2>Дата рождения:</h2>
+      </div>
+      <input type="date" v-model="birthdate" :readonly="!isUnlocked" @click="onNameClick" />
     </div>
     <div class="contacts">
       <div class="contact-common">
